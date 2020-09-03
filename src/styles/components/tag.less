@@ -1,0 +1,61 @@
+@tag-prefix-cls: ~"@{sta-prefix}-tag";
+
+.@{tag-prefix-cls} {
+    .tag;
+
+    &-closed-icon {
+        .tag-closed-icon;
+    }
+
+    &-closed {
+        .tag-closed;
+    }
+
+    &-info {
+        .tag-info;
+
+        .@{tag-prefix-cls}-closed-icon {
+            .tag-closed-color(@btn-primary-color);
+        }
+    }
+
+    &-primary {
+        .tag-primary;
+
+        .@{tag-prefix-cls}-closed-icon {
+            .tag-closed-color(@btn-primary-color);
+        }
+    }
+
+    &-success {
+        .tag-success;
+
+        .@{tag-prefix-cls}-closed-icon {
+            .tag-closed-color(@btn-primary-color);
+        }
+    }
+
+    &-warning {
+        .tag-warning;
+
+        .@{tag-prefix-cls}-closed-icon {
+            .tag-closed-color(@btn-primary-color);
+        }
+    }
+
+    &-error {
+        .tag-error;
+
+        .@{tag-prefix-cls}-closed-icon {
+            .tag-closed-color(@btn-primary-color);
+        }
+    }
+
+    &-checkable {
+        .tag-checkable;
+    }
+
+    &-pointer {
+        cursor: pointer;
+    }
+}

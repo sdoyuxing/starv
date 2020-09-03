@@ -1,0 +1,40 @@
+@alert-prefix-cls: ~"@{sta-prefix}-alert";
+
+.@{alert-prefix-cls} {
+    .alert;
+
+    &-success {
+        .alert-success;
+        .alert-icon-type(@success-color);
+    }
+
+    &-info {
+        .alert-info;
+        .alert-icon-type(@info-color);
+    }
+
+    &-warning {
+        .alert-warning;
+        .alert-icon-type(@warning-color);
+    }
+
+    &-error {
+        .alert-error;
+        .alert-icon-type(@error-color);
+
+    }
+
+    &-icon {
+        .alert-icon;
+    }
+
+    &-closed {
+        .alert-closed;
+    }
+}
+
+.alert-icon-type(@color) {
+    .@{alert-prefix-cls}-icon {
+        .alert-icon-color(@color);
+    }
+}

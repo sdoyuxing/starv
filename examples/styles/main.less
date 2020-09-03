@@ -1,0 +1,292 @@
+.app {
+    height: 100%;
+}
+
+.@{css-prefix}header {
+    background: @body-background;
+    box-shadow: 0 2px 8px #f0f1f2;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+
+    &__logo {
+        width: 16%;
+        float: left;
+
+        &--a {
+            text-decoration: none;
+            height: 64px;
+            line-height: 64px;
+            padding-left: 40px;
+            display: inline-block;
+            font-size: 18px;
+            color: #1296DB;
+            overflow: hidden;
+
+            img {
+                height: 40px;
+                margin-top: -7px;
+                vertical-align: middle;
+                border-style: none;
+
+                &+img {
+                    height: 16px;
+                    position: relative;
+                    top: 1;
+                }
+            }
+        }
+    }
+
+    &__search {
+        width: 84%;
+        float: left;
+        height: 64px;
+    }
+}
+
+.@{css-prefix}wrapper {
+    overflow: hidden;
+    background: @body-background;
+    position: relative;
+    font-size: @font-size-base ;
+    height: 100%;
+    margin-top: 70px;
+
+    .@{css-prefix}menu {
+        width: 16%;
+        position: relative;
+        float: left;
+        height: 100%;
+        border-right: 1px solid #e8e8e8;
+
+        &__list {
+            width: 100%;
+
+            list-style: none;
+        }
+
+        &__item {
+            padding-left: 40px;
+            font-weight: 400;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            cursor: pointer;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                transform: scaleY(0.0001);
+                bottom: 0;
+                border-right: solid 3px #1890ff;
+                opacity: 0;
+                transition: transform 0.15s ease-in-out
+            }
+
+            &:hover {
+                color: #1890ff
+            }
+
+            &--selected {
+                background-color: #e6f7ff;
+                color: #1890ff;
+
+                &::after {
+                    transform: scaleY(1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .@{css-prefix}col {
+        width: 50%;
+        padding-right: 20px;
+        float: left;
+
+        .@{css-prefix}code {
+            border: 1px solid #ebedf0;
+            float: left;
+            width: 100%;
+            margin-right: 10px;
+            margin-top: 20px;
+
+            &__demo {
+                padding: 30px 24px 50px;
+            }
+
+            &__describe {
+                border-top: 1px solid #ebedf0;
+                padding: 20px 24px 20px;
+                position: relative;
+
+                &--title {
+                    position: absolute;
+                    top: -13px;
+                    background: #fff;
+                    padding: 2px 7px;
+                }
+
+                p {
+                    line-height: 1.8;
+                }
+            }
+
+            &__details {
+                border-top: 1px dashed #ebedf0;
+                height: 0px;
+                padding: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: all .2s linear;
+            }
+
+            &__details-sm--show {
+                opacity: 1;
+                height: 250px;
+                padding: 0px 24px 0;
+            }
+
+            &__details--show {
+                opacity: 1;
+                height: 350px;
+                padding: 0px 24px 0;
+            }
+
+            &__details-lg--show {
+                opacity: 1;
+                height: 530px;
+                padding: 20px 24px 0;
+            }
+
+            &__details-lger--show {
+                opacity: 1;
+                height: 830px;
+                padding: 20px 24px 0;
+            }
+        }
+    }
+}
+
+.@{css-prefix}container {
+    height: 100%;
+    width: 84%;
+    float: left;
+    padding: 10px 0 20px 50px;
+    overflow: auto;
+
+    h1 {
+        font-weight: 500;
+        line-height: 3;
+        font-size: 30px;
+    }
+
+    h2 {
+        margin-top: 30px;
+        font-weight: 400;
+        line-height: 3;
+    }
+
+    &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 10px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        background-color: skyblue;
+        background-image: -webkit-linear-gradient(45deg,
+                rgba(255, 255, 255, 0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.2) 75%,
+                transparent 75%,
+                transparent);
+    }
+
+    &::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #ededed;
+        border-radius: 10px;
+    }
+}
+
+.@{css-prefix}btn {
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+.@{css-prefix}icon {
+    float: right;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform .2s linear;
+}
+
+.@{css-prefix}icon-list {
+    float: left;
+    width: 130px;
+    height: 120px;
+    text-align: center;
+    cursor: pointer;
+
+    i {
+        font-size: 40px;
+    }
+}
+
+.anticond-up {
+    transform: rotate(180deg);
+}
+
+h4 {
+    margin-top: 40px;
+}
+
+code {
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: #ECF4E3;
+    color: #498211;
+    margin: 0 5px;
+}
+
+.@{css-prefix}logo {
+    padding: 30px 0;
+
+    >img {
+        margin: 0 30px;
+        vertical-align: middle;
+    }
+}
+
+.@{css-prefix}clear {
+    clear: both;
+    padding-top: 10px;
+}
+
+.@{css-prefix}table {
+    width: 98%;
+
+    th {
+        background-color: #f7f7f7;
+    }
+
+    th,
+    td {
+        max-width: 500px;
+        padding: 10px 16px;
+        text-align: left;
+        border: 1px solid #e9e9e9;
+    }
+}

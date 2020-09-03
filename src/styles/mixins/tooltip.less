@@ -1,0 +1,36 @@
+.tooltip() {
+    display: inline-block;
+
+}
+
+.tooltip-popper() {
+    display: block;
+    visibility: visible;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    background-color: #ffffff;
+    max-width: @tooltip-max-width;
+    z-index: @zindex-tooltip;
+    min-height: 34px;
+    padding: 8px 12px;
+    color: @text-color;
+    border-radius: @border-radius-sm;
+    box-shadow: @box-shadow-base;
+    opacity: 1;
+    transition: opacity 0.2 ease-in-out;
+}
+
+.tooltip-arrow {
+    left: 50%;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, .07);
+    border-color: #fff transparent transparent #fff;
+    top: 3px;
+    background: 0 0;
+    border-style: solid;
+    border-width: 4px;
+    transform: translateX(-50%) rotate(45deg);
+}

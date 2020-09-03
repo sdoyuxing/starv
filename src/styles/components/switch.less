@@ -1,0 +1,82 @@
+@switch-prefix-cls: ~"@{sta-prefix}-switch";
+
+.@{switch-prefix-cls} {
+    .switch;
+
+    &[disabled] {
+        .switch-disabled;
+
+        &.@{switch-prefix-cls}-checked {
+            .switch-checked-disabled;
+        }
+    }
+
+    &-checked {
+        .switch-checked;
+
+        .@{switch-prefix-cls}-active {
+            animation: switchEffect .5s;
+        }
+
+        &.@{switch-prefix-cls}-large .@{switch-prefix-cls}-label {
+            margin: 0 0 0 8px;
+        }
+        .@{switch-prefix-cls}-label {
+            margin: 0 0 0 2px;
+        }
+    }
+
+    &-active {
+        .switch-active(@switch-color);
+    }
+
+    &-large {
+        width: 56px;
+
+        &.@{switch-prefix-cls}-checked {
+            &::after {
+                left: 36px;
+            }
+
+            &:active {
+                &::after {
+                    left: 29px;
+                }
+            }
+
+            &[disabled] {
+                &:active {
+                    &::after {
+                        left: 36px;
+                    }
+                }
+            }
+        }
+
+        .@{switch-prefix-cls}-active {
+            left: 36px;
+        }
+
+        .@{switch-prefix-cls}-label {
+            margin: 0 0 0 23px;
+            width: 25px;
+        }
+    }
+
+    &-label {
+        .switch-label;
+        margin: 0 0 0 17px;
+        width: 25px;
+    }
+}
+
+@keyframes switchEffect {
+    40% {
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}

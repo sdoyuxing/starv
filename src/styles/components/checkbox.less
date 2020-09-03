@@ -1,0 +1,65 @@
+@checkbox-prefix-cls: ~"@{sta-prefix}-checkbox";
+
+.@{checkbox-prefix-cls} {
+    .checkbox;
+
+    &-inner {
+        .checkbox-inner;
+    }
+
+    &-input {
+        .checkbox-input
+    }
+
+    &-checked {
+        .checkbox-checked;
+
+        +.@{checkbox-prefix-cls}-active {
+            animation: checkboxEffect .4s;
+        }
+    }
+
+    &-half-checked {
+        .checkbox-half-checked;
+    }
+
+    &-label {
+        .checkbox-label;
+
+        &[disabled] {
+
+            .@{checkbox-prefix-cls}-inner,
+            .@{checkbox-prefix-cls}-checked {
+                .checkbox-disabled;
+            }
+
+            .@{checkbox-prefix-cls}-inner::after,
+            .@{checkbox-prefix-cls}+span,
+            input[disabled] {
+                color: @disabled-color;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    +span {
+        padding: 0 5px;
+    }
+
+    &-active {
+        .checkbox-active(@checkbox-color);
+    }
+
+    &-group {
+        .@{checkbox-prefix-cls}-label {
+            margin: 0 20px 0 0;
+        }
+    }
+}
+
+@keyframes checkboxEffect {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}

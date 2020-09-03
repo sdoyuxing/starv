@@ -1,0 +1,65 @@
+.tag() {
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+    padding: 3px 8px;
+    border: 1px solid @border-color-split;
+    border-radius: @border-radius-base ;
+    background: @background-color-base;
+    font-size: @tag-font-size;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+}
+
+.tag-color(@bgColor, @fontColor, @borderColor) {
+    background: @bgColor;
+    color: @fontColor;
+    border-color: @borderColor;
+}
+
+.tag-primary() {
+    .tag-color(@primary-color, @btn-primary-color, @primary-color)
+}
+
+.tag-info() {
+    .tag-color(@info-color, @btn-primary-color, @info-color)
+}
+
+.tag-success() {
+    .tag-color(@success-color, @btn-primary-color, @success-color)
+}
+
+.tag-warning() {
+    .tag-color(@warning-color, @btn-primary-color, @warning-color)
+}
+
+.tag-error() {
+    .tag-color(@error-color, @btn-primary-color, @error-color)
+}
+
+.tag-closed() {
+    padding: 3px 28px 3px 8px;
+}
+
+.tag-closed-icon() {
+    font-size: 14px;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    cursor: pointer;
+    color: tint(@text-color, 30%);
+    transition: color .2 ease-in-out;
+
+    &:hover {
+        color: @text-color
+    }
+}
+
+.tag-closed-color(@color) {
+    color: @color;
+}
+
+.tag-checkable(){
+    border:1px solid transparent;
+    background: none;
+}

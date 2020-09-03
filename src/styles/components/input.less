@@ -1,0 +1,93 @@
+@input-prefix-cls: ~"@{sta-prefix}-input";
+
+.@{input-prefix-cls} {
+    .input;
+
+    &-wrapper {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        vertical-align: middle;
+        margin: 3px;
+        // #2149 & #2219
+        line-height: normal;
+
+        &:hover {
+            .@{input-prefix-cls}-icon-clear {
+                display: inline-block;
+            }
+        }
+    }
+
+    &-active-bottom {
+        .input-active-bottom;
+    }
+
+    &-label {
+        .input-label;
+
+        &-active {
+            .input-label-active;
+        }
+
+        &-placeholder {
+            .label-placeholder;
+        }
+    }
+
+    &-word-count {
+        .word-count;
+    }
+
+    &-icon {
+        .input-icon;
+
+        &-suffix {
+            right: 0;
+        }
+
+        &-prefix {
+            left: 0;
+        }
+
+        &-suffix-right {
+            right: 20px;
+        }
+
+        &-padding-right {
+            padding-right: 30px;
+        }
+
+        &-padding-left {
+            padding-left: 30px;
+        }
+
+        &-clear {
+            display: none;
+        }
+
+        &-pointer {
+            cursor: pointer;
+            &:hover{
+                color: @icon-hover-color;
+            }
+        }
+    }
+
+    &:focus,
+    &-focused {
+        ~.@{input-prefix-cls}-active-bottom {
+            width: 100%;
+        }
+
+        ~.@{input-prefix-cls}-label {
+            .input-label-active;
+        }
+
+        ~.@{input-prefix-cls}-icon-clear {
+            display: inline-block;
+        }
+    }
+
+
+}

@@ -1,0 +1,121 @@
+.input() {
+    position: relative;
+    display: inline-block;
+    color: #555;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    width: 100%;
+    min-width: 0;
+    padding: 6px 12px;
+    color: @input-color;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    background-color: @input-bg;
+    background-image: none;
+    border-radius: 0;
+    border: 1px solid #ccc;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    .placeholder(); // Reset placeholder
+
+    &:focus,
+    &-focused {
+        outline: 0;
+        border-color: #66afe9;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    }
+
+    &[disabled] {
+        .input-disabled();
+    }
+
+    // Reset height for `textarea`s
+    textarea& {
+        max-width: 100%; // prevent textearea resize from coming out of its container
+        height: auto;
+        min-height: @input-height-base;
+        line-height: @line-height-base;
+        vertical-align: bottom;
+        transition: all 0.3s, height 0s;
+    }
+}
+
+
+.input-label() {
+    color: @input-placeholder-color;
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 10px;
+    transition: all .2s linear;
+}
+
+.input-label-active() {
+    top: -7px;
+    transform: scale(0.9);
+    color: @input-hover-border-color;
+    font-weight: 500;
+}
+
+.label-placeholder() {
+    &::placeholder {
+        visibility: hidden;
+        color: #515151;
+    }
+
+    &:focus,
+    &-focused {
+        &::placeholder {
+            visibility: visible;
+        }
+    }
+}
+
+.input-icon() {
+    padding: 9px 6px;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    z-index: 3;
+}
+
+.input-hover(@color: @input-hover-border-color) {
+    border-color: @color;
+    border-right-width: @border-width-base  !important;
+}
+
+.input-disabled() {
+    color: fade(#000, 25%);
+    background-color: tint(@input-disabled-bg, 30%);
+    cursor: not-allowed;
+    opacity: 1;
+
+    &:hover {
+        .input-hover(@input-border-color);
+    }
+}
+
+.placeholder(@color: @input-placeholder-color) {
+
+    // Firefox
+    &::-moz-placeholder {
+        opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+    }
+
+    &::placeholder {
+        color: @color;
+        transition: visibility .1s linear;
+    }
+
+    &:placeholder-shown {
+        text-overflow: ellipsis;
+    }
+}
+
+.word-count {
+    color: #808695;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    padding:11px 6px;
+    z-index: 1;
+}

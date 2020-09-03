@@ -1,0 +1,107 @@
+.checkbox-label() {
+    cursor: pointer;
+
+    &[disabled] {
+        cursor: not-allowed;
+    }
+}
+
+.checkbox-disabled() {
+    background-color: @disabled-bg;
+    border-color: @border-color-base;
+    color: @disabled-color;
+    cursor: not-allowed;
+}
+
+.checkbox() {
+    position: relative;
+    top: -0.09em;
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: none;
+}
+
+.checkbox-input {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.checkbox-active(@background) {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    z-index: 1;
+    border-radius: 50%;
+    background: shade(@background, 30%);
+    transform-origin: center center;
+    transform: scale(0);
+    opacity: .3;
+}
+
+.checkbox-inner() {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: @checkbox-size;
+    height: @checkbox-size;
+    direction: ltr;
+    background-color: checkbox-check-color;
+    border: @border-width-base @border-style-base @border-color-base;
+    border-radius: @border-radius-sm;
+    // Fix IE checked style
+    border-collapse: separate;
+    transition: all 0.3s;
+
+    &::after {
+        width: @checkbox-size;
+        height: @checkbox-size;
+        transform: scale(0);
+        font-family: 'iconfont';
+        color: inherit;
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        transition: all 0.2s ease-in-out,color 0s;
+        content: '\e6cf';
+        font-size: 14px;
+    }
+}
+
+.checkbox-checked() {
+    background-color: @checkbox-color;
+    border-color: @checkbox-color;
+    color: @checkbox-check-color;
+
+    &::after {
+        transform: scale(1);
+        opacity: 1;
+
+    }
+}
+
+.checkbox-half-checked() {
+    background-color: @checkbox-color;
+    border-color: @checkbox-color;
+    color: @checkbox-check-color;
+
+    &::after {
+        transform: scale(.8,1);
+        opacity: 1;
+        content: '\e6ec'
+    }
+}

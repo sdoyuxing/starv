@@ -1,0 +1,464 @@
+// mixins for button
+// ------------------------
+.button-size(@height; @padding; @font-size; @border-radius) {
+  padding: @padding;
+  font-size: @font-size;
+  border-radius: @border-radius;
+}
+
+.button-disabled() {
+
+  &.disabled,
+  &[disabled] {
+
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      .button-color(@btn-disable-color; @btn-disable-bg; @btn-disable-border);
+    }
+  }
+}
+
+.button-variant-primary(@color; @background) {
+  .button-color(@color; @background; @background);
+
+  &:hover,
+  &:focus {
+    .button-color(@color; tint(@background, 20%); tint(@background, 20%));
+  }
+
+  & .btn-active {
+    .button-active(@background);
+  }
+
+  .button-loading-color(@background);
+  .button-disabled();
+}
+
+.button-variant-other(@color; @background; @border) {
+  .button-color(@color; @background; @border);
+
+  &:hover,
+  &:focus {
+    .button-color(tint(@primary-color, 50%); @background; tint(@primary-color, 50%));
+  }
+
+  &:active,
+  &.active {
+    .button-color(shade(@primary-color, 5%); @background; shade(@primary-color, 5%));
+  }
+
+  & .btn-active {
+    .button-active(@background);
+  }
+
+  .button-loading-color(@btn-primary-bg);
+  .button-disabled();
+}
+
+.button-active(@background) {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  z-index: 1;
+  border-radius: 50%;
+  background: shade(@background, 20%);
+  transform-origin: center center;
+  transform: scale(0);
+  opacity: .3;
+}
+
+.button-color(@color; @background; @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+
+  // a inside Button which only work in Chrome
+  // http://stackoverflow.com/a/17253457
+  >a:only-child {
+    color: currentColor;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: transparent;
+    }
+  }
+}
+
+.button-group-base(@btnClassName) {
+  //按钮组的基础样式
+  position: relative;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 0;
+
+  >.@{btnClassName},
+  >span>.@{btnClassName} {
+    position: relative;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+
+    &:disabled {
+      z-index: 0;
+    }
+  }
+}
+
+// Base styles of buttons
+// --------------------------------------------------
+.button() {
+  vertical-align: bottom;
+  display: inline-block;
+  overflow: hidden;
+  font-weight: @btn-font-weight;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: @border-width-base @border-style-base transparent;
+  white-space: nowrap;
+  .button-size(@btn-height-base; @btn-padding-base; @font-size-base; @btn-border-radius-base);
+  user-select: none;
+  transition: width .2s linear, height .2s linear, border-radius .2s linear;
+  position: relative;
+
+  >.@{iconfont-css-prefix} {
+    line-height: 1;
+  }
+
+  >span {
+    transition: display .2s linear;
+  }
+
+  &,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  // &:active {
+
+  // }
+
+
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+
+  &:not([disabled]):active {
+    outline: 0;
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+
+    >* {
+      pointer-events: none;
+    }
+  }
+}
+
+// primary button style
+.button-primary() {
+  .button-variant-primary(@btn-primary-color; @btn-primary-bg);
+}
+
+.button-info() {
+  .button-variant-primary(@btn-primary-color; @info-color);
+}
+
+.button-success() {
+  .button-variant-primary(@btn-primary-color; @success-color);
+}
+
+.button-warning() {
+  .button-variant-primary(@btn-primary-color; @warning-color);
+}
+
+.button-error() {
+  .button-variant-primary(@btn-primary-color; @error-color);
+}
+
+.button-loading-color(@backgroundColor) {
+  .btn-pie-right::after {
+    content: '';
+    opacity: 0;
+    background-color: @backgroundColor;
+    transition: opacity .4s ease-in;
+  }
+
+  .btn-pie-left::after {
+    background-color: @backgroundColor;
+  }
+}
+
+.button-loading() {
+  cursor: auto;
+  height: 30px;
+  border-radius: 50%;
+  vertical-align: bottom;
+  background-color: #f4f6f6;
+  box-shadow: none;
+  border: none;
+
+  span {
+    display: none
+  }
+
+  .btn-active {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    background: #fff;
+    border: none;
+    animation: none;
+  }
+
+  .btn-pie-right {
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    clip: rect(0px, 30px, 30px, 15px);
+    position: absolute;
+
+    &::after {
+      opacity: 1;
+      content: "";
+      left: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      clip: rect(0px, 15px, 30px, 0px);
+      position: absolute;
+    }
+  }
+
+  .btn-pie-left {
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    clip: rect(0px, 15px, 30px, 0px);
+    position: absolute;
+
+    &::after {
+      content: "";
+      left: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      clip: rect(0px, 30px, 30px, 15px);
+      position: absolute;
+    }
+  }
+
+  &:active {
+    box-shadow: none;
+    background-color: #f4f6f6;
+  }
+
+  &:hover,
+  &:focus {
+    border: none;
+    background-color: #f4f6f6;
+
+  }
+}
+
+.button-loading-progress() {
+  .button-loading();
+
+  .btn-pie-right::after {
+    animation: loadProgress .4s;
+    animation-timing-function: linear;
+    animation-delay: .3s;
+    animation-fill-mode: forwards;
+  }
+
+  .btn-pie-left::after {
+    animation: loadProgress .4s;
+    animation-timing-function: linear;
+    animation-delay: .7s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes loadProgress {
+    to {
+      transform: rotate(180deg)
+    }
+  }
+}
+
+.button-loading-circle() {
+  .button-loading();
+
+  .btn-pie-right {
+    clip: rect(0px, 30px, 30px, 0px);
+  }
+
+  .btn-pie-left {
+    display: none;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .btn-pie-right::after {
+    animation: loadCircle 1s;
+    animation-timing-function: linear;
+    animation-delay: .3s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes loadCircle {
+    to {
+      transform: rotate(360deg)
+    }
+  }
+}
+
+// default button style
+.button-default() {
+  .button-variant-other(@btn-default-color; @btn-default-bg; @btn-default-border);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background: @btn-default-bg;
+    text-decoration: none;
+  }
+}
+
+// dashed button style
+.button-dashed() {
+  .button-variant-other(@btn-default-color, @btn-default-bg, @btn-default-border);
+  border-style: dashed;
+}
+
+
+// circle button: the content only contains icon
+.btn-circle(@btnClassName: btn) {
+  .square(@btn-circle-size);
+  .button-size(@btn-circle-size; 0; @font-size-base + 2px; 50%);
+}
+
+// Horizontal button groups styl
+// --------------------------------------------------
+.button-group(@btnClassName: btn) {
+  //按钮组主要是设置里面一排按钮的边框和圆角
+  .button-group-base(@btnClassName);
+
+  .@{btnClassName}+.@{btnClassName},
+  .@{btnClassName}+&,
+  span+.@{btnClassName},
+  .@{btnClassName}+span,
+  >span+span,
+  &+.@{btnClassName},
+  &+& {
+    margin-left: -1px;
+  }
+
+  .@{btnClassName}-primary+.@{btnClassName}:not(.@{btnClassName}-primary):not([disabled]) {
+    border-left-color: transparent;
+  }
+
+  .@{btnClassName} {
+    border-radius: 0;
+  }
+
+  >.@{btnClassName}:first-child,
+  >span:first-child>.@{btnClassName} {
+    margin-left: 0;
+  }
+
+  >.@{btnClassName}:only-child {
+    border-radius: @btn-border-radius-base;
+  }
+
+  >span:only-child>.@{btnClassName} {
+    border-radius: @btn-border-radius-base;
+  }
+
+  >.@{btnClassName}:first-child:not(:last-child),
+  >span:first-child:not(:last-child)>.@{btnClassName} {
+    border-bottom-left-radius: @btn-border-radius-base;
+    border-top-left-radius: @btn-border-radius-base;
+  }
+
+  >.@{btnClassName}:last-child:not(:first-child),
+  >span:last-child:not(:first-child)>.@{btnClassName} {
+    border-bottom-right-radius: @btn-border-radius-base;
+    border-top-right-radius: @btn-border-radius-base;
+  }
+
+  &-sm {
+    >.@{btnClassName}:only-child {
+      border-radius: @btn-border-radius-sm;
+    }
+
+    >span:only-child>.@{btnClassName} {
+      border-radius: @btn-border-radius-sm;
+    }
+
+    >.@{btnClassName}:first-child:not(:last-child),
+    >span:first-child:not(:last-child)>.@{btnClassName} {
+      border-bottom-left-radius: @btn-border-radius-sm;
+      border-top-left-radius: @btn-border-radius-sm;
+    }
+
+    >.@{btnClassName}:last-child:not(:first-child),
+    >span:last-child:not(:first-child)>.@{btnClassName} {
+      border-bottom-right-radius: @btn-border-radius-sm;
+      border-top-right-radius: @btn-border-radius-sm;
+    }
+  }
+
+  &>& {
+    float: left;
+  }
+
+  &>&:not(:first-child):not(:last-child)>.@{btnClassName} {
+    border-radius: 0;
+  }
+
+  &>&:first-child:not(:last-child) {
+    >.@{btnClassName}:last-child {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      padding-right: 8px;
+    }
+  }
+
+  &>&:last-child:not(:first-child)>.@{btnClassName}:first-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding-left: 8px;
+  }
+}

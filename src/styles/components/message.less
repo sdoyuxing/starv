@@ -1,0 +1,43 @@
+@message-prefix-cls: ~"@{sta-prefix}-message";
+
+.@{message-prefix-cls} {
+    .message;
+
+    &-notice {
+        .message-notice;
+
+        &-content {
+            .message-notice-content;
+        }
+
+        &-closed {
+            .message-notice-closed;
+        }
+    }
+
+    &-icon {
+        .message-icon;
+    }
+
+    &-info {
+        .message-icon-type(@info-color);
+    }
+
+    &-success {
+        .message-icon-type(@success-color);
+    }
+
+    &-warning {
+        .message-icon-type(@warning-color);
+    }
+
+    &-error {
+        .message-icon-type(@error-color);
+    }
+}
+
+.message-icon-type(@color) {
+    .@{message-prefix-cls}-icon {
+        .alert-icon-color(@color);
+    }
+}
