@@ -17,7 +17,7 @@ export default {
     message(type, options) {
         let optionsInt = {
             type,
-            iconShow: true,
+            showIcon: true,
             style: {}
         }
         if (typeof options === 'string') {

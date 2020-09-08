@@ -7,10 +7,8 @@
       :ref="message.name"
     >
       <div :class="contentClasses" :style="message.style">
-        <span :class="iconClasses" v-if="message.iconShow">
-          <slot name="icon">
-            <Icon :type="iconName(message.type)"></Icon>
-          </slot>
+        <span :class="iconClasses" v-if="message.showIcon">
+          <Icon :type="iconName(message.type)"></Icon>
         </span>
         <render :template="message.template" :content="message.content"></render>
         <span :class="closeClasses" v-if="message.closable" @click="close(message.name)">
@@ -50,18 +48,20 @@ export default {
   methods: {
     add(message) {
       this.messageList.push({ closed: false, ...message });
-      message.time = message.time || 3;
+      message.time = message.time || 1.5;
       this.$nextTick(() => {
         if (!isEmpty(this.$refs[message.name])) {
           this.$refs[message.name][0].style.height =
             this.$refs[message.name][0].scrollHeight + "px";
         }
       });
-      let timeOut = setTimeout(() => {
-        this.close(message.name);
-        clearTimeout(timeOut);
-        timeOut = null;
-      }, message.time * 1000);
+      if (message.time !== 0) {
+        let timeOut = setTimeout(() => {
+          this.close(message.name);
+          clearTimeout(timeOut);
+          timeOut = null;
+        }, message.time * 1000);
+      }
     },
     close(name) {
       const messageList = this.messageList;
@@ -71,6 +71,7 @@ export default {
           this.$refs[name][0].style.padding = 0;
           this.messageList[i].closed = true;
           let timeOut = setTimeout((i) => {
+            messageList[i].onClose();
             this.messageList.splice(i, 1);
             clearTimeout(timeOut);
             timeOut = null;

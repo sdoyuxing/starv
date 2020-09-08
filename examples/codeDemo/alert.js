@@ -73,12 +73,12 @@ const alertAPI = [{
     type: "String",
     default: "info"
 }, {
-    name: "closable	",
+    name: "closable",
     desc: "是否可关闭",
     type: "Boolean",
     default: "false"
 }, {
-    name: "show-icon	",
+    name: "show-icon",
     desc: "是否显示图标",
     type: "Boolean",
     default: "false"

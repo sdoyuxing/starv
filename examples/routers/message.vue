@@ -23,10 +23,10 @@
               ></i>
             </p>
           </section>
-          <section :class="['starv-code__details',{'starv-code__details-sm--show':show.num1}]">
+          <section :class="['starv-code__details',{'starv-code__details--show':show.num1}]">
             <pre v-highlight>
                <code class="html"> 
-                {{alertBasc}}
+                {{messageBasc}}
                </code>
             </pre>
           </section>
@@ -40,11 +40,10 @@
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">显示图标</div>
+            <div class="starv-code__describe--title">背景样式</div>
             <p>
-              <code>show-icon</code>设置显示图标，
-              <code>slot="icon"</code>或
-              <code>icon-type</code>属性自定义图标。
+              设置属性
+              <code>background</code> 后，通知提示会显示背景色。
               <i
                 :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num5}] "
                 @click="show.num5=!show.num5"
@@ -52,11 +51,11 @@
               ></i>
             </p>
           </section>
-          <section :class="['starv-code__details',{'starv-code__details-lg--show':show.num5}]">
+          <section :class="['starv-code__details',{'starv-code__details-lger--show':show.num5}]">
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertIcon}}
+                {{messageBack}}
                </code>
             </pre>
             </div>
@@ -71,9 +70,7 @@
           <section class="starv-code__describe">
             <div class="starv-code__describe--title">可关闭</div>
             <p>
-              <code>show-icon</code>设置显示图标，
-              <code>slot="icon"</code>或
-              <code>icon-type</code>属性自定义图标。
+              <code>closable</code>设置是否可手动关闭。
               <i
                 :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num3}] "
                 @click="show.num3=!show.num3"
@@ -85,7 +82,36 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertIcon}}
+                {{messageClose}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-button @click="iconClick">自定义图标</s-button>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">自定义图标和内容</div>
+            <p>
+              <code>showIcon</code>设置不显示默认图标。
+              <code>template</code>自定义图标，注：在给vue组件props传参时，
+              属性名前面加个:
+              <i
+                :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num9}] "
+                @click="show.num9=!show.num9"
+                :title="show.num9?'隐藏代码':'显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section :class="['starv-code__details',{'starv-code__details-lg--show':show.num9}]">
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{messageIcon}}
                </code>
             </pre>
             </div>
@@ -104,12 +130,7 @@
           <section class="starv-code__describe">
             <div class="starv-code__describe--title">提示类型</div>
             <p>
-              <code>type</code>可以设置
-              <code>info</code>、
-              <code>success</code>、
-              <code>warning</code>、
-              <code>error</code>四种样式，默认是
-              <code>info</code>样式。
+              不同的提示状态：成功、警告、错误。
               <i
                 :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num2}] "
                 @click="show.num2=!show.num2"
@@ -117,11 +138,11 @@
               ></i>
             </p>
           </section>
-          <section :class="['starv-code__details',{'starv-code__details--show':show.num2}]">
+          <section :class="['starv-code__details',{'starv-code__details-lg--show':show.num2}]">
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertType}}
+                {{messageType}}
                </code>
             </pre>
             </div>
@@ -134,9 +155,9 @@
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">关闭</div>
+            <div class="starv-code__describe--title">自定义时长</div>
             <p>
-              <code>closable</code>属性设置是否可关闭。
+              <code>titme</code>属性设置是时长。
               <i
                 :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num4}] "
                 @click="show.num4=!show.num4"
@@ -144,11 +165,11 @@
               ></i>
             </p>
           </section>
-          <section :class="['starv-code__details',{'starv-code__details-sm--show':show.num4}]">
+          <section :class="['starv-code__details',{'starv-code__details-lg--show':show.num4}]">
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertClose}}
+                {{messageTime}}
                </code>
             </pre>
             </div>
@@ -157,23 +178,14 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-alert
-                bordercolor="#BD8EF6"
-                backgroundColor="#E6D8F6"
-                iconColor="#F049BB"
-                show-icon
-                iconType="iconsmile"
-                fontColor="#048D48"
-              >自定义样式</s-alert>
+              <s-button @click="messageClick">自定义html内容</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">自定义背景颜色、字体颜色、边框颜色</div>
+            <div class="starv-code__describe--title">自定义带标签或者组件内容</div>
             <p>
-              <code>backgroundColor</code>属性设置背景颜色，
-              <code>fontColor</code>属性可以设置字体颜色,
-              <code>bordercolor</code>属性可以设置边框颜色,
-              <code>iconColor</code>属性可以设置图标颜色。
+              <code>template</code>属性设置自定义的html内容，
+              <code>style</code>设置内容样式。
               <i
                 :class="['star-icon','starv-icon','iconarrow-down-bold',{'anticond-up':show.num8}] "
                 @click="show.num8=!show.num8"
@@ -185,7 +197,7 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertStyle}}
+                {{messageHtml}}
                </code>
             </pre>
             </div>
@@ -195,7 +207,26 @@
     </section>
     <section class="starv-clear">
       <h2>API</h2>
-      <h3>Alert props</h3>
+      <h3>Message 调用方法</h3>
+      <ul style="margin:10px 0 0 20px">
+        <li style="line-height:40px">
+          <code>this.$Message.info(config)</code>
+        </li>
+        <li style="line-height:40px">
+          <code>this.$Message.success(config)</code>
+        </li>
+        <li style="line-height:40px">
+          <code>this.$Message.warning(config)</code>
+        </li>
+        <li style="line-height:40px">
+          <code>this.$Message.error(config)</code>
+        </li>
+        <li style="line-height:40px">
+          <code>this.$Message.message(type,config)</code>
+        </li>
+      </ul>
+      <br />
+      <h3>config 对象说明</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -205,7 +236,7 @@
           <th>默认值</th>
         </thead>
         <tbody>
-          <tr v-for="(item,index) in alertAPI" :key="index">
+          <tr v-for="(item,index) in messageAPI" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>
@@ -213,58 +244,25 @@
           </tr>
         </tbody>
       </table>
-      <br />
-      <br />
-      <h3>Alert events</h3>
-      <br />
-      <table class="starv-table">
-        <thead>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </thead>
-        <tbody>
-          <tr v-for="(item,index) in alertEvents" :key="index">
-            <td v-html="item.name"></td>
-            <td v-html="item.desc"></td>
-            <td v-html="item.type"></td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
-      <br />
-      <h3>Alert slots</h3>
-      <br />
-      <table class="starv-table">
-        <thead>
-          <th>名称</th>
-          <th>说明</th>
-        </thead>
-        <tbody>
-          <tr v-for="(item,index) in alertSlots" :key="index">
-            <td v-html="item.name"></td>
-            <td v-html="item.desc"></td>
-            <td v-html="item.type"></td>
-          </tr>
-        </tbody>
-      </table>
     </section>
   </article>
 </template>
 <script>
-import alert from "../codeDemo/alert";
+import message from "../codeDemo/message";
 export default {
   data() {
     return {
       show: {
         num1: false,
         num2: false,
+        num3: false,
         num4: false,
         num5: false,
         num7: false,
         num8: false,
+        num9: false,
       },
-      ...alert,
+      ...message,
     };
   },
   methods: {
@@ -304,12 +302,25 @@ export default {
         time: 5,
       });
     },
-    closableClick(){
-        this.$Message.info({
+    closableClick() {
+      this.$Message.info({
         content: "可关闭提示信息",
-        closable:true
+        closable: true,
       });
-    }
+    },
+    messageClick() {
+      this.$Message.message("info", {
+        template: "<span>这是一个自定义<code>html</code>内容</span>",
+        style: { color: "#49C2BD" },
+      });
+    },
+    iconClick() {
+      this.$Message.message("info", {
+        template:
+          "<span><Icon :type='iconsmile-filling' style='color:#2db7f5;margin-right:5px;font-size:16px'/><span style='color:#19be6b'>这是一个自定义的笑脸</span></span>",
+        showIcon: false,
+      });
+    },
   },
 };
 </script>

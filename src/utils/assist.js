@@ -97,7 +97,7 @@ export function getNumArray(n) {
     for (let i = 2; i <= n; i++) {
         result.push(i);
     }
-    return result
+    return result;
 }
 /** parse a template HTML string to Vnode
  *@Description: html tag regex: (<(?!!--)(?:[^>])+>)\s*([^\s<]*)
@@ -124,13 +124,18 @@ export function parseTemplateToVnode(template = '', bool = false) {
                 attrs = {}
                 type = tagMatch.match(/(?:<)([^\s>]*)/)[1]
                 attrArray = tagMatch.match(/[^\s]*=['"][^\s]*['"]/g)
-                tagMatch.indexOf('value') > -1 && (nodeValue = tagMatch.match(/value="([^">])"/)[1])
+                tagMatch.indexOf('value') > -1 && (nodeValue = tagMatch.match(/value=["']([^"'>])["']/)[1])
                 start = index + tag.length
                 end = template.indexOf(`</${type}`, start)
                 if (!isEmpty(attrArray)) {
                     attrArray.forEach(o => {
                         let keyValue = o.split("=")
-                        attrs[keyValue[0]] = keyValue[1].replace(/"/g, '')
+                        if (keyValue[0].indexOf(":") === -1) {
+                            attrs[keyValue[0]] = keyValue[1].replace(/"/g, '').replace(/'/g, '')
+                        } else {
+                            !attrs["props"] && (attrs["props"] = {})
+                            attrs["props"][keyValue[0].replace(/:/g, '')] = keyValue[1].replace(/"/g, '').replace(/'/g, '')
+                        }
                     })
                 }
                 vNode = {
@@ -147,24 +152,23 @@ export function parseTemplateToVnode(template = '', bool = false) {
                 }
                 stack.push(vNode)
                 stackItem = stack[stack.length - 1]
-                if (!isEmpty(textMatch)) {
-                    if (tag.indexOf('/>') > -1) {
-                        stack.pop()
-                        stackItem = stack.length > 0 ? stack[stack.length - 1] : null
-                    }
-                    stackItem.childNodes.push({
-                        type: "text",
-                        nodeValue: textMatch,
-                        template: textMatch,
-                        childNodes: []
-                    })
+                if (tag.indexOf('/>') > -1) {
+                    stack.pop()
+                    stackItem = stack.length > 0 ? stack[stack.length - 1] : null
                 }
             } else if (!isEmpty(tag)) {
-                type = tagMatch.match(/(?:<\/)(\S*)/)[1]
+                type = tagMatch.match(/(?:<\/)([^>]*)/)[1]
                 type === stackItem.type && stack.pop()
                 stackItem = stack.length > 0 ? stack[stack.length - 1] : null
             }
-
+            if (!isEmpty(textMatch)) {
+                stackItem.childNodes.push({
+                    type: "text",
+                    nodeValue: textMatch,
+                    template: textMatch,
+                    childNodes: []
+                })
+            }
             return tag
         })
     }
