@@ -15,11 +15,21 @@ export default {
         return this.message('error', options);
     },
     message(type, options) {
+        let optionsInt = {
+            type,
+            iconShow: true,
+            style: {}
+        }
         if (typeof options === 'string') {
             options = {
                 content: options,
-                type
+                ...optionsInt
             };
+        } else {
+            options = {
+                ...optionsInt,
+                ...options
+            }
         }
         message = message || new Message()
         message.add(options)

@@ -12,8 +12,8 @@
     padding: 8px;
     text-align: center;
     animation: messageEffect .3s;
-    transition: height .3s @ease-in-out, padding .3s @ease-in-out;
-    overflow:visible;
+    transition: height .5s @ease-in-out, padding .5s @ease-in-out;
+    overflow: visible;
 }
 
 .message-notice-closed() {
@@ -39,8 +39,28 @@
     margin-right: 5px;
 }
 
-.alert-icon-color(@color) {
+.message-icon-color(@color) {
     color: @color;
+}
+
+.message-background-color(@color) {
+    color: @color;
+    border: 1px solid tint(@color, 70%);
+    background-color: tint(@color, 90%);
+}
+
+.message-closed() {
+    font-size: 14px;
+    position: absolute;
+    right: 8px;
+    top: 9px;
+    cursor: pointer;
+    color: tint(@text-color, 30%);
+    transition: color .2 ease-in-out;
+
+    &:hover {
+        color: @text-color
+    }
 }
 
 @keyframes messageEffect {

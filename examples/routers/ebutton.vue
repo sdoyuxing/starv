@@ -54,7 +54,7 @@
         lazyload
         @on-lazyload="onLazyload"
       ></s-select>
-    </div> -->
+    </div>-->
     <br />
     {{selected}}
     <br />
@@ -64,7 +64,7 @@
     <s-tooltip placement="top" content="提示框">asdasda</s-tooltip>
     <br />
     <s-pagination :total="100"></s-pagination>
-    <br/>
+    <br />
     <s-button @click="messageClick">提示</s-button>
   </div>
 </template>
@@ -97,9 +97,19 @@ export default {
         this.selectLoading = false;
       }, 2000);
     },
-    messageClick(){
-      this.$Message.error('这是一个普通的提示');
-    }
+    messageClick() {
+      this.$Message.message("error", {
+        content: "这是一个普通的提示",
+        background: true,
+        time: 20,
+        closable: true,
+      });
+    },
   },
 };
 </script>
+<style>
+.red {
+  color: blue;
+}
+</style>

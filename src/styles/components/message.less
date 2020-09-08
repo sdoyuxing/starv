@@ -10,13 +10,21 @@
             .message-notice-content;
         }
 
+        &.@{message-prefix-cls}-padding {
+            .@{message-prefix-cls}-notice-content {
+                padding-right: 50px
+            }
+        }
+
         &-closed {
             .message-notice-closed;
         }
     }
 
+
     &-icon {
         .message-icon;
+
     }
 
     &-info {
@@ -34,10 +42,20 @@
     &-error {
         .message-icon-type(@error-color);
     }
+
+    &-closed {
+        .message-closed;
+    }
 }
 
 .message-icon-type(@color) {
     .@{message-prefix-cls}-icon {
-        .alert-icon-color(@color);
+        .message-icon-color(@color);
+    }
+
+    &.@{message-prefix-cls}-notice-background {
+        .@{message-prefix-cls}-notice-content {
+            .message-background-color(@color)
+        }
     }
 }

@@ -99,3 +99,75 @@ export function getNumArray(n) {
     }
     return result
 }
+/** parse a template HTML string to Vnode
+ *@Description: html tag regex: (<(?!!--)(?:[^>])+>)\s*([^\s<]*)
+ *              html comment tag regex: ((?:[^>]\s|^)<!--(?!<!)[^\[>][\s\S]*?-->)
+ *@param {string} template
+ *@param {boolean} bool 是否解析注释
+ *@return Vnode
+ */
+export function parseTemplateToVnode(template = '', bool = false) {
+    const tagRegex = /(<(?!!--)(?:[^>])+>)\s*([^\s<]*)|((?:[^>]\s|^)<!--(?!<!)[^\[>][\s\S]*?-->)/g,
+        result = []
+    let stack = [],
+        stackItem = null,
+        vNode = null,
+        type = '',
+        nodeValue = '',
+        start = 0,
+        end = 0,
+        attrArray = null,
+        attrs = null
+    if (typeOf(template) === 'string') {
+        template.replace(tagRegex, function (tag, tagMatch, textMatch, commentMatch, index) {
+            if (!isEmpty(tag) && tag.charAt(1) !== '/') {
+                attrs = {}
+                type = tagMatch.match(/(?:<)([^\s>]*)/)[1]
+                attrArray = tagMatch.match(/[^\s]*=['"][^\s]*['"]/g)
+                tagMatch.indexOf('value') > -1 && (nodeValue = tagMatch.match(/value="([^">])"/)[1])
+                start = index + tag.length
+                end = template.indexOf(`</${type}`, start)
+                if (!isEmpty(attrArray)) {
+                    attrArray.forEach(o => {
+                        let keyValue = o.split("=")
+                        attrs[keyValue[0]] = keyValue[1].replace(/"/g, '')
+                    })
+                }
+                vNode = {
+                    type,
+                    nodeValue,
+                    template: template.substring(start, end),
+                    childNodes: [],
+                    attrs,
+                }
+                if (stackItem === null) {
+                    result.push(vNode)
+                } else {
+                    stackItem.childNodes.push(vNode)
+                }
+                stack.push(vNode)
+                stackItem = stack[stack.length - 1]
+                if (!isEmpty(textMatch)) {
+                    if (tag.indexOf('/>') > -1) {
+                        stack.pop()
+                        stackItem = stack.length > 0 ? stack[stack.length - 1] : null
+                    }
+                    stackItem.childNodes.push({
+                        type: "text",
+                        nodeValue: textMatch,
+                        template: textMatch,
+                        childNodes: []
+                    })
+                }
+            } else if (!isEmpty(tag)) {
+                type = tagMatch.match(/(?:<\/)(\S*)/)[1]
+                type === stackItem.type && stack.pop()
+                stackItem = stack.length > 0 ? stack[stack.length - 1] : null
+            }
+
+            return tag
+        })
+    }
+    return result
+
+}
