@@ -1,9 +1,8 @@
 {
-  "name": "starui-vue",
-  "version": "1.0.0",
+  "name": "star-desgin-vue",
+  "version": "1.0.1",
   "description": "starUI for vue",
-  "main": "index.js",
-  "private": true,
+  "main": "dist/star.js",
   "scripts": {
     "start": "npm run dev",
     "dev": "webpack-dev-server --content-base test/ --inline --hot --compress --history-api-fallback --port 8002 --config build/webpack.dev.config.js",
@@ -18,7 +17,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run lint && npm run unit"
   },
-  "author": "",
+  "author": "hetao",
   "license": "ISC",
   "dependencies": {
     "@popperjs/bundle": "^1.0.2",
@@ -58,5 +57,21 @@
     "webpack-command": "^0.4.1",
     "webpack-dev-server": "^3.1.8",
     "webpack-merge": "^4.1.4"
-  }
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdoyuxing/starUI-of-vue.git"
+  },
+  "keywords": [
+    "vueUI"
+  ],
+  "bugs": {
+    "url": "https://github.com/sdoyuxing/starUI-of-vue/issues"
+  },
+  "homepage": "https://github.com/sdoyuxing/starUI-of-vue#readme"
 }

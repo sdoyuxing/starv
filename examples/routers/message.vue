@@ -9,7 +9,7 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="handleClick">点击提示信息</s-button>
+              <s-button @click="handleClick" class="starv-btn">点击提示信息</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -34,9 +34,9 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="subgClick">提示成功信息</s-button>
-              <s-button @click="wabgClick">提示告警信息</s-button>
-              <s-button @click="erbgClick">提示错误信息</s-button>
+              <s-button @click="subgClick" class="starv-btn">提示成功信息</s-button>
+              <s-button @click="wabgClick" class="starv-btn">提示告警信息</s-button>
+              <s-button @click="erbgClick" class="starv-btn">提示错误信息</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -91,7 +91,7 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="iconClick">自定义图标</s-button>
+              <s-button @click="iconClick" class="starv-btn">自定义图标</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -122,9 +122,9 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="successClick">提示成功信息</s-button>
-              <s-button @click="warnClick">提示告警信息</s-button>
-              <s-button @click="errorClick">提示错误信息</s-button>
+              <s-button @click="successClick" class="starv-btn">提示成功信息</s-button>
+              <s-button @click="warnClick" class="starv-btn">提示告警信息</s-button>
+              <s-button @click="errorClick" class="starv-btn">提示错误信息</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -151,7 +151,7 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="timeClick">显示5秒隐藏</s-button>
+              <s-button @click="timeClick" class="starv-btn">显示5秒隐藏</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -178,7 +178,7 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-button @click="messageClick">自定义html内容</s-button>
+              <s-button @click="messageClick" class="starv-btn">自定义html内容</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
