@@ -4,11 +4,8 @@
     </a>
 </p>
 
-<h1>
-StarUI Vue
-    <h3>vue2.0的一个后台UI组件工具。</h3>
-</h1>
-
+<h1>StarUI Vue  </h1>
+<h3>vue2.0的一个后台UI组件工具。</h3>
 ## Docs
 
 **[1.x](http://www.stardesgin.cn)** 
