@@ -11,7 +11,7 @@ StarUI Vue
 
 ## Docs
 
-**[1.x](http://www.stardesgin.com)** 
+**[1.x](http://www.stardesgin.cn)** 
 
 
 
