@@ -28,7 +28,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     resolve: {
         alias: {
-            iview: '../../src/index',
+            starUi: '../../src/index',
             vue: 'vue/dist/vue.esm.js'
         }
     },

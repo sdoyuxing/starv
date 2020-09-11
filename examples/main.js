@@ -20,6 +20,7 @@ import message from './routers/message'
 import hljs from 'highlight.js'
 import starUi from '../src/index'
 import tooltip from './routers/tooltip'
+import notice from './routers/notice'
 import '../src/styles/index.less'
 import './styles/index.less'
 import 'highlight.js/styles/atom-one-light.css' //样式
@@ -118,6 +119,10 @@ const router = new Router({
       path: '/message',
       name: 'message',
       component: message
+    }, {
+      path: '/notice',
+      name: 'notice',
+      component: notice
     }
   ]
 })

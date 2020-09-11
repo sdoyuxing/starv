@@ -1,0 +1,64 @@
+@notice-prefix-cls: ~"@{sta-prefix}-notice";
+
+.@{notice-prefix-cls} {
+    .message;
+    left: inherit;
+    right: 0;
+    width: auto;
+    overflow: hidden;
+
+    &-wrap {
+        .notice-wrap;
+    }
+
+    &-content {
+        .message-notice-content;
+        width: 300px;
+        padding: 13px 16px;
+        &-padding{
+            padding-left: 55px;
+        }
+    }
+
+    &-icon {
+        .message-icon;
+        float: left;
+        line-height: 1.3;
+        &-lg{
+            font-size: 40px;
+        }
+    }
+
+    &-icon-closed {
+        .message-closed;
+    }
+
+    &-closed {
+        .notice-closed;
+    }
+
+    &-title {
+        .notice-title;
+    }
+    
+    &-info {
+        .notice-icon-type(@info-color);
+    }
+
+    &-success {
+        .notice-icon-type(@success-color);
+    }
+
+    &-warning {
+        .notice-icon-type(@warning-color);
+    }
+
+    &-error {
+        .notice-icon-type(@error-color);
+    }
+}
+.notice-icon-type(@color) {
+    .@{notice-prefix-cls}-icon {
+        .message-icon-color(@color);
+    }
+}

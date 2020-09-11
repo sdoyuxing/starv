@@ -36,7 +36,7 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new UglifyJsPlugin({
             parallel: true,
-            sourceMap: true
+            sourceMap: false
         }),
         new CompressionPlugin()
     ]

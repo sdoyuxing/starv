@@ -14,7 +14,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 options: {
-                    sourceMap: true,
+                    sourceMap: false,
                 },
                 exclude: /node_modules/
             }
@@ -44,7 +44,7 @@ module.exports = {
         }),
         new UglifyJsPlugin({
             parallel: true,
-            sourceMap: true,
+            sourceMap: false,
         })
     ]
 };

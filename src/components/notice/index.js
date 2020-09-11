@@ -1,22 +1,22 @@
-import Message from './message'
-let message;
+import Notice from './notice'
+let notice;
 export default {
-    name: 'message',
+    name: 'notice',
     info(options) {
-        return this.message('info', options);
+        return this.show({...options,type:'info'});
     },
     success(options) {
-        return this.message('success', options);
+        return this.show({...options,type:'success'});
     },
     warning(options) {
-        return this.message('warning', options);
+        return this.show({...options,type:'warning'});
     },
     error(options) {
-        return this.message('error', options);
+        return this.show({...options,type:'error'});
     },
-    message(type, options) {
+    show(options) {
         let optionsInt = {
-            type,
+            type:'',
             showIcon: true,
             style: {}
         }
@@ -31,7 +31,7 @@ export default {
                 ...options
             };
         }
-        message = message || new Message();
-        message.add(options);
-    },
+        notice = notice || new Notice();
+        notice.add(options);
+    }
 }

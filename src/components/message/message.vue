@@ -20,7 +20,7 @@
 </template>
 <script>
 import { isEmpty } from "../../utils/assist";
-import render from "./render";
+import render from "../base/render";
 const prefixCls = "sta-message";
 
 export default {
@@ -70,12 +70,12 @@ export default {
           this.$refs[name][0].style.height = 0;
           this.$refs[name][0].style.padding = 0;
           this.messageList[i].closed = true;
-          let timeOut = setTimeout((i) => {
-            messageList[i].onClose();
+          let timeOut = setTimeout(() => {
+            noticeList[i].onClose && messageList[i].onClose();
             this.messageList.splice(i, 1);
             clearTimeout(timeOut);
             timeOut = null;
-          }, 500);
+          }, 600);
 
           break;
         }

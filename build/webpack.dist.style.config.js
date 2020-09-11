@@ -16,7 +16,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 options: {
-                    sourceMap: true,
+                    sourceMap: false,
                 },
                 exclude: /node_modules/,
             },
@@ -45,10 +45,7 @@ module.exports = {
                     use: [{
                         loader: "css-loader"
                     }, {
-                        loader: "less-loader",
-                        options: {
-                            javascriptEnabled: true
-                        }
+                        loader: "less-loader"
                     }]
                 })
             }, {

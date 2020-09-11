@@ -1,12 +1,12 @@
-import message from './message.vue';
+import notice from './notice.vue';
 import Vue from 'vue';
 
-class Message {
+class Notice {
     constructor(properties) {
         const _props = properties || {};
         const Instance = new Vue({
             render(h) {
-                return h(message, {
+                return h(notice, {
                     props: _props
                 })
             }
@@ -20,12 +20,12 @@ class Message {
     getUuid() {
         return 'starNotification_' + this.now + '_' + (this.seed++);
     }
-    add(message) {
-        const name = message.name || this.getUuid();
+    add(notice) {
+        const name = notice.name || this.getUuid();
         this.notification.add({
-            ...message,
+            ...notice,
             name
         })
     }
 }
-export default Message
+export default Notice

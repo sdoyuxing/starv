@@ -15,11 +15,16 @@
         .tooltip-arrow;
     }
 
+    &-title {
+        .tooltip-title;
+    }
+
     &-drop {
         padding: 7px 0;
         position: absolute;
         z-index: @zindex-tooltip;
         background-color: #ffffff;
+
         &[x-placement="top-start"] .@{tooltip-prefix-cls}-arrow {
             left: 16px;
             top: inherit;

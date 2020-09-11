@@ -53,6 +53,7 @@ export default {
         { name: "Pagination 分页", url: "/pagination" },
         { name: "Message 全局提示", url: "/message" },
         { name: "Notice 通知提醒", url: "/notice" },
+        { name: "Poptip 气泡提示", url: "/poptip" },
         { name: "demo", url: "/ebutton" },
       ],
     };

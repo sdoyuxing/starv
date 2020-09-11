@@ -10,6 +10,8 @@ import sTag from './components/tag'
 import sPagination from './components/Pagination'
 import message from './components/message'
 import progressBar from './utils/progressBar'
+import notice from './components/notice'
+import sPoptip from './components/poptip'
 import {
     sSelect,
     Option
@@ -31,7 +33,8 @@ const components = {
     sSelect,
     Option,
     sTooltip,
-    sPagination
+    sPagination,
+    sPoptip
 };
 
 const iview = components;
@@ -44,6 +47,7 @@ const install = function (Vue, opts = {}) {
 
 Vue.prototype.$progressBar = progressBar
 Vue.prototype.$Message = message
+Vue.prototype.$Notice = notice
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);

@@ -66,6 +66,11 @@
     <s-pagination :total="100"></s-pagination>
     <br />
     <s-button @click="messageClick">提示</s-button>
+    <br />
+    <br />
+    <s-poptip trigger="focus" title="标题" content="这是内容">
+      <s-button>focus</s-button>
+    </s-poptip>
   </div>
 </template>
 <script>
@@ -98,11 +103,16 @@ export default {
       }, 2000);
     },
     messageClick() {
-      this.$Message.message("error", {
-        content: "这是一个普通的提示",
-        background: true,
-        time: 20,
-        closable: true,
+      // this.$Message.message("error", {
+      //   content: "这是一个普通的提示",
+      //   background: true,
+      //   time: 20,
+      //   closable: true,
+      // });
+      this.$Notice.show({
+        title: "亚当·斯密",
+        content:
+          "亚当·斯密（1723年6月5日—1790年7月17日），出生在苏格兰法夫郡（County Fife）的寇克卡迪（Kirkcaldy），英国经济学家、哲学家、作家，经济学的主要创立者。亚当·斯密是现代资本主义经济制度的创立者，强调自由市场、自由贸易以及劳动分工，被誉为“古典经济学之父”。",
       });
     },
   },

@@ -22,7 +22,7 @@ module.exports = {
                         {
                             loader: 'css-loader',
                             options: {
-                                sourceMap: true,
+                                sourceMap: false,
                             },
                         }
                     ],
@@ -31,24 +31,24 @@ module.exports = {
                         {
                             loader: 'css-loader',
                             options: {
-                                sourceMap: true,
+                                sourceMap: false,
                             },
                         },
                         {
                             loader: 'less-loader',
                             options: {
-                                sourceMap: true,
+                                sourceMap: false,
                             },
                         },
                     ]
                 },
-                sourceMap: true,
+                sourceMap: false,
             }
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
             options: {
-                sourceMap: true,
+                sourceMap: false,
             },
             exclude: /node_modules/,
             include: [path.resolve(__dirname, "./src"), path.resolve(__dirname, "./examples")],
