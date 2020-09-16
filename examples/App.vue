@@ -54,6 +54,8 @@ export default {
         { name: "Message 全局提示", url: "/message" },
         { name: "Notice 通知提醒", url: "/notice" },
         { name: "Poptip 气泡提示", url: "/poptip" },
+        { name: "Modal 对话框", url: "/modal" },
+        { name: "Table 表格", url: "/table" },
         { name: "demo", url: "/ebutton" },
       ],
     };

@@ -67,7 +67,8 @@
         }
 
         &[x-placement="left"] .@{tooltip-prefix-cls}-arrow {
-            top: 14px;
+            top: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
             right: 0;
             left: inherit;
             box-shadow: 2px -2px 2px rgba(0, 0, 0, .07);
@@ -91,7 +92,8 @@
         }
 
         &[x-placement="right"] .@{tooltip-prefix-cls}-arrow {
-            top: 14px;
+            top: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
             left: 8px;
             box-shadow: -2px 2px 2px rgba(0, 0, 0, .07);
             border-color: transparent transparent #ffffff #ffffff;

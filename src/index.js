@@ -12,6 +12,7 @@ import message from './components/message'
 import progressBar from './utils/progressBar'
 import notice from './components/notice'
 import sPoptip from './components/poptip'
+import sModal from './components/modal'
 import {
     sSelect,
     Option
@@ -34,7 +35,8 @@ const components = {
     Option,
     sTooltip,
     sPagination,
-    sPoptip
+    sPoptip,
+    sModal
 };
 
 const iview = components;

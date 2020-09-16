@@ -71,6 +71,13 @@
     <s-poptip trigger="focus" title="标题" content="这是内容">
       <s-button>focus</s-button>
     </s-poptip>
+    <s-modal v-model="modal" title="普通的Modal对话框标题">
+      <p>对话框内容</p>
+      <p>对话框内容</p>
+      <p>对话框内容</p>
+    </s-modal>
+    <br />
+    <s-button @click="modal=!modal">点击弹窗</s-button>
   </div>
 </template>
 <script>
@@ -84,6 +91,7 @@ export default {
       selected: "VIVO",
       selectLoading: false,
       options: [],
+      modal: false,
     };
   },
   mounted() {

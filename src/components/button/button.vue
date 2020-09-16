@@ -26,7 +26,8 @@
 import { oneOf, colorRgb } from "../../utils/assist";
 import Icon from "../icon";
 const prefixCls = "sta-btn";
-let timeOut = "";
+let timeOut = null;
+let removeTime = null;
 export default {
   name: "sButton",
   components: { Icon },
@@ -93,7 +94,7 @@ export default {
         this.width = "30px";
       } else {
         timeOut = setTimeout(() => {
-          if (this.$refs["btn"]) {
+          if (this.$refs["btn"] && this.$refs["btn"].offsetWidth > 0) {
             this.autoWidth = this.$refs["btn"].offsetWidth + "px";
             this.width = this.autoWidth;
           }
@@ -172,6 +173,15 @@ export default {
           e.clientY -
           this.$refs["btnActive"].getBoundingClientRect().top +
           this.top;
+        this.$nextTick((o) => {
+          if (removeTime === null) {
+            removeTime = setTimeout(() => {
+              this.clicked = false;
+              clearTimeout(removeTime);
+              removeTime = null;
+            }, 600);
+          }
+        });
       }
     },
     handleClick(event) {

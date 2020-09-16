@@ -1,0 +1,85 @@
+@modal-prefix-cls: ~"@{sta-prefix}-modal";
+
+.@{modal-prefix-cls} {
+    .modal;
+
+    &-mask {
+        .modal-mask;
+    }
+
+    &-title {
+        .modal-title;
+    }
+
+    &-closed {
+        .modal-closed;
+    }
+
+    &-content {
+        .modal-content;
+    }
+
+    &-mask-show {
+        animation: maskShow .2s;
+    }
+
+    &-mask-hide {
+        animation: hideShow .2s;
+        opacity: 0;
+    }
+
+    &-open-animation {
+        animation: openAnimation .2s;
+
+    }
+
+    &-close-animation {
+        animation: closeAnimation .2s;
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes maskShow {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes hideShow {
+    0% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes openAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes closeAnimation {
+    0% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}

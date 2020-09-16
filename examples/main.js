@@ -20,6 +20,7 @@ import message from './routers/message'
 import hljs from 'highlight.js'
 import starUi from '../src/index'
 import tooltip from './routers/tooltip'
+import poptip from './routers/poptip'
 import notice from './routers/notice'
 import '../src/styles/index.less'
 import './styles/index.less'
@@ -123,6 +124,10 @@ const router = new Router({
       path: '/notice',
       name: 'notice',
       component: notice
+    }, {
+      path: '/poptip',
+      name: 'poptip',
+      component: poptip
     }
   ]
 })

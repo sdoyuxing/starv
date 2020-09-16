@@ -15,15 +15,8 @@ module.exports = merge(webpackBaseConfig, {
     entry: {
         main: './examples/main'
     },
-    // 输出
-    output: {
-        path: path.join(__dirname, '../dist'),
-        publicPath: '',
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js'
-    },
-    plugins: [
-        new webpack.optimize.SplitChunksPlugin({
+    optimization: {
+        splitChunks: {
             chunks: "all",
             minSize: 10000,
             minChunks: 1,
@@ -33,11 +26,20 @@ module.exports = merge(webpackBaseConfig, {
             cacheGroups: {
                 vendors: {
                     name: 'vendor',
-                    test: /[\\/]node_modules[\\/]/,
+                    test: /[\\/]node_modules[\\/]|.less/,
                     priority: -10
                 }
             }
-        }),
+        }
+    },
+    // 输出
+    output: {
+        path: path.join(__dirname, '../dist'),
+        publicPath: '',
+        filename: '[name].js',
+        chunkFilename: '[name].chunk.js'
+    },
+    plugins: [
         // @todo
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
@@ -49,7 +51,8 @@ module.exports = merge(webpackBaseConfig, {
         // new CompressionPlugin(),
         new HtmlWebpackPlugin({
             filename: path.join(__dirname, '../dist/index.html'),
-            template: path.join(__dirname, '../examples/index.html')
+            template: path.join(__dirname, '../examples/index.html'),
+            chunks: ['vendor', 'main'],
         }),
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../examples/images'),
