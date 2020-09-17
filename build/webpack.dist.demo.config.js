@@ -15,23 +15,23 @@ module.exports = merge(webpackBaseConfig, {
     entry: {
         main: './examples/main'
     },
-    optimization: {
-        splitChunks: {
-            chunks: "all",
-            minSize: 10000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            name: true,
-            cacheGroups: {
-                vendors: {
-                    name: 'vendor',
-                    test: /[\\/]node_modules[\\/]|.less/,
-                    priority: -10
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: "all",
+    //         minSize: 10000,
+    //         minChunks: 1,
+    //         maxAsyncRequests: 5,
+    //         maxInitialRequests: 3,
+    //         name: true,
+    //         cacheGroups: {
+    //             vendors: {
+    //                 name: 'vendor',
+    //                 test: /[\\/]node_modules[\\/]|.less|.css/,
+    //                 priority: -10
+    //             }
+    //         }
+    //     }
+    // },
     // 输出
     output: {
         path: path.join(__dirname, '../dist'),

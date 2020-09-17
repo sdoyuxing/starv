@@ -22,6 +22,7 @@ import starUi from '../src/index'
 import tooltip from './routers/tooltip'
 import poptip from './routers/poptip'
 import notice from './routers/notice'
+import modal from './routers/modal'
 import '../src/styles/index.less'
 import './styles/index.less'
 import 'highlight.js/styles/atom-one-light.css' //样式
@@ -128,6 +129,10 @@ const router = new Router({
       path: '/poptip',
       name: 'poptip',
       component: poptip
+    }, {
+      path: '/modal',
+      name: 'modal',
+      component: modal
     }
   ]
 })

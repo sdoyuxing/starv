@@ -79,6 +79,7 @@ export default {
   },
   data() {
     return {
+      currentLoading: this.loading,
       autoWidth: "",
       clicked: false,
       top: this.loading ? "50%" : 0,
@@ -90,13 +91,12 @@ export default {
   },
   mounted() {
     if (this.shape === undefined) {
-      if (this.loading) {
+      if (this.currentLoading) {
         this.width = "30px";
       } else {
         timeOut = setTimeout(() => {
           if (this.$refs["btn"] && this.$refs["btn"].offsetWidth > 0) {
-            this.autoWidth = this.$refs["btn"].offsetWidth + "px";
-            this.width = this.autoWidth;
+            this.width = this.autoWidth = this.$refs["btn"].offsetWidth + "px";
           }
           clearTimeout(timeOut);
           timeOut = "";
@@ -118,7 +118,7 @@ export default {
           [`${prefixCls}-${this.type}`]: this.type,
           [`${prefixCls}-${this.shape}`]: this.shape,
           [`${prefixCls}-icon-only`]: !this.$slots.default && this.icon,
-          [`${prefixCls}-loading-${this.loadType}`]: this.loading,
+          [`${prefixCls}-loading-${this.loadType}`]: this.currentLoading,
           [`${prefixCls}-clicked`]: this.clicked,
         },
       ];
@@ -147,7 +147,7 @@ export default {
     },
   },
   watch: {
-    loading(val) {
+    currentLoading(val) {
       if (this.shape === undefined) {
         if (val) {
           this.left = this.top = "50%";
@@ -156,6 +156,14 @@ export default {
           this.width = this.autoWidth;
         }
       }
+    },
+    loading(val) {
+      if (this.width === "auto" && this.$refs["btn"].offsetWidth > 0) {
+        this.width = this.autoWidth = this.$refs["btn"].offsetWidth + "px";
+      }
+      this.$nextTick(() => {
+        this.currentLoading = val;
+      });
     },
   },
   methods: {
@@ -185,7 +193,9 @@ export default {
       }
     },
     handleClick(event) {
-      this.$emit("click", event);
+      if (!this.loading) {
+        this.$emit("click", event);
+      }
     },
     handleFocus() {
       if (this.backgroundColor) {

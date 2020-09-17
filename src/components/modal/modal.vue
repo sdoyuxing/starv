@@ -1,26 +1,21 @@
 <template>
-  <div>
-    <div
-      :class="maskClasses"
-      v-show="visbale"
-      @click="close"
-      tabindex="1"
-      @keydown.esc="close"
-      :style="{'zIndex':modalIndex}"
-    ></div>
-    <div :class="classes" v-show="visbale" :style="{'zIndex':modalIndex}">
-      <div :class="titleClasses">
+  <div :class="wrapClasses" :style="{'zIndex':modalIndex}" v-show="visbale">
+    <div :class="maskClasses" @click="maskClick" tabindex="1"></div>
+    <div :class="classes" :style="modalstyles">
+      <div :class="titleClasses" v-if="title||$slots.title">
         <slot name="title">{{title}}</slot>
-        <span :class="closeClasses" @click="close">
-          <Icon type="iconclose" />
-        </span>
       </div>
+      <span :class="closeClasses" @click="close">
+        <Icon type="iconclose" />
+      </span>
       <div :class="contentClasses">
         <slot></slot>
       </div>
       <div style="text-align: right;">
-        <s-button @click="cancel" style="margin-right:10px">取消</s-button>
-        <s-button type="primary" @click="define">确定</s-button>
+        <slot name="footer">
+          <s-button @click="cancel" style="margin-right:10px">取消</s-button>
+          <s-button type="primary" @click="define" :loading="loading">确定</s-button>
+        </slot>
       </div>
     </div>
   </div>
@@ -38,6 +33,21 @@ export default {
       default: false,
     },
     title: String,
+    width: [String, Number],
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    styles: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -48,7 +58,12 @@ export default {
   },
   watch: {
     value(val) {
-      this.visbale = val;
+      if (setTime) {
+        clearTimeout(setTime);
+        setTime = null;
+        this.visbale === val && (this.visbale = !val);
+      }
+      val ? (this.visbale = val) : this.close();
     },
     visbale(val) {
       if (this.isClose === val) {
@@ -59,6 +74,12 @@ export default {
   },
   components: { sButton },
   computed: {
+    modalstyles() {
+      return { ...this.styles, width: this.width };
+    },
+    wrapClasses() {
+      return `${prefixCls}-wrap`;
+    },
     maskClasses() {
       return [
         `${prefixCls}-mask`,
@@ -87,19 +108,25 @@ export default {
     },
   },
   methods: {
+    maskClick() {
+      if (this.maskClosable) {
+        this.close();
+      }
+    },
     close() {
       this.isClose = true;
       setTime = setTimeout(() => {
         this.visbale = false;
         clearTimeout(setTime);
         setTime = null;
-      }, 400);
+      }, 250);
     },
     cancel() {
+      this.$emit("on-cancel");
       this.close();
     },
     define() {
-      this.close();
+      this.$emit("on-define");
     },
   },
 };
