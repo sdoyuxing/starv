@@ -1,4 +1,7 @@
-import { parseTemplateToVnode, typeOf } from '../../utils/assist'
+import {
+    parseTemplateToVnode,
+    typeOf
+} from '../../utils/assist'
 
 function recursion(data, h) {
     if (typeOf(data) === 'array' && data.length > 0) {
@@ -25,7 +28,7 @@ export default {
     functional: true,
     props: {
         template: String,
-        content: String
+        content: [String, Number]
     },
     render: (h, ctx) => {
         if (ctx.props.template) {

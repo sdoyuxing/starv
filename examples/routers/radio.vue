@@ -12,7 +12,7 @@
                 <section class="starv-code">
                     <section class="starv-code__demo">
                         <div>
-                            <Radio>Radio</Radio>
+                            <s-radio>Radio</s-radio>
                         </div>
                     </section>
 

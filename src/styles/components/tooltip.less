@@ -23,7 +23,20 @@
         padding: 7px 0;
         position: absolute;
         z-index: @zindex-tooltip;
-        background-color: #ffffff;
+        display: block;
+
+        &-hide {
+            min-width: 110px;
+            opacity: 0;
+            transform: scaleY(0);
+            transition: all .2s;
+            transform-origin: center top;
+        }
+
+        &-anima {
+            opacity: 1;
+            transform: scaleY(1);
+        }
 
         &[x-placement="top-start"] .@{tooltip-prefix-cls}-arrow {
             left: 16px;
@@ -68,7 +81,7 @@
 
         &[x-placement="left"] .@{tooltip-prefix-cls}-arrow {
             top: 50%;
-            transform: translate(-50%,-50%) rotate(45deg);
+            transform: translate(-50%, -50%) rotate(45deg);
             right: 0;
             left: inherit;
             box-shadow: 2px -2px 2px rgba(0, 0, 0, .07);
@@ -93,7 +106,7 @@
 
         &[x-placement="right"] .@{tooltip-prefix-cls}-arrow {
             top: 50%;
-            transform: translate(-50%,-50%) rotate(45deg);
+            transform: translate(-50%, -50%) rotate(45deg);
             left: 8px;
             box-shadow: -2px 2px 2px rgba(0, 0, 0, .07);
             border-color: transparent transparent #ffffff #ffffff;

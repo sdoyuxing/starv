@@ -156,7 +156,7 @@
 </template>
 <script>
 import switchCode from "../codeDemo/switch";
-console.log(switchCode);
+
 export default {
   data() {
     return {

@@ -71,7 +71,7 @@ export default {
           this.$refs[name][0].style.padding = 0;
           this.messageList[i].closed = true;
           let timeOut = setTimeout(() => {
-            noticeList[i].onClose && messageList[i].onClose();
+            messageList[i].onClose && messageList[i].onClose();
             this.messageList.splice(i, 1);
             clearTimeout(timeOut);
             timeOut = null;

@@ -1,0 +1,47 @@
+.table() {
+    width: inherit;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    color: @text-color;
+    font-size: @font-size-base;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.table-th() {
+    height: 45px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: @table-header-bg;
+    vertical-align: middle;
+    line-height: 45px;
+}
+
+.table-cell() {
+    padding: 0 18px;
+    min-width: 0;
+    height: 50px;
+    box-sizing: border-box;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid @border-color-split;
+}
+
+.table-header() {
+    width: 100%;
+
+    table {
+        width: 100%;
+    }
+
+    th {
+        .table-cell;
+        .table-th;
+    }
+}
+
+.table-btn() {
+    font-size: 12px;
+    padding: 2px 8px;
+}

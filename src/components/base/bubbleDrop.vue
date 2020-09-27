@@ -5,15 +5,20 @@
     @mouseleave="handleClosePopper"
     @click="handleClick"
     v-click-outside.stop="onClickOutside"
+    ref="reference"
   >
-    <div ref="reference">
-      <slot></slot>
-    </div>
-    <div :class="dropClasses" ref="drop" v-show="showDrop&&!disabled">
+    <slot></slot>
+    <div
+      :class="dropClasses"
+      ref="drop"
+      v-show="showDrop && !disabled"
+      @click.stop
+      @hover.stop
+    >
       <div :class="popperClasses">
         <div :class="arrowClasses"></div>
         <div :style="innerStyles">
-          <div v-if="title||$slots.title" :class="titleClasses">
+          <div v-if="title || $slots.title" :class="titleClasses">
             <slot name="title">{{ title }}</slot>
           </div>
           <slot name="content">{{ content }}</slot>
@@ -28,6 +33,7 @@ import { directive as clickOutside } from "../../directives/v-click-outside";
 const prefixCls = "sta-tooltip";
 import Popper from "popper.js";
 export default {
+  name: "bubbleDrop",
   directives: { clickOutside },
   props: {
     content: {

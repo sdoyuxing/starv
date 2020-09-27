@@ -48,7 +48,7 @@
     <br />
     <div style="width:200px">
       <s-select
-        placeholder="请选择"
+        placeholder="请选择" 
         :options="options"
         :loading="selectLoading"
         lazyload
@@ -77,7 +77,38 @@
       <p>对话框内容</p>
     </s-modal>
     <br />
+    <br />
     <s-button @click="modal=!modal">点击弹窗</s-button>
+    <br />
+    <br />
+    <s-table
+      ref="table"
+      @on-all-change="allChange"
+      @on-check-change="checkChange"
+      :data="data"
+      height="300"
+      width="900"
+    >
+      <column type="checkbox"></column>
+      <column type="index" width="60" align="center">#</column>
+      <column prop="name" class-name="demo-table-info-row">姓名</column>
+      <column prop="sex" :render="render" :filters="filters">性别</column>
+      <column prop="age" sortable>年龄</column>
+      <column prop="nian">年级</column>
+      <column prop="ban">班级</column>
+      <column width="180" align="center">
+        操作
+        <template slot="format">
+          <s-button type="info">查看</s-button>
+          <s-button type="error">删除</s-button>
+        </template>
+      </column>
+    </s-table>
+    <br />
+    <br />
+    <s-button @click="selectAll">{{isSelectAll?'全取消':'全选中'}}</s-button>
+    <s-button @click="getCheck">获取选中的数据</s-button>
+    <s-button @click="setCheck">{{checkRow?'取消选中第4、5行':'选中第4、5行'}}</s-button>
   </div>
 </template>
 <script>
@@ -92,6 +123,63 @@ export default {
       selectLoading: false,
       options: [],
       modal: false,
+      isSelectAll: false,
+      checkRow: false,
+      filters: [
+        {
+          text: "男",
+          value: "男",
+        },
+        {
+          text: "女",
+          value: "女",
+        },
+      ],
+      columns: [
+        {
+          title: "姓名",
+          key: "name",
+          className: "demo-table-info-row",
+        },
+        {
+          title: "性别",
+          key: "sex",
+          render: (val) =>
+            val === "女"
+              ? `<s-tag :background-color="#fff0f6" :border-color="#ffadd2" :font-color="#eb2f96">${val}</s-tag>`
+              : `<s-tag :background-color="#e6fffb" :border-color="#87e8de" :font-color="#13c2c2">${val}</s-tag>`,
+        },
+        { title: "年龄", key: "age" },
+        { title: "年级", key: "nian" },
+        { title: "班级", key: "ban" },
+      ],
+      data: [
+        {
+          name: "小明",
+          sex: "男",
+          age: 11,
+          nian: "高一",
+          ban: "三班",
+          cellClassName: {
+            name: "demo-table-error-row",
+            ban: "demo-table-error-row",
+          },
+          check: true,
+        },
+        {
+          name: "小星",
+          sex: "男",
+          age: 12,
+          nian: "高一",
+          ban: "二班",
+          disabled: true,
+        },
+        { name: "小红", sex: "女", age: 12, nian: "高一", ban: "二班" },
+        { name: "小红", sex: "女", age: 15, nian: "高一", ban: "二班" },
+        { name: "小红", sex: "女", age: 13, nian: "高一", ban: "二班" },
+        { name: "小红", sex: "女", age: 14, nian: "高一", ban: "二班" },
+        { name: "小红", sex: "女", age: 16, nian: "高一", ban: "二班" },
+      ],
     };
   },
   mounted() {
@@ -100,6 +188,9 @@ export default {
     }, 2000);
   },
   methods: {
+    onFilter(value, record) {
+      return record.address.indexOf(value) === 0;
+    },
     click() {
       alert(222);
     },
@@ -123,11 +214,55 @@ export default {
           "亚当·斯密（1723年6月5日—1790年7月17日），出生在苏格兰法夫郡（County Fife）的寇克卡迪（Kirkcaldy），英国经济学家、哲学家、作家，经济学的主要创立者。亚当·斯密是现代资本主义经济制度的创立者，强调自由市场、自由贸易以及劳动分工，被誉为“古典经济学之父”。",
       });
     },
+    rowClassName(row, index) {
+      if (index === 1) {
+        return "demo-table-info-row";
+      } else if (index === 3) {
+        return "demo-table-error-row";
+      }
+      return "";
+    },
+    render(val) {
+      return val === "女"
+        ? `<s-tag :background-color="#fff0f6" :border-color="#ffadd2" :font-color="#eb2f96">${val}</s-tag>`
+        : `<s-tag :background-color="#e6fffb" :border-color="#87e8de" :font-color="#13c2c2">${val}</s-tag>`;
+    },
+    allChange(val) {
+      this.$Message.info(val ? "全部选中" : "全部取消");
+    },
+    selectAll() {
+      this.isSelectAll = !this.isSelectAll;
+      this.$refs.table.checkAll(this.isSelectAll);
+    },
+    checkChange(val, row, index) {
+      this.$Message.info(
+        val ? `选中了第${index}行数据` : `取消选中第${index}行数据`
+      );
+    },
+    getCheck() {
+      this.$Message.info(JSON.stringify(this.$refs.table.getCheckRow()));
+    },
+    setCheck() {
+      if (this.checkRow) {
+        this.$refs.table.uncheckRow([4, 5]);
+      } else {
+        this.$refs.table.checkRow([4, 5]);
+      }
+      this.checkRow = !this.checkRow;
+    },
   },
 };
 </script>
 <style>
 .red {
   color: blue;
+}
+.demo-table-info-row {
+  background-color: #2db7f5;
+  color: #fff;
+}
+.demo-table-error-row {
+  background-color: #ff6600;
+  color: #fff;
 }
 </style>

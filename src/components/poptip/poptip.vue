@@ -16,6 +16,10 @@ import bubbleDrop from "../base/bubbleDrop";
 export default {
   name: "sPoptip",
   props: {
+    isArrow: {
+      type: Boolean,
+      default: true,
+    },
     trigger: {
       validator(value) {
         return oneOf(value, ["click", "focus", "hover"]);

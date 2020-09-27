@@ -1,0 +1,130 @@
+@table-prefix-cls: ~"@{sta-prefix}-table";
+
+.@{table-prefix-cls} {
+    .table;
+
+    &-wrap {
+        overflow: hidden;
+        position: relative;
+    }
+
+    th {
+        .table-cell;
+        .table-th;
+    }
+
+    td {
+        .table-cell;
+    }
+
+    tr {
+        transition: background-color .2s linear;
+
+        &[class="row"]:hover {
+            background-color: @table-header-bg;
+        }
+    }
+
+    &-border {
+        border-top: 1px solid @border-color-split;
+        border-right: 1px solid @border-color-split;
+
+        th,
+        td {
+            border-left: 1px solid @border-color-split;
+        }
+    }
+
+    &-header {
+        .table-header;
+    }
+
+    &-body {
+        overflow: auto;
+    }
+
+    &-check-row {
+        background-color: tint(@primary-color, 90%);
+
+        &:hover {
+            background-color: tint(@primary-color, 80%);
+        }
+    }
+
+    &-col-sort {
+        cursor: pointer;
+        transition: all .2s;
+
+        &:hover {
+            background-color: shade(@table-header-bg, 3%);
+        }
+    }
+
+    &-sort {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        height: 15px;
+
+        width: 20px;
+        margin-top: -1px;
+        margin-left: 4px;
+
+        &-icon {
+            font-size: 14px;
+            position: absolute;
+            color: shade(@table-header-sort-bg, 20%);
+            height: 14px;
+            line-height: 14px;
+        }
+
+        &-highlight {
+            color: @primary-color
+        }
+
+        &-up {
+            top: 0;
+        }
+
+        &-down {
+            bottom: 0;
+        }
+    }
+
+    &-filters {
+        float: right;
+        cursor: pointer;
+        color: shade(@table-header-sort-bg, 20%);
+        transition: all .2s;
+        width: 20px;
+        text-align: center;
+
+        &:hover {
+            background-color: shade(@table-header-sort-bg, 10%);
+            color: shade(@table-header-sort-bg, 40%);
+        }
+
+        &-footer {
+            border-top: 1px solid @border-color-split;
+            margin: 0 -12px;
+            padding: 5px 10px 0 0;
+            overflow: hidden;
+        }
+
+        &-define {
+            .table-btn;
+            float: right;
+        }
+
+        &-change {
+            .table-btn;
+            font-size: 12px;
+        }
+    }
+
+    &-filter {
+        text-align: left;
+        line-height: 30px;
+    }
+}

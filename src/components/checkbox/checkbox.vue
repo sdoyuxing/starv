@@ -9,7 +9,6 @@
         :name="name"
         v-bind="$attrs"
         @change="change"
-        v-on="$listeners"
       />
       <span :class="innerClasses" :style="innerStyles"></span>
       <div :class="activeClasses"></div>
