@@ -175,3 +175,22 @@ export function parseTemplateToVnode(template = '', bool = false) {
     return result
 
 }
+
+export function getScrollWidth(element) {
+    let positionDiv = document.createElement("div")
+    positionDiv.style.position = "absolute"
+    positionDiv.style.width = "300px"
+    positionDiv.style.height = "300px"
+    positionDiv.style.backgroundColor = "blue"
+    positionDiv.style.overflow = "auto"
+    let subDiv = document.createElement("div")
+    subDiv.style.width = "100%"
+    subDiv.style.height = "400px"
+    subDiv.style.backgroundColor = "red"
+    positionDiv.appendChild(subDiv)
+    element.appendChild(positionDiv)
+    const scrollWidth = positionDiv.offsetWidth - subDiv.offsetWidth
+    element.removeChild(positionDiv)
+    element = positionDiv = subDiv = null
+    return scrollWidth
+}

@@ -1,28 +1,93 @@
 <template>
   <div :class="wrapClasses" :style="tableStyles">
-    <div :class="headerClasses">
-      <table :style="headerTableStyles">
-        <colgroup>
-          <col
-            v-for="(column, index) in columnsList"
-            :key="tableCode + '_col_' + index"
-            :width="column._width"
-          />
-          <col v-if="isScroll" :width="scrollWidth" />
-        </colgroup>
-        <thead>
-          <tr>
-            <column
-              v-for="(col, index) in columnsList"
-              :key="tableCode + '_column_' + index"
-              :col="col"
-            />
-            <column style="padding: 0"></column>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <div :class="bodyClasses" :style="bodyStyles" ref="bodyTable">
+    <table-header ref="header" />
+    <div
+      :class="bodyClasses"
+      :style="bodyStyles"
+      ref="bodyTable"
+      @scroll="scrollChange"
+    >
+      <div :class="fixedClasses" :style="fixedBodyStyles">
+        <div
+          style="
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100%;
+            margin-right: -17px;
+          "
+          ref="fixedLeft"
+          @scroll="fixedScrollChange"
+        >
+          <table :class="tableClasses" :style="bodyTableStyles">
+            <colgroup>
+              <col
+                v-for="(column, index) in columnsList"
+                :key="tableCode + '_bodycol_' + index"
+                :width="column._width"
+              />
+            </colgroup>
+            <tbody>
+              <tr
+                :class="rowClasses(row, index)"
+                v-for="(row, index) in tableData"
+                :key="tableCode + '_row_' + index"
+                @mouseenter="handleEnterr(index)"
+                @mouseleave="handleLeave(index)"
+              >
+                <cell
+                  v-for="(col, d) in columnsList"
+                  :key="tableCode + '_row_' + index + '_col_' + d"
+                  :row="row"
+                  :col="col"
+                  :index="index"
+                  showFixed
+                ></cell>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div :class="fixedRightClasses" :style="fixedBodyRightStyles">
+        <div
+          style="
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100%;
+            margin-right: -17px;
+            padding-bottom: 1px;
+          "
+          ref="fixedRight"
+          @scroll="fixedRightScrollChange"
+        >
+          <table :class="tableClasses" :style="bodyTableStyles">
+            <colgroup>
+              <col
+                v-for="(column, index) in columnsList"
+                :key="tableCode + '_bodycol_' + index"
+                :width="column._width"
+              />
+            </colgroup>
+            <tbody>
+              <tr
+                :class="rowClasses(row, index)"
+                v-for="(row, index) in tableData"
+                :key="tableCode + '_row_' + index"
+                @mouseenter="handleEnterr(index)"
+                @mouseleave="handleLeave(index)"
+              >
+                <cell
+                  v-for="(col, d) in columnsList"
+                  :key="tableCode + '_row_' + index + '_col_' + d"
+                  :row="row"
+                  :col="col"
+                  :index="index"
+                  showFixed
+                ></cell>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <table :class="tableClasses" ref="table" :style="bodyTableStyles">
         <colgroup>
           <col
@@ -36,6 +101,8 @@
             :class="rowClasses(row, index)"
             v-for="(row, index) in tableData"
             :key="tableCode + '_row_' + index"
+            @mouseenter="handleEnterr(index)"
+            @mouseleave="handleLeave(index)"
           >
             <cell
               v-for="(col, d) in columnsList"
@@ -53,11 +120,12 @@
 <script>
 const prefixCls = "sta-table";
 const checkboxWidth = 53;
-import { deepCopy, typeOf } from "../../utils/assist";
+import { deepCopy, typeOf, getScrollWidth } from "../../utils/assist";
 import cell from "./cell";
-import column from "./column";
+import tableHeader from "./tableHeader";
 let copyTable = null;
 let copySortTable = null;
+let timeOut = "";
 export default {
   name: "sTable",
   props: {
@@ -80,34 +148,70 @@ export default {
   data() {
     return {
       isScroll: false,
+      isScrollY: false,
       scrollWidth: 0,
+      scrollInex: 0,
       tableWidth: 0,
-      headerTableWidth: 0,
       columnWidth: 0,
       isAllCheck: false,
       tableData: [],
       seed: 0,
       tableCode: "",
+      fixedLeft: [],
+      fixedRight: [],
+      fixedShadow: false,
+      fixedRightShadow: false,
     };
   },
   components: {
-    column,
     cell,
+    tableHeader,
   },
   mounted() {
     this.isScroll =
       this.$refs.bodyTable.offsetHeight < this.$refs.table.offsetHeight;
-    this.isScroll &&
-      (this.scrollWidth =
-        this.$refs.bodyTable.offsetWidth - this.$refs.table.offsetWidth - 1);
-    this.tableWidth = this.$refs.table.offsetWidth;
-    this.headerTableWidth = this.$refs.bodyTable.offsetWidth;
+    this.isScrollY =
+      this.$refs.bodyTable.offsetWidth < this.$refs.table.offsetWidth;
+    this.fixedRightShadow = this.isScrollY;
+    this.scrollWidth = getScrollWidth(this.$refs.bodyTable);
     this.formatColumns();
     this.tableCode = this.getUuid();
   },
   computed: {
-    headerClasses() {
-      return `${prefixCls}-header`;
+    fixedBodyRightStyles() {
+      let total = this.fixedRight.reduce(
+        (total, o) => (total += o._width * 1),
+        0
+      );
+      if (this.isScroll) total += this.scrollWidth + 3;
+      return {
+        width: this.isScroll ? total - this.scrollWidth - 3 + "px" : total,
+        height: (this.isScrollY ? this.height - 62 : this.height - 45) + "px",
+        right: this.isScroll ? this.scrollWidth + "px" : 0,
+        boxShadow: this.fixedRightShadow
+          ? " -5px 2px 5px 0 rgba(0,0,0,.15)"
+          : "none",
+      };
+    },
+    fixedBodyStyles() {
+      return {
+        ...this.fixedStyles,
+        height: (this.isScrollY ? this.height - 62 : this.height - 45) + "px",
+        boxShadow: this.fixedShadow ? " 5px 2px 5px 0 rgba(0,0,0,.15)" : "none",
+      };
+    },
+    fixedStyles() {
+      const total = this.fixedLeft.reduce(
+        (total, o) => (total += o._width * 1),
+        0
+      );
+      return { width: total + "px" };
+    },
+    fixedClasses() {
+      return `${prefixCls}-fixed`;
+    },
+    fixedRightClasses() {
+      return `${prefixCls}-fixed-right`;
     },
     bodyClasses() {
       return `${prefixCls}-body`;
@@ -126,13 +230,6 @@ export default {
         ? {}
         : {
             width: this.tableWidth + "px",
-          };
-    },
-    headerTableStyles() {
-      return this.headerTableWidth === 0
-        ? {}
-        : {
-            width: this.headerTableWidth + "px",
           };
     },
     bodyStyles() {
@@ -171,6 +268,7 @@ export default {
                     align: o.data.attrs.align,
                     sortable: "sortable" in o.data.attrs ? true : false,
                     filters: o.data.attrs.filters,
+                    fixed: o.data.attrs.fixed,
                   }
                 : {};
             const children =
@@ -197,14 +295,31 @@ export default {
       }
     },
     columnsList() {
-      let columns = this.columnSlot;
-      columns = columns.map((o) => {
-        return {
-          ...o,
-          _width: o.width || this.columnWidth,
+      if (!this.width) {
+        this.tableWidth = "auto";
+        return;
+      }
+      let columns = [...this.columnSlot];
+      this.fixedLeft = [];
+      this.fixedRight = [];
+      let tableWidth = 0;
+      for (let i = 0; i < columns.length; i++) {
+        columns[i] = {
+          ...columns[i],
+          _width: columns[i].width || this.columnWidth,
         };
-      });
-      return columns;
+        tableWidth += columns[i]._width * 1;
+        if (columns[i].fixed && columns[i].fixed === "left") {
+          this.fixedLeft.push(columns.splice(i, 1)[0]);
+          i--;
+        }
+        if (columns[i].fixed && columns[i].fixed === "right") {
+          this.fixedRight.unshift(columns.splice(i, 1)[0]);
+          i--;
+        }
+      }
+      this.tableWidth = tableWidth;
+      return [...this.fixedLeft, ...columns, ...this.fixedRight];
     },
     halfChecked() {
       if (this.tableData.every((o) => o.isCheck)) this.isAllCheck = true;
@@ -217,6 +332,68 @@ export default {
     },
   },
   methods: {
+    handleEnterr(index) {
+      this.tableData[index].isHover = true;
+    },
+    handleLeave(index) {
+      this.tableData[index].isHover = false;
+    },
+    fixedRightScrollChange() {
+      if (this.scrollInex === 0 || this.scrollInex === 3) this.scrollInex = 3;
+      else return;
+      this.$refs.bodyTable.scrollTop = this.$refs.fixedRight.scrollTop;
+      this.$refs.fixedLeft.scrollTop = this.$refs.fixedRight.scrollTop;
+      if (timeOut) clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        this.scrollInex = 0;
+        clearTimeout(timeOut);
+        timeOut = "";
+      }, 100);
+    },
+    fixedScrollChange() {
+      if (this.scrollInex === 0 || this.scrollInex === 1) this.scrollInex = 1;
+      else return;
+      this.$refs.bodyTable.scrollTop = this.$refs.fixedLeft.scrollTop;
+      this.$refs.fixedRight.scrollTop = this.$refs.fixedLeft.scrollTop;
+      if (timeOut) clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        this.scrollInex = 0;
+        clearTimeout(timeOut);
+        timeOut = "";
+      }, 100);
+    },
+    scrollChange() {
+      if (this.scrollInex === 0 || this.scrollInex === 2) this.scrollInex = 2;
+      else return;
+      this.$refs.header.tableEl.style.marginLeft =
+        -this.$refs.bodyTable.scrollLeft + "px";
+      if (this.$refs.bodyTable.scrollLeft > 0) {
+        this.fixedShadow = true;
+      } else {
+        this.fixedShadow = false;
+      }
+      console.log(
+        this.$refs.bodyTable.scrollLeft,
+        this.$refs.bodyTable.offsetWidth,
+        this.$refs.table.offsetWidth + this.scrollWidth
+      );
+      if (
+        this.$refs.bodyTable.scrollLeft + this.$refs.bodyTable.offsetWidth !==
+        (this.isScroll
+          ? this.$refs.table.offsetWidth + this.scrollWidth
+          : this.$refs.table.offsetWidth)
+      )
+        this.fixedRightShadow = true;
+      else this.fixedRightShadow = false;
+      this.$refs.fixedLeft.scrollTop = this.$refs.bodyTable.scrollTop;
+      this.$refs.fixedRight.scrollTop = this.$refs.bodyTable.scrollTop;
+      if (timeOut) clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        this.scrollInex = 0;
+        clearTimeout(timeOut);
+        timeOut = "";
+      }, 100);
+    },
     filterChange(filters, key) {
       if (filters.length > 0) {
         this.tableData = deepCopy(copyTable).filter(
@@ -228,20 +405,32 @@ export default {
       }
     },
     rowClasses(row, index) {
-      const classList = ["row", { [`${prefixCls}-check-row`]: row.isCheck }];
+      const classList = [
+        "row",
+        { [`${prefixCls}-check-row`]: row.isCheck },
+        ,
+        { [`${prefixCls}-row-hover`]: row.isHover },
+      ];
       if (typeOf(this.rowClassName) === "function") {
         classList.push(this.rowClassName(row, index));
       }
       return classList;
     },
     formatColumns() {
-      let totalWidth = this.$refs.table.offsetWidth;
+      if (!this.width) return;
+      let totalWidth = this.isScroll
+        ? this.width - this.scrollWidth
+        : this.width;
       let length = this.columnSlot.length;
       this.columnSlot.forEach((o) => {
         totalWidth -= o.width || 0;
         o.width && length--;
       });
-      this.columnWidth = parseInt(totalWidth / length);
+      if (totalWidth > 0) {
+        this.columnWidth = parseInt(totalWidth / length);
+      } else {
+        this.columnWidth = 80;
+      }
     },
     checkAll(val) {
       if (val === 0 || typeOf(val) === "boolean") {
@@ -298,6 +487,7 @@ export default {
         this.tableData = val.map((o, index) => ({
           ...o,
           isCheck: o.check || false,
+          isHover: false,
         }));
         copySortTable = copyTable = [...this.tableData];
       },

@@ -30,6 +30,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    showFixed: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     sCheckbox,
@@ -80,6 +84,7 @@ export default {
         "text-align": data.align || "left",
         "font-size":
           data.type === "checkbox" || data.type === "radio" ? 0 : "inherit",
+        visibility: data.fixed && !this.showFixed ? "hidden" : "visible",
       };
     },
     sortChange() {

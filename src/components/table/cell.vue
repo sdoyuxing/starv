@@ -1,14 +1,18 @@
 <template>
-  <td :class="cellClasses(row,col)" :style="cellStyles(col)">
-    <span v-if="col.type==='index'" v-text="index+1"></span>
+  <td :class="cellClasses(row, col)" :style="cellStyles(col)">
+    <span v-if="col.type === 'index'" v-text="index + 1"></span>
     <s-checkbox
-      v-else-if="col.type==='checkbox'"
-      @on-change="checkChange($event,row,index+1)"
+      v-else-if="col.type === 'checkbox'"
+      @on-change="checkChange($event, row, index + 1)"
       v-model="row.isCheck"
       :disabled="row.disabled"
     />
-    <s-radio v-else-if="col.type==='radio'" :name="tableCode" />
-    <render v-else-if="col.format.length===0" :template="render(col,row)" :content="row[col.key]"></render>
+    <s-radio v-else-if="col.type === 'radio'" :name="tableCode" />
+    <render
+      v-else-if="col.format.length === 0"
+      :template="render(col, row)"
+      :content="row[col.key]"
+    ></render>
     <vnRender v-else :vnode="col.format" :row="row" :index="index"></vnRender>
   </td>
 </template>
@@ -29,6 +33,10 @@ export default {
       default: () => ({}),
     },
     index: Number,
+    showFixed: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     vnRender,
@@ -46,6 +54,7 @@ export default {
         "text-align": data.align,
         "font-size":
           data.type === "checkbox" || data.type === "radio" ? 0 : "inherit",
+        visibility: data.fixed && !this.showFixed ? "hidden" : "visible",
       };
     },
     cellClasses(row, col) {

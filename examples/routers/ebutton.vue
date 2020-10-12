@@ -56,7 +56,7 @@
       ></s-select>
     </div>-->
     <br />
-    {{selected}}
+    {{ selected }}
     <br />
     <!-- <s-select style="width:200px">
         <Option v-for="item in 9000" :key="item">选项标配{{item}}</Option>
@@ -78,7 +78,7 @@
     </s-modal>
     <br />
     <br />
-    <s-button @click="modal=!modal">点击弹窗</s-button>
+    <s-button @click="modal = !modal">点击弹窗</s-button>
     <br />
     <br />
     <s-table
@@ -91,12 +91,14 @@
     >
       <column type="checkbox"></column>
       <column type="index" width="60" align="center">#</column>
-      <column prop="name" class-name="demo-table-info-row">姓名</column>
-      <column prop="sex" :render="render" :filters="filters">性别</column>
-      <column prop="age" sortable>年龄</column>
-      <column prop="nian">年级</column>
-      <column prop="ban">班级</column>
-      <column width="180" align="center">
+      <column prop="name" class-name="demo-table-info-row" fixed="left"
+        >姓名</column
+      >
+      <column prop="sex" :render="render" :filters="filters" width="200">性别</column>
+      <column prop="age" sortable width="200">年龄</column>
+      <column prop="nian" width="200">年级</column>
+      <column prop="ban" width="200">班级</column>
+      <column width="200" align="center" fixed="right">
         操作
         <template slot="format">
           <s-button type="info">查看</s-button>
@@ -106,9 +108,13 @@
     </s-table>
     <br />
     <br />
-    <s-button @click="selectAll">{{isSelectAll?'全取消':'全选中'}}</s-button>
+    <s-button @click="selectAll">{{
+      isSelectAll ? "全取消" : "全选中"
+    }}</s-button>
     <s-button @click="getCheck">获取选中的数据</s-button>
-    <s-button @click="setCheck">{{checkRow?'取消选中第4、5行':'选中第4、5行'}}</s-button>
+    <s-button @click="setCheck">{{
+      checkRow ? "取消选中第4、5行" : "选中第4、5行"
+    }}</s-button>
   </div>
 </template>
 <script>
