@@ -7,6 +7,7 @@
         :scrollWidth="scrollWidth"
         :tableWidth="tableWidth"
         :showFixed="true"
+        :tableCode="tableCode"
       />
     </div>
     <div :class="fixedRightClasses" :style="fixedRightStyles">
@@ -15,31 +16,37 @@
         :isScroll="isScroll"
         :scrollWidth="scrollWidth"
         :tableWidth="tableWidth"
+        :tableCode="tableCode"
         :showFixed="true"
       />
     </div>
     <thead-table
+      :style="theadStyles"
       :columnsList="columnsList"
       :isScroll="isScroll"
       :scrollWidth="scrollWidth"
       :tableWidth="tableWidth"
+      :tableCode="tableCode"
       ref="theadTable"
     />
   </div>
 </template>
 <script>
 const prefixCls = "sta-table";
-import theadTable from "./theadTable";
+import theadTable from "./thead-table";
 export default {
   components: {
     theadTable,
   },
-  data() {
-    return {
-      tableEl: null,
-    };
-  },
   computed: {
+    theadStyles() {
+      return {
+        "margin-left": this.$parent.headerMarginLeft,
+      };
+    },
+    tableCode() {
+      return this.$parent.tableCode;
+    },
     columnsList() {
       return this.$parent.columnsList;
     },
@@ -76,9 +83,6 @@ export default {
       if (this.isScroll) total += this.scrollWidth + 3;
       return { width: total + "px" };
     },
-  },
-  mounted() {
-    this.tableEl = this.$refs.theadTable.$el;
   },
 };
 </script>

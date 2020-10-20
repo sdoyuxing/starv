@@ -45,6 +45,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    tableCode: String,
   },
   components: {
     column,

@@ -22,7 +22,7 @@ const prefixCls = "sta-table";
 const sortList = ["", "asc", "desc"];
 import Icon from "../icon";
 import sCheckbox from "../checkbox";
-import filterTooltip from "./filterTooltip";
+import filterTooltip from "./filter-tooltip";
 export default {
   name: "column",
   props: {
