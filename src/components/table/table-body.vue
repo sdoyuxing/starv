@@ -35,6 +35,7 @@
       :tableData="tableData"
       :tableCode="tableCode"
       :tableWidth="tableWidth"
+      :row-class-name="rowClassName"
     ></tbody-table>
   </div>
 </template>
@@ -66,6 +67,9 @@ export default {
     this.$parent.formatColumns();
   },
   computed: {
+    rowClassName() {
+      return this.$parent.rowClassName;
+    },
     tableWidth() {
       return this.$parent.tableWidth;
     },

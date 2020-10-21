@@ -50,25 +50,23 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-alert show-icon>详情</s-alert>
-              <s-alert type="success" show-icon>成功</s-alert>
-              <s-alert type="warning" show-icon>警告</s-alert>
-              <s-alert type="error" show-icon>错误</s-alert>
-              <s-alert show-icon icon-type="iconmeh-filling">详情</s-alert>
-              <s-alert show-icon type="success">
-                成功
-                <Icon type="iconsmile-filling" slot="icon" />
-              </s-alert>
-              <s-alert type="error" icon-type="iconcry-filling" show-icon
-                >错误</s-alert
+              <s-table
+                class="customize"
+                :data="tableData"
+                :row-class-name="rowClassName"
               >
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">显示图标</div>
+            <div class="starv-code__describe--title">自定义行样式</div>
             <p>
-              <code>show-icon</code>设置显示图标， <code>slot="icon"</code>或
-              <code>icon-type</code>属性自定义图标。
+              <code>row-class-name</code>属性对应函数的返回class值设置样式
               <i
                 :class="[
                   'star-icon',
@@ -84,13 +82,58 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details-lg--show': show.num5 },
+              { 'starv-code__details-lger--show': show.num5 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertIcon}}
+                {{tableRowClass}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-table class="customize" :data="cellStyleData">
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">
+              自定义单元格样式
+            </div>
+            <p>data数组对象中属性
+              <code>cellClassName</code>属性设置单元格的样式类
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num3 },
+                ]"
+                @click="show.num3 = !show.num3"
+                :title="show.num3 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details-lger--show': show.num3 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tableCellClass}}
                </code>
             </pre>
             </div>
@@ -144,13 +187,19 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-alert type="success" show-icon closable>成功</s-alert>
+              <s-table class="customize" :data="tableData">
+                <column prop="name" class-name="info">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">关闭</div>
+            <div class="starv-code__describe--title">自定义列样式</div>
             <p>
-              <code>closable</code>属性设置是否可关闭。
+              column组件的 <code>class-name</code>属性设置列的样式类。
               <i
                 :class="[
                   'star-icon',
@@ -166,13 +215,13 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details-sm--show': show.num4 },
+              { 'starv-code__details-lger--show': show.num4 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertClose}}
+                {{tableColClass}}
                </code>
             </pre>
             </div>
@@ -296,6 +345,7 @@ export default {
       show: {
         num1: false,
         num2: false,
+        num3: false,
         num4: false,
         num5: false,
         num7: false,
@@ -339,8 +389,66 @@ export default {
           room: "3605",
         },
       ],
+      cellStyleData: [
+        {
+          name: "张玮",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+        },
+        {
+          name: "曾小贤",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+          cellClassName: {
+            room: "error",
+            name: "info",
+          },
+        },
+        {
+          name: "林宛瑜",
+          sex: "女",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3605",
+        },
+        {
+          name: "吕小布",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+        },
+        {
+          name: "陈美嘉",
+          sex: "女",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3605",
+        },
+      ],
     };
   },
-  methods: {},
+  methods: {
+    rowClassName(row, index) {
+      if (row.name === "林宛瑜") {
+        return "error";
+      }
+      return "";
+    },
+  },
 };
 </script>
+<style lang="less" scoped>
+.customize /deep/ .error {
+  background-color: #ff6600;
+  color: #fff;
+}
+.customize /deep/ .info {
+  background-color: #2db7f5;
+  color: #fff;
+}
+</style>

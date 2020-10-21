@@ -43,6 +43,7 @@ export default {
     },
     tableCode: String,
     tableWidth: Number,
+    rowClassName: Function,
   },
   data() {
     return {
@@ -70,8 +71,8 @@ export default {
         ,
         { [`${prefixCls}-row-hover`]: row.isHover },
       ];
-      if (typeOf(this.$parent.rowClassName) === "function") {
-        classList.push(this.$parent.rowClassName(row, index));
+      if (typeOf(this.rowClassName) === "function") {
+        classList.push(this.rowClassName(row, index));
       }
       return classList;
     },
