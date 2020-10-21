@@ -6,6 +6,7 @@
     &-wrap {
         overflow: hidden;
         position: relative;
+        box-sizing: border-box;
     }
 
     th {
@@ -26,12 +27,18 @@
     }
 
     &-border {
-        border-top: 1px solid @border-color-split;
-        border-right: 1px solid @border-color-split;
 
         th,
         td {
             border-left: 1px solid @border-color-split;
+        }
+
+        th {
+            border-top: 1px solid @border-color-split;
+        }
+
+        tr {
+            border-right: 1px solid @border-color-split;
         }
     }
 

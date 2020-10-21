@@ -1,5 +1,5 @@
 <template>
-  <div :class="wrapClasses" :style="tableStyles">
+  <div :class="wrapClasses" :style="tableStyles" ref="wrapTable">
     <table-header ref="header" />
     <table-body ref="bodyTable" />
   </div>
@@ -59,6 +59,11 @@ export default {
   },
   mounted() {
     this.tableCode = this.getUuid();
+    if (!this.width) {
+      this.tableWidth = this.$refs.wrapTable.offsetWidth;
+      this.formatColumns();
+      return;
+    }
   },
   computed: {
     fixedStyles() {
@@ -70,7 +75,7 @@ export default {
     },
     tableStyles() {
       return {
-        width: this.width + "px",
+        width: (this.width || this.tableWidth||undefined) + "px",
         height: this.height + "px",
       };
     },
@@ -132,10 +137,6 @@ export default {
       }
     },
     columnsList() {
-      if (!this.width) {
-        this.tableWidth = "auto";
-        return;
-      }
       let columns = [...this.columnSlot];
       this.fixedLeft = [];
       this.fixedRight = [];
@@ -155,7 +156,8 @@ export default {
           i--;
         }
       }
-      this.tableWidth = tableWidth;
+      this.tableWidth =
+        tableWidth < this.tableWidth ? this.tableWidth : tableWidth;
       return [...this.fixedLeft, ...columns, ...this.fixedRight];
     },
     halfChecked() {
@@ -180,10 +182,13 @@ export default {
       }
     },
     formatColumns() {
-      if (!this.width) return;
-      let totalWidth = this.isScroll
-        ? this.width - this.scrollWidth
-        : this.width;
+      let totalWidth;
+      if (this.width) {
+        totalWidth = this.isScroll ? this.width - this.scrollWidth : this.width;
+      } else {
+        totalWidth = this.tableWidth;
+      }
+
       let length = this.columnSlot.length;
       this.columnSlot.forEach((o) => {
         totalWidth -= o.width || 0;

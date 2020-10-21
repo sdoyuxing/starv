@@ -9,12 +9,12 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-table>
+              <s-table :data="tableData">
                 <column prop="name">姓名</column>
                 <column prop="sex">性别</column>
                 <column prop="age">年龄</column>
-                <column prop="nian">年级</column>
-                <column prop="ban">班级</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
               </s-table>
             </div>
           </section>
@@ -37,12 +37,12 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details-sm--show': show.num1 },
+              { 'starv-code__details-lg--show': show.num1 },
             ]"
           >
             <pre v-highlight>
                <code class="html"> 
-                {{alertBasc}}
+                {{tableBasc}}
                </code>
             </pre>
           </section>
@@ -101,18 +101,19 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-alert type="info">详情</s-alert>
-              <s-alert type="success">成功</s-alert>
-              <s-alert type="warning">警告</s-alert>
-              <s-alert type="error">错误</s-alert>
+              <s-table :data="tableData" bordered>
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">四种样式</div>
+            <div class="starv-code__describe--title">带边框</div>
             <p>
-              <code>type</code>可以设置 <code>info</code>、
-              <code>success</code>、 <code>warning</code>、
-              <code>error</code>四种样式，默认是 <code>info</code>样式。
+              <code>bordered</code>可以设置带边框样式。
               <i
                 :class="[
                   'star-icon',
@@ -128,13 +129,13 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details--show': show.num2 },
+              { 'starv-code__details-lg--show': show.num2 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{alertType}}
+                {{tableBorder}}
                </code>
             </pre>
             </div>
@@ -288,7 +289,7 @@
   </article>
 </template>
 <script>
-import alert from "../codeDemo/alert";
+import table from "../codeDemo/table";
 export default {
   data() {
     return {
@@ -300,7 +301,44 @@ export default {
         num7: false,
         num8: false,
       },
-      ...alert,
+      ...table,
+      tableData: [
+        {
+          name: "张玮",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+        },
+        {
+          name: "曾小贤",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+        },
+        {
+          name: "林宛瑜",
+          sex: "女",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3605",
+        },
+        {
+          name: "吕小布",
+          sex: "男",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3606",
+        },
+        {
+          name: "陈美嘉",
+          sex: "女",
+          age: 18,
+          flats: "爱情公寓",
+          room: "3605",
+        },
+      ],
     };
   },
   methods: {},

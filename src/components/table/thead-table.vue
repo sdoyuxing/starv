@@ -16,7 +16,7 @@
           :col="col"
           :showFixed="showFixed"
         />
-        <column style="padding: 0"></column>
+        <column v-if="isScroll" style="padding: 0"></column>
       </tr>
     </thead>
   </table>
