@@ -147,6 +147,33 @@ export default {
 }
 </style>`;
 
+const tableFixed = `
+<template>
+  <div>
+    <s-table :data="tableData" width="700">
+      <column prop="name" width="100" fixed="left">姓名</column>
+      <column prop="sex" width="200">性别</column>
+      <column prop="age" width="200">年龄</column>
+      <column prop="flats" width="200">公寓</column>
+      <column prop="room" fixed="right" width="100">房间</column>
+    </s-table>
+  </div>
+</template>
+<script>
+export default {
+  data(){
+    return{
+      cellStyleData: [
+        { name: "张玮", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+        { name: "曾小贤", sex: "男", age: 18, flats: "爱情公寓", room: "3606", cellClassName: { room: "error", name: "info" } },
+        { name: "林宛瑜", sex: "女", age: 18, flats: "爱情公寓", room: "3605" },
+        { name: "吕小布", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+        { name: "陈美嘉", sex: "女", age: 18, flats: "爱情公寓", room: "3605" }]
+    }
+  }
+};
+</script>`;
+
 const alertAPI = [{
   name: "type",
   desc: "告警提示类型，可选值为 <code>info</code>、<code>success</code>、<code>warning</code>、<code>error</code>或者不设置",
@@ -199,7 +226,7 @@ export default {
   tableRowClass,
   tableColClass,
   tableCellClass,
+  tableFixed,
   alertAPI,
   alertEvents,
-  alertSlots,
 }

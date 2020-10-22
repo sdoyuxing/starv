@@ -3,7 +3,7 @@
     <div :class="fixedClasses" :style="fixedStyles">
       <thead-table
         :columnsList="columnsList"
-        :isScroll="isScroll"
+        :isScrollY="isScrollY"
         :scrollWidth="scrollWidth"
         :tableWidth="tableWidth"
         :showFixed="true"
@@ -13,7 +13,7 @@
     <div :class="fixedRightClasses" :style="fixedRightStyles">
       <thead-table
         :columnsList="columnsList"
-        :isScroll="isScroll"
+        :isScrollY="isScrollY"
         :scrollWidth="scrollWidth"
         :tableWidth="tableWidth"
         :tableCode="tableCode"
@@ -23,7 +23,7 @@
     <thead-table
       :style="theadStyles"
       :columnsList="columnsList"
-      :isScroll="isScroll"
+      :isScrollY="isScrollY"
       :scrollWidth="scrollWidth"
       :tableWidth="tableWidth"
       :tableCode="tableCode"
@@ -50,8 +50,8 @@ export default {
     columnsList() {
       return this.$parent.columnsList;
     },
-    isScroll() {
-      return this.$parent.isScroll;
+    isScrollY() {
+      return this.$parent.isScrollY;
     },
     scrollWidth() {
       return this.$parent.scrollWidth;
@@ -80,7 +80,7 @@ export default {
         (total, o) => (total += o._width * 1),
         0
       );
-      if (this.isScroll) total += this.scrollWidth + 3;
+      if (this.isScrollY) total += this.scrollWidth + 3;
       return { width: total + "px" };
     },
   },

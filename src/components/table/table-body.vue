@@ -58,12 +58,11 @@ export default {
     tbodyTable,
   },
   mounted() {
-    this.$parent.isScroll =
-      this.$refs.bodyTable.offsetHeight < this.$refs.table.$el.offsetHeight;
-    this.$parent.isScrollY =
-      this.$refs.bodyTable.offsetWidth < this.$refs.table.$el.offsetWidth;
-    this.fixedRightShadow = this.$parent.isScrollY;
+    this.fixedRightShadow = this.$parent.isScrollX;
     this.$parent.scrollWidth = getScrollWidth(this.$refs.bodyTable);
+    let isScroll = this.getIsScroll();
+    this.$parent.isScrollY = isScroll.isScrollY;
+    this.$parent.isScrollX = isScroll.isScrollX;
     this.$parent.formatColumns();
   },
   computed: {
@@ -71,25 +70,28 @@ export default {
       return this.$parent.rowClassName;
     },
     tableWidth() {
-      return this.$parent.tableWidth;
+      return this.$parent.isScrollY
+        ? this.$parent.tableWidth - this.$parent.scrollWidth
+        : this.$parent.tableWidth;
     },
     fixedBodyRightStyles() {
       let total = this.$parent.fixedRight.reduce(
         (total, o) => (total += o._width * 1),
         0
       );
-      if (this.$parent.isScroll) total += this.$parent.scrollWidth + 3;
+      if (this.$parent.isScrollY) total += this.$parent.scrollWidth + 3;
       return {
-        width: this.$parent.isScroll
-          ? total - this.$parent.scrollWidth - 3 + "px"
-          : total,
-        height:
+        width:
           (this.$parent.isScrollY
+            ? total - this.$parent.scrollWidth - 3
+            : total) + "px",
+        height:
+          (this.$parent.isScrollX
             ? this.$parent.height - 62
             : this.$parent.height - 45) + "px",
-        right: this.$parent.isScroll ? this.$parent.scrollWidth + "px" : 0,
+        right: this.$parent.isScrollY ? this.$parent.scrollWidth + "px" : 0,
         boxShadow: this.fixedRightShadow
-          ? " -5px 2px 5px 0 rgba(0,0,0,.15)"
+          ? " -4px 2px 4px 0 rgba(0,0,0,.15)"
           : "none",
       };
     },
@@ -107,7 +109,7 @@ export default {
         "overflow-y": "auto",
         "overflow-x": "hidden",
         height: "100%",
-        "margin-right": "-17px",
+        "margin-right": this.$parent.isScrollY ? "-17px" : "0px",
       };
     },
     columnsList() {
@@ -138,10 +140,10 @@ export default {
       return {
         width: total + "px",
         height:
-          (this.$parent.isScrollY
+          (this.$parent.isScrollX
             ? this.$parent.height - 62
             : this.$parent.height - 45) + "px",
-        boxShadow: this.fixedShadow ? " 5px 2px 5px 0 rgba(0,0,0,.15)" : "none",
+        boxShadow: this.fixedShadow ? " 4px 2px 4px 0 rgba(0,0,0,.15)" : "none",
       };
     },
   },
@@ -169,7 +171,7 @@ export default {
       }
       if (
         this.$refs.bodyTable.scrollLeft + this.$refs.bodyTable.offsetWidth !==
-        (this.$parent.isScroll
+        (this.$parent.isScrollY
           ? this.$refs.table.$el.offsetWidth + this.$parent.scrollWidth
           : this.$refs.table.$el.offsetWidth)
       )
@@ -195,6 +197,23 @@ export default {
         clearTimeout(timeOut);
         timeOut = "";
       }, 100);
+    },
+    getIsScroll() {
+      let isScrollY =
+          this.$refs.bodyTable.offsetHeight < this.$refs.table.$el.offsetHeight,
+        isScrollX =
+          this.$refs.bodyTable.offsetWidth < this.$refs.table.$el.offsetWidth;
+      if (isScrollX && !isScrollY) {
+        isScrollY =
+          this.$refs.bodyTable.offsetHeight - this.$parent.scrollWidth <
+          this.$refs.table.$el.offsetHeight;
+      }
+      if (isScrollY && !isScrollX) {
+        isScrollX =
+          this.$refs.bodyTable.offsetWidth - this.$parent.scrollWidth <
+          this.$refs.table.$el.offsetWidth;
+      }
+      return { isScrollY, isScrollX };
     },
   },
 };

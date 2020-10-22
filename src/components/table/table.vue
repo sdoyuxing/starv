@@ -35,8 +35,8 @@ export default {
   },
   data() {
     return {
-      isScroll: false,
       isScrollY: false,
+      isScrollX: false,
       scrollWidth: 0,
       scrollInex: 0,
       tableWidth: 0,
@@ -75,7 +75,7 @@ export default {
     },
     tableStyles() {
       return {
-        width: (this.width || this.tableWidth||undefined) + "px",
+        width: (this.width || this.tableWidth || undefined) + "px",
         height: this.height + "px",
       };
     },
@@ -150,8 +150,7 @@ export default {
         if (columns[i].fixed && columns[i].fixed === "left") {
           this.fixedLeft.push(columns.splice(i, 1)[0]);
           i--;
-        }
-        if (columns[i].fixed && columns[i].fixed === "right") {
+        } else if (columns[i].fixed && columns[i].fixed === "right") {
           this.fixedRight.unshift(columns.splice(i, 1)[0]);
           i--;
         }
@@ -184,9 +183,13 @@ export default {
     formatColumns() {
       let totalWidth;
       if (this.width) {
-        totalWidth = this.isScroll ? this.width - this.scrollWidth : this.width;
+        totalWidth = this.isScrollY
+          ? this.width - this.scrollWidth
+          : this.width;
       } else {
-        totalWidth = this.tableWidth;
+        totalWidth = this.isScrollY
+          ? this.tableWidth - this.scrollWidth
+          : this.tableWidth;
       }
 
       let length = this.columnSlot.length;

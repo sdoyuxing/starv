@@ -6,7 +6,7 @@
         :key="tableCode + '_col_' + index"
         :width="column._width"
       />
-      <col v-if="isScroll" :width="scrollWidth" />
+      <col v-if="isScrollY" :width="scrollWidth" />
     </colgroup>
     <thead>
       <tr>
@@ -16,7 +16,7 @@
           :col="col"
           :showFixed="showFixed"
         />
-        <column v-if="isScroll" style="padding: 0"></column>
+        <column v-if="isScrollY" style="padding: 0"></column>
       </tr>
     </thead>
   </table>
@@ -25,7 +25,7 @@
 import column from "./column";
 export default {
   props: {
-    isScroll: {
+    isScrollY: {
       type: Boolean,
       default: false,
     },
@@ -55,7 +55,7 @@ export default {
       return this.tableWidth === 0
         ? {}
         : {
-            width: this.isScroll
+            width: this.isScrollY
               ? this.tableWidth + this.scrollWidth + "px"
               : this.tableWidth + "px",
           };
