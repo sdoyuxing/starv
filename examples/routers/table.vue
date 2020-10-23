@@ -182,6 +182,94 @@
             </div>
           </section>
         </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-table :data="tableData">
+                <column type="checkbox"></column>
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">多选</div>
+            <p>
+              通过给 columns 数据设置一项，指定
+              <code>type: 'checkbox'</code>，即可自动开启多选功能
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num9 },
+                ]"
+                @click="show.num9 = !show.num9"
+                :title="show.num9 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details-lger--show': show.num9 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tableCheckbox}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-table :data="tableData">
+                <column prop="name">姓名</column>
+                <column prop="sex" :filters="filters">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+              </s-table>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">筛选</div>
+            <p>
+              column组件或者columns数组对象中添加<code>filters</code>属性开启筛选，filters值是你要筛选值的数组。
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num11 },
+                ]"
+                @click="show.num11 = !show.num11"
+                :title="show.num11 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details-lger--show': show.num11 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tableFilters}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
       </div>
       <div class="starv-col">
         <section class="starv-code">
@@ -357,6 +445,99 @@
             </div>
           </section>
         </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-table :data="tableData">
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room" sort>房间</column>
+              </s-table>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">排序</div>
+            <p>
+              column组件或者columns数组对象中添加<code>sort</code>属性开启排序
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num10 },
+                ]"
+                @click="show.num10 = !show.num10"
+                :title="show.num10 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details-lger--show': show.num10 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tableSort}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-table :data="tableData">
+                <column prop="name">姓名</column>
+                <column prop="sex">性别</column>
+                <column prop="age">年龄</column>
+                <column prop="flats">公寓</column>
+                <column prop="room">房间</column>
+                <column width="200" align="center" fixed="right">
+                  操作
+                  <template slot="format">
+                    <s-button type="info">查看</s-button>
+                    <s-button type="error">删除</s-button>
+                  </template>
+                </column>
+              </s-table>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">自定义列模板</div>
+            <p>
+              <code>slot="format"</code>自定义列模板
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num12 },
+                ]"
+                @click="show.num12 = !show.num12"
+                :title="show.num12 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details-lger--show': show.num12 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tableFormat}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
       </div>
     </section>
     <section class="starv-clear">
@@ -431,7 +612,21 @@ export default {
         num7: false,
         num6: false,
         num8: false,
+        num9: false,
+        num10: false,
+        num11: false,
+        num12: false,
       },
+      filters: [
+        {
+          text: "男",
+          value: "男",
+        },
+        {
+          text: "女",
+          value: "女",
+        },
+      ],
       ...table,
       tableData: [
         {

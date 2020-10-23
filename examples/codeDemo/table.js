@@ -174,6 +174,124 @@ export default {
 };
 </script>`;
 
+const tableCheckbox = `
+<template>
+  <div>
+    <s-table :data="tableData">
+      <column type="checkbox"></column>
+      <column prop="name">姓名</column>
+      <column prop="sex">性别</column>
+      <column prop="age">年龄</column>
+      <column prop="flats">公寓</column>
+      <column prop="room">房间</column>
+    </s-table>
+  </div>
+</template>
+<script>
+export default {
+  data(){
+    return{
+      tableData: [{ name: "张玮", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "曾小贤", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "林宛瑜", sex: "女", age: 18, flats: "爱情公寓", room: "3605" },
+      { name: "吕小布", sex: "男", age: 18, flats: "爱情公寓", room: "3606" }]
+    }
+  }
+};
+</script>`;
+
+const tableSort = `
+<template>
+  <div>
+    <s-table :data="tableData">
+      <column prop="name">姓名</column>
+      <column prop="sex">性别</column>
+      <column prop="age">年龄</column>
+      <column prop="flats">公寓</column>
+      <column prop="room" sort>房间</column>
+    </s-table>
+  </div>
+</template>
+<script>
+export default {
+  data(){
+    return{
+      tableData: [{ name: "张玮", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "曾小贤", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "林宛瑜", sex: "女", age: 18, flats: "爱情公寓", room: "3605" },
+      { name: "吕小布", sex: "男", age: 18, flats: "爱情公寓", room: "3606" }]
+    }
+  }
+};
+</script>`;
+
+const tableFilters = `
+<template>
+  <div>
+    <s-table :data="tableData">
+      <column prop="name">姓名</column>
+      <column prop="sex" :filters="filters">性别</column>
+      <column prop="age">年龄</column>
+      <column prop="flats">公寓</column>
+      <column prop="room">房间</column>
+    </s-table>
+  </div>
+</template>
+<script>
+export default {
+  data(){
+    return{
+      filters: [
+        {
+          text: "男",
+          value: "男",
+        },
+        {
+          text: "女",
+          value: "女",
+        },
+      ],
+      tableData: [{ name: "张玮", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "曾小贤", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "林宛瑜", sex: "女", age: 18, flats: "爱情公寓", room: "3605" },
+      { name: "吕小布", sex: "男", age: 18, flats: "爱情公寓", room: "3606" }]
+    }
+  }
+};
+</script>`;
+
+const tableFormat = `
+<template>
+  <div>
+      <s-table :data="tableData">
+        <column prop="name">姓名</column>
+        <column prop="sex">性别</column>
+        <column prop="age">年龄</column>
+        <column prop="flats">公寓</column>
+        <column prop="room">房间</column>
+        <column width="200" align="center" fixed="right">
+          操作
+          <template slot="format">
+            <s-button type="info">查看</s-button>
+            <s-button type="error">删除</s-button>
+          </template>
+        </column>
+      </s-table>
+  </div>
+</template>
+<script>
+export default {
+  data(){
+    return{
+      tableData: [{ name: "张玮", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "曾小贤", sex: "男", age: 18, flats: "爱情公寓", room: "3606" },
+      { name: "林宛瑜", sex: "女", age: 18, flats: "爱情公寓", room: "3605" },
+      { name: "吕小布", sex: "男", age: 18, flats: "爱情公寓", room: "3606" }]
+    }
+  }
+};
+</script>`;
+
 const alertAPI = [{
   name: "type",
   desc: "告警提示类型，可选值为 <code>info</code>、<code>success</code>、<code>warning</code>、<code>error</code>或者不设置",
@@ -226,6 +344,10 @@ export default {
   tableRowClass,
   tableColClass,
   tableCellClass,
+  tableCheckbox,
+  tableSort,
+  tableFilters,
+  tableFormat,
   tableFixed,
   alertAPI,
   alertEvents,

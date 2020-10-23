@@ -5,7 +5,7 @@
     </template>
     <template v-else>
       {{ col.title }}
-      <div :class="sortClasses" v-if="col.sortable">
+      <div :class="sortClasses" v-if="col.sort">
         <Icon type="iconpaixujiantoushang" :class="sortUpClasses" />
         <Icon type="iconpaixujiantouxia" :class="sortDownClasses" />
       </div>
@@ -20,6 +20,7 @@
 <script>
 const prefixCls = "sta-table";
 const sortList = ["", "asc", "desc"];
+import { findComponentUpward } from "../../utils/assist";
 import Icon from "../icon";
 import sCheckbox from "../checkbox";
 import filterTooltip from "./filter-tooltip";
@@ -45,17 +46,18 @@ export default {
       isCheck: this.isAllCheck,
       sort: "",
       changeDisable: true,
+      table: findComponentUpward(this, "sTable"),
     };
   },
   computed: {
     tableCode() {
-      return this.$parent.tableCode;
+      return this.table.tableCode;
     },
     halfChecked() {
-      return this.$parent.halfChecked;
+      return this.table.halfChecked;
     },
     isAllCheck() {
-      return this.$parent.isAllCheck;
+      return this.table.isAllCheck;
     },
     sortClasses() {
       return `${prefixCls}-sort`;
@@ -75,7 +77,7 @@ export default {
       ];
     },
     colClasses() {
-      return { [`${prefixCls}-col-sort`]: this.col.sortable };
+      return { [`${prefixCls}-col-sort`]: this.col.sort };
     },
   },
   methods: {
@@ -88,19 +90,20 @@ export default {
       };
     },
     sortChange() {
-      if (this.col.sortable) {
+      if (this.col.sort) {
         const num = sortList.indexOf(this.sort) + 1;
         this.sort = sortList[num > 2 ? 0 : num];
-        this.$parent.sortChange(this.sort, this.col.key);
+        this.table.sortChange(this.sort, this.col.key);
       }
     },
     filterChange(filterSelect, key) {
-      this.$parent.filterChange(filterSelect, key);
+      this.table.filterChange(filterSelect, key);
     },
   },
   watch: {
     isCheck(val) {
-      this.$parent.checkAll(val);
+      let table = findComponentUpward(this, "sTable");
+      table.checkAll(val);
     },
     isAllCheck(val) {
       this.isCheck = val;

@@ -28,7 +28,7 @@
   </table>
 </template>
 <script>
-import { deepCopy, typeOf } from "../../utils/assist";
+import { typeOf } from "../../utils/assist";
 import cell from "./cell";
 const prefixCls = "sta-table";
 export default {
@@ -44,11 +44,6 @@ export default {
     tableCode: String,
     tableWidth: Number,
     rowClassName: Function,
-  },
-  data() {
-    return {
-      data: deepCopy(this.tableData),
-    };
   },
   components: {
     cell,
@@ -81,11 +76,6 @@ export default {
     },
     handleLeave(index) {
       this.tableData[index].isHover = false;
-    },
-  },
-  watch: {
-    tableData() {
-      this.data = deepCopy(this.tableData);
     },
   },
 };

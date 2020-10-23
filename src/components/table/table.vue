@@ -50,6 +50,7 @@ export default {
       fixedShadow: false,
       fixedRightShadow: false,
       headerMarginLeft: "",
+      halfChecked: false,
     };
   },
   components: {
@@ -108,7 +109,7 @@ export default {
                     render: o.data.attrs.render,
                     type: o.data.attrs.type,
                     align: o.data.attrs.align,
-                    sortable: "sortable" in o.data.attrs ? true : false,
+                    sort: "sort" in o.data.attrs ? true : false,
                     filters: o.data.attrs.filters,
                     fixed: o.data.attrs.fixed,
                   }
@@ -159,15 +160,6 @@ export default {
         tableWidth < this.tableWidth ? this.tableWidth : tableWidth;
       return [...this.fixedLeft, ...columns, ...this.fixedRight];
     },
-    halfChecked() {
-      if (this.tableData.every((o) => o.isCheck)) this.isAllCheck = true;
-      else if (!this.tableData.some((o) => o.isCheck)) this.isAllCheck = false;
-      else this.isAllCheck = 0;
-      return (
-        !this.tableData.every((o) => o.isCheck) &&
-        this.tableData.some((o) => o.isCheck)
-      );
-    },
   },
   methods: {
     filterChange(filters, key) {
@@ -215,6 +207,12 @@ export default {
       return "starTable_" + Date.now() + "_" + this.seed++;
     },
     checkChange(val, row, index) {
+      if (this.tableData.every((o) => o.isCheck)) this.isAllCheck = true;
+      else if (!this.tableData.some((o) => o.isCheck)) this.isAllCheck = false;
+      else this.isAllCheck = 0;
+      this.halfChecked =
+        !this.tableData.every((o) => o.isCheck) &&
+        this.tableData.some((o) => o.isCheck);
       this.$emit("on-check-change", val, row, index);
     },
     getCheckRow() {

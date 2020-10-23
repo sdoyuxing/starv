@@ -17,7 +17,7 @@
   </td>
 </template>
 <script>
-import { typeOf } from "../../utils/assist";
+import { typeOf, findComponentUpward } from "../../utils/assist";
 import render from "../base/render";
 import vnRender from "../base/vnRender";
 import sCheckbox from "../checkbox";
@@ -69,6 +69,10 @@ export default {
         throw new TypeError("render is not a function");
         return "";
       }
+    },
+    checkChange(val, row, index) {
+      let table = findComponentUpward(this, "sTable");
+      table.checkChange(val, row, index);
     },
   },
 };
