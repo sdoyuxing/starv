@@ -562,7 +562,24 @@
       </table>
       <br />
       <br />
-      <h3>Alert events</h3>
+      <h3>Table slots</h3>
+      <br />
+      <table class="starv-table">
+        <thead>
+          <th>名称</th>
+          <th>说明</th>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in tableSlots" :key="index">
+            <td v-html="item.name"></td>
+            <td v-html="item.desc"></td>
+            <td v-html="item.type"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <br />
+      <h3>Table events</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -600,7 +617,7 @@
       </table>
       <br />
       <br />
-      <h3>Alert slots</h3>
+      <h3>Column slots</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -608,7 +625,7 @@
           <th>说明</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in alertSlots" :key="index">
+          <tr v-for="(item, index) in columnSlots" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>

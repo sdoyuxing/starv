@@ -365,12 +365,9 @@ const tableEvents = [{
   <br/> <code>column</code>:单击单元格所在的列字段`
 }];
 
-const alertSlots = [{
+const tableSlots = [{
   name: "无",
-  desc: "警告提示内容",
-}, {
-  name: "icon",
-  desc: "自定义图标内容",
+  desc: "column组件设置表格列",
 }];
 
 const columnProps = [{
@@ -393,6 +390,11 @@ const columnProps = [{
   desc: "对齐方式，可选值为 left 左对齐、right 右对齐和 center 居中对齐",
   type: "String",
   default: "left"
+}, {
+  name: "render",
+  desc: "自定义渲染列",
+  type: "Function",
+  default: "-"
 }, {
   name: "class-name",
   desc: "列的样式名称",
@@ -430,6 +432,13 @@ const columnProps = [{
   default: "-"
 }];
 
+const columnSlots = [{
+  name: "无",
+  desc: "表格列名称",
+},{
+  name: "format",
+  desc: "自定义渲染列",
+}];
 export default {
   tableBasc,
   tableBorder,
@@ -443,5 +452,7 @@ export default {
   tableFixed,
   tableAPI,
   tableEvents,
-  columnProps
+  columnProps,
+  tableSlots,
+  columnSlots
 }
