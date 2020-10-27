@@ -2,16 +2,16 @@
   <div class="app" id="app">
     <!-- <layout></layout> -->
     <div class="starv-menu" @mouseenter="mouseenter" @mousewheel="scroll">
-      <div ref="leftMenu" style="height:100%; overflow: hidden;">
+      <div ref="leftMenu" style="height: 100%; overflow: hidden">
         <ul class="starv-menu__list" ref="menuBox">
           <li
-            v-for="(item,index) in routers"
+            v-for="(item, index) in routers"
             :key="index"
             class="starv-menu__item"
-            :class="{'starv-menu__item--selected':selected===index}"
+            :class="{ 'starv-menu__item--selected': selected === index }"
             @click="clickItem(index)"
           >
-            <a>{{item.name}}</a>
+            <a>{{ item.name }}</a>
           </li>
         </ul>
       </div>
@@ -56,6 +56,7 @@ export default {
         { name: "Poptip 气泡提示", url: "/poptip" },
         { name: "Modal 对话框", url: "/modal" },
         { name: "Table 表格", url: "/table" },
+        { name: "Tabs 标签页", url: "/tabs" },
         { name: "demo", url: "/ebutton" },
       ],
     };

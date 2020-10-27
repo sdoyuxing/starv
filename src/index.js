@@ -14,6 +14,7 @@ import notice from './components/notice'
 import sPoptip from './components/poptip'
 import sModal from './components/modal'
 import sTable from './components/table'
+import sTabs from './components/tabs'
 import {
     sSelect,
     Option
@@ -38,7 +39,8 @@ const components = {
     sPagination,
     sPoptip,
     sModal,
-    sTable
+    sTable,
+    sTabs
 };
 
 const iview = components;
