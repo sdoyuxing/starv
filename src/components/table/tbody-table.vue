@@ -14,6 +14,8 @@
         :key="tableCode + '_row_' + index"
         @mouseenter="handleEnterr(index)"
         @mouseleave="handleLeave(index)"
+        @click="rowClick(row, index)"
+        @dblclick="rowDblclick(row, index)"
       >
         <cell
           v-for="(col, d) in columnsList"
@@ -28,7 +30,7 @@
   </table>
 </template>
 <script>
-import { typeOf } from "../../utils/assist";
+import { typeOf, findComponentUpward } from "../../utils/assist";
 import cell from "./cell";
 const prefixCls = "sta-table";
 export default {
@@ -77,6 +79,12 @@ export default {
     handleLeave(index) {
       this.tableData[index].isHover = false;
     },
+    rowClick(row, index) {
+      findComponentUpward(this, "sTable").rowClick(row, index);
+    },
+    rowDblclick(row, index){
+      findComponentUpward(this, "sTable").rowDblclick(row, index);
+    }
   },
 };
 </script>

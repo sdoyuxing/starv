@@ -1,5 +1,9 @@
 <template>
-  <td :class="cellClasses(row, col)" :style="cellStyles(col)">
+  <td
+    :class="cellClasses(row, col)"
+    :style="cellStyles(col)"
+    @click="cellClick(row, col)"
+  >
     <span v-if="col.type === 'index'" v-text="index + 1"></span>
     <s-checkbox
       v-else-if="col.type === 'checkbox'"
@@ -73,6 +77,10 @@ export default {
     checkChange(val, row, index) {
       let table = findComponentUpward(this, "sTable");
       table.checkChange(val, row, index);
+    },
+    cellClick(row, col) {
+      let table = findComponentUpward(this, "sTable");
+      table.cellClick(row, col);
     },
   },
 };

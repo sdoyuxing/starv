@@ -292,42 +292,77 @@ export default {
 };
 </script>`;
 
-const alertAPI = [{
-  name: "type",
-  desc: "告警提示类型，可选值为 <code>info</code>、<code>success</code>、<code>warning</code>、<code>error</code>或者不设置",
-  type: "String",
-  default: "info"
+const tableAPI = [{
+  name: "data",
+  desc: "表格数据",
+  type: "Array",
+  default: "[]"
 }, {
-  name: "closable",
-  desc: "是否可关闭",
+  name: "columns",
+  desc: "表格列的配置",
+  type: "Array",
+  default: "[]"
+}, {
+  name: "bordered",
+  desc: "是否显示纵向边框",
   type: "Boolean",
   default: "false"
 }, {
-  name: "show-icon",
-  desc: "是否显示图标",
-  type: "Boolean",
-  default: "false"
+  name: "width",
+  desc: "表格宽度，单位 px",
+  type: "Number | String",
+  default: "自动"
 }, {
-  name: "backgroundColor",
-  desc: "是否背景颜色",
-  type: "String",
+  name: "height",
+  desc: "表格高度，单位 px",
+  type: "Number | String",
   default: "-"
 }, {
-  name: "fontColor",
-  desc: "是否字体颜色",
-  type: "String",
+  name: "row-class-name",
+  desc: "行的 className 的回调方法",
+  type: "Function",
   default: "-"
 }, {
-  name: "iconColor",
-  desc: "是否图标颜色",
+  name: "no-data-text",
+  desc: "数据为空时显示的提示内容",
   type: "String",
   default: "-"
 }];
 
-const alertEvents = [{
-  name: "on-close",
-  desc: "关闭时触发",
-  type: "event"
+const tableEvents = [{
+  name: "on-check-change",
+  desc: "多选下，选中或取消某一项触发",
+  type: `<code>checked</code>:true为选中，flase为取消
+         <br/> <code>row</code>:选中或取消的行数据
+         <br/> <code>index</code>:选中或取消的行索引`
+}, {
+  name: "on-all-change",
+  desc: "多选下，全选中或全取消触发",
+  type: `<code>checked</code>:true为选中，flase为取消`
+}, {
+  name: "on-sort-change",
+  desc: "排序时有效，当点击排序时触发",
+  type: `<code>key</code>:排序的列字段<br/>
+         <code>order</code>:排序的顺序，值为 asc 或 desc`
+}, {
+  name: "on-filter-change",
+  desc: "筛选时有效，筛选条件发生变化时触发",
+  type: `当前列数据`
+}, {
+  name: "on-row-click",
+  desc: "单击某一行时触发",
+  type: `<code>row</code>:单击的行数据
+  <br/> <code>index</code>:单击的行索引`
+}, {
+  name: "on-row-dblclick",
+  desc: "双击某一行时触发",
+  type: `<code>row</code>:双击的行数据
+  <br/> <code>index</code>:双击的行索引`
+}, {
+  name: "on-cell-click",
+  desc: "点击单元格时触发",
+  type: `<code>row</code>:单击单元格所在的行数据
+  <br/> <code>column</code>:单击单元格所在的列字段`
 }];
 
 const alertSlots = [{
@@ -336,6 +371,63 @@ const alertSlots = [{
 }, {
   name: "icon",
   desc: "自定义图标内容",
+}];
+
+const columnProps = [{
+  name: "type",
+  desc: "列类型，可选值：checkbox",
+  type: "String",
+  default: "-"
+}, {
+  name: "prop",
+  desc: "对应列内容的字段名",
+  type: "String",
+  default: "-"
+}, {
+  name: "width",
+  desc: "列宽",
+  type: "Number",
+  default: "-"
+}, {
+  name: "align",
+  desc: "对齐方式，可选值为 left 左对齐、right 右对齐和 center 居中对齐",
+  type: "String",
+  default: "left"
+}, {
+  name: "class-name",
+  desc: "列的样式名称",
+  type: "String",
+  default: "-"
+}, {
+  name: "fixed",
+  desc: "列是否固定在左侧或者右侧，可选值为 left 左侧和 right 右侧",
+  type: "String",
+  default: "-"
+}, {
+  name: "sort",
+  desc: "对应列是否可以排序",
+  type: "String",
+  default: "-"
+}, {
+  name: "sortMethod",
+  desc: "自定义排序使用的方法",
+  type: "Function",
+  default: "-"
+}, {
+  name: "sortType",
+  desc: "设置初始化排序。值为 asc 和 desc",
+  type: "String",
+  default: "-"
+}, {
+  name: "filters",
+  desc: "过滤数据的选项，格式为数组，数组中每项包含 label 和 value 属性",
+  type: "Array",
+  default: "-"
+}, {
+  name: "filterMethod",
+  desc: "数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示",
+  type: "Function",
+  default: "-"
 }];
 
 export default {
@@ -349,6 +441,7 @@ export default {
   tableFilters,
   tableFormat,
   tableFixed,
-  alertAPI,
-  alertEvents,
+  tableAPI,
+  tableEvents,
+  columnProps
 }

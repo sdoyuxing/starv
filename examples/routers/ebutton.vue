@@ -95,7 +95,7 @@
         >姓名</column
       >
       <column prop="sex" :render="render" :filters="filters" width="200">性别</column>
-      <column prop="age" sortable width="200">年龄</column>
+      <column prop="age" sort width="200">年龄</column>
       <column prop="nian" width="200">年级</column>
       <column prop="ban" width="200">班级</column>
       <column width="200" align="center" fixed="right">

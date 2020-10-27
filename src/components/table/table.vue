@@ -162,12 +162,22 @@ export default {
     },
   },
   methods: {
+    cellClick(row, col){
+       this.$emit("on-cell-click", row, col);
+    },
+    rowClick(row, index) {
+      this.$emit("on-row-click", row, index);
+    },
+    rowDblclick(row, index) {
+      this.$emit("on-row-dblclick", row, index);
+    },
     filterChange(filters, key) {
       if (filters.length > 0) {
         this.tableData = deepCopy(copyTable).filter(
           (o) => filters.indexOf(o[key]) > -1
         );
         copySortTable = [...this.tableData];
+        this.$emit("on-filter-change", copySortTable);
       } else {
         this.tableData = deepCopy(copyTable);
       }
@@ -248,6 +258,7 @@ export default {
       this.tableData.sort((a, b) => {
         return sort === "desc" ? b[key] - a[key] : a[key] - b[key];
       });
+      this.$emit("on-sort-change", key, sort);
     },
   },
   watch: {

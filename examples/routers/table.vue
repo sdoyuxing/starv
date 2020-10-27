@@ -542,7 +542,7 @@
     </section>
     <section class="starv-clear">
       <h2>API</h2>
-      <h3>Alert props</h3>
+      <h3>Table props</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -552,7 +552,7 @@
           <th>默认值</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in alertAPI" :key="index">
+          <tr v-for="(item, index) in tableAPI" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>
@@ -571,10 +571,30 @@
           <th>返回值</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in alertEvents" :key="index">
+          <tr v-for="(item, index) in tableEvents" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <br />
+      <h3>Column props</h3>
+      <br />
+      <table class="starv-table">
+        <thead>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in columnProps" :key="index">
+            <td v-html="item.name"></td>
+            <td v-html="item.desc"></td>
+            <td v-html="item.type"></td>
+            <td v-html="item.default"></td>
           </tr>
         </tbody>
       </table>
