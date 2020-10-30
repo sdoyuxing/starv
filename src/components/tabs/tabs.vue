@@ -13,7 +13,7 @@
         }}
         <span
           :class="closeClasses(index)"
-          v-if="pane.closable"
+          v-if="pane.closable&&type==='card'"
           @click.stop="handleRemove(index)"
         >
           <Icon type="iconclose" />
@@ -75,14 +75,14 @@ export default {
   },
   mounted() {
     this.tabPanes = findComponentsDownward(this, "sTabPane", true);
+    this.tabPanes[this.activeIndex].show = true;
+    this.updateNav();
+    this.getBarWidth(this.activeIndex);
     if (this.value)
       this.activeIndex = this.tabPanes.findIndex(
         (pane) => pane.name === this.value
       );
     else this.initActive();
-
-    this.tabPanes[this.activeIndex].show = true;
-    this.updateNav();
   },
   methods: {
     handleRemove(index) {
@@ -131,10 +131,21 @@ export default {
     initActive() {
       while (
         this.activeIndex < this.navList.length &&
-        !this.navList[this.activeIndex].disabled
+        this.navList[this.activeIndex].disabled
       ) {
         this.activeIndex++;
       }
+    },
+    getBarWidth(val) {
+      this.$nextTick(() => {
+        const prevTabs = this.$refs.nav.querySelectorAll(`.${prefixCls}-tab`);
+        this.barWidth = prevTabs[val].offsetWidth;
+        let offsetX = 0;
+        for (let i = 0; i < val; i++) {
+          offsetX += parseFloat(prevTabs[i].offsetWidth) + 5;
+        }
+        this.translateX = offsetX;
+      });
     },
   },
   watch: {
@@ -142,15 +153,7 @@ export default {
       oldVal !== undefined && (this.tabPanes[oldVal].show = false);
       this.tabPanes[newVal].show = true;
       if (this.type === "line") {
-        this.$nextTick(() => {
-          const prevTabs = this.$refs.nav.querySelectorAll(`.${prefixCls}-tab`);
-          this.barWidth = prevTabs[newVal].offsetWidth;
-          let offsetX = 0;
-          for (let i = 0; i < newVal; i++) {
-            offsetX += parseFloat(prevTabs[i].offsetWidth) + 5;
-          }
-          this.translateX = offsetX;
-        });
+        this.getBarWidth(newVal);
       }
     },
   },
