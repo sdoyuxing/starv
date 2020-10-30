@@ -61,7 +61,7 @@
     <!-- <s-select style="width:200px">
         <Option v-for="item in 9000" :key="item">选项标配{{item}}</Option>
     </s-select>-->
-    <s-tooltip placement="top" content="提示框">asdasda</s-tooltip>
+    <!-- <s-tooltip placement="top" content="提示框">asdasda</s-tooltip>
     <br />
     <s-pagination :total="100"></s-pagination>
     <br />
@@ -94,7 +94,9 @@
       <column prop="name" class-name="demo-table-info-row" fixed="left"
         >姓名</column
       >
-      <column prop="sex" :render="render" :filters="filters" width="200">性别</column>
+      <column prop="sex" :render="render" :filters="filters" width="200"
+        >性别</column
+      >
       <column prop="age" sort width="200">年龄</column>
       <column prop="nian" width="200">年级</column>
       <column prop="ban" width="200">班级</column>
@@ -115,6 +117,16 @@
     <s-button @click="setCheck">{{
       checkRow ? "取消选中第4、5行" : "选中第4、5行"
     }}</s-button>
+    <br />
+    <br /> -->
+    {{ tabsIndex }}
+    <s-tabs v-model="tabsIndex" type="card">
+      <s-tab-pane label="标签一" name="name1" disabled>标签一的内容</s-tab-pane>
+      <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
+      <s-tab-pane label="标签三" name="name3" icon="iconmeh" closable
+        >标签三的内容</s-tab-pane
+      >
+    </s-tabs>
   </div>
 </template>
 <script>
@@ -186,6 +198,7 @@ export default {
         { name: "小红", sex: "女", age: 14, nian: "高一", ban: "二班" },
         { name: "小红", sex: "女", age: 16, nian: "高一", ban: "二班" },
       ],
+      tabsIndex: "name2",
     };
   },
   mounted() {

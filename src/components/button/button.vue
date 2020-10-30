@@ -93,14 +93,6 @@ export default {
     if (this.shape === undefined) {
       if (this.currentLoading) {
         this.width = "30px";
-      } else {
-        timeOut = setTimeout(() => {
-          if (this.$refs["btn"] && this.$refs["btn"].offsetWidth > 0) {
-            this.width = this.autoWidth = this.$refs["btn"].offsetWidth + "px";
-          }
-          clearTimeout(timeOut);
-          timeOut = "";
-        }, 1000);
       }
     } else if (this.shape === "circle") {
       this.width = "32px";
@@ -162,7 +154,9 @@ export default {
         this.width = this.autoWidth = this.$refs["btn"].offsetWidth + "px";
       }
       this.$nextTick(() => {
-        this.currentLoading = val;
+        setTimeout(() => {
+          this.currentLoading = val;
+        },100);
       });
     },
   },

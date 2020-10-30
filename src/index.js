@@ -40,7 +40,8 @@ const components = {
     sPoptip,
     sModal,
     sTable,
-    sTabs
+    sTabs,
+    sTabPane:sTabs.Pane
 };
 
 const iview = components;

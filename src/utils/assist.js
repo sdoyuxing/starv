@@ -49,9 +49,10 @@ export function deepCopy(data) {
 }
 
 // Find components downward
-export function findComponentsDownward(context, componentName) {
+export function findComponentsDownward(context, componentName, unNested = false) {
     return context.$children.reduce((components, child) => {
         if (child.$options.name === componentName) components.push(child)
+        if (unNested && child.$options.name === context.$options.name) return components
         const foundChilds = findComponentsDownward(child, componentName)
         return components.concat(foundChilds)
     }, []);

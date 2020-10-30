@@ -185,7 +185,7 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-table :data="tableData">
+              <s-table :data="tableData" ref="table">
                 <column type="checkbox"></column>
                 <column prop="name">姓名</column>
                 <column prop="sex">性别</column>
@@ -193,6 +193,14 @@
                 <column prop="flats">公寓</column>
                 <column prop="room">房间</column>
               </s-table>
+              <br />
+              <s-button @click="selectAll">{{
+                isSelectAll ? "全取消" : "全选中"
+              }}</s-button>
+              <s-button @click="getCheck">获取选中的数据</s-button>
+              <s-button @click="setCheck">{{
+                checkRow ? "取消选中第4、5行" : "选中第4、5行"
+              }}</s-button>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -743,6 +751,8 @@ export default {
           room: "3605",
         },
       ],
+      isSelectAll: false,
+      checkRow: false,
     };
   },
   methods: {
@@ -751,6 +761,21 @@ export default {
         return "error";
       }
       return "";
+    },
+    selectAll() {
+      this.isSelectAll = !this.isSelectAll;
+      this.$refs.table.checkAll(this.isSelectAll);
+    },
+    getCheck() {
+      this.$Message.info(JSON.stringify(this.$refs.table.getCheckRow()));
+    },
+    setCheck() {
+      if (this.checkRow) {
+        this.$refs.table.uncheckRow([4, 5]);
+      } else {
+        this.$refs.table.checkRow([4, 5]);
+      }
+      this.checkRow = !this.checkRow;
     },
   },
 };

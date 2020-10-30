@@ -14,6 +14,7 @@ import tableBody from "./table-body";
 let copyTable = null;
 let copySortTable = null;
 let timeOut = "";
+let seed = 0;
 export default {
   name: "sTable",
   props: {
@@ -43,7 +44,6 @@ export default {
       columnWidth: 0,
       isAllCheck: false,
       tableData: [],
-      seed: 0,
       tableCode: "",
       fixedLeft: [],
       fixedRight: [],
@@ -162,8 +162,8 @@ export default {
     },
   },
   methods: {
-    cellClick(row, col){
-       this.$emit("on-cell-click", row, col);
+    cellClick(row, col) {
+      this.$emit("on-cell-click", row, col);
     },
     rowClick(row, index) {
       this.$emit("on-row-click", row, index);
@@ -214,7 +214,7 @@ export default {
       }
     },
     getUuid() {
-      return "starTable_" + Date.now() + "_" + this.seed++;
+      return "starTable_" + Date.now() + "_" + seed++;
     },
     checkChange(val, row, index) {
       if (this.tableData.every((o) => o.isCheck)) this.isAllCheck = true;

@@ -1,0 +1,76 @@
+@tabs-prefix-cls: ~"@{sta-prefix}-tabs";
+
+.@{tabs-prefix-cls} {
+    .tabs();
+
+    &-icon {
+        margin-right: 5px;
+    }
+
+    &-close {
+        color: #999;
+        margin-left: 5px;
+        display: inline-block;
+        width: 0px;
+        transition: all .3s ease-in-out;
+        overflow: hidden;
+        vertical-align: middle;
+        height: 16px;
+        line-height: 1;
+    }
+
+    &-close-show {
+        width: 16px;
+    }
+
+    &-tab {
+        .tab();
+
+        &-active {
+            .tab-active();
+        }
+
+        &-disabled {
+            .tab-disabled();
+        }
+
+        &:hover {
+            .@{tabs-prefix-cls}-close {
+                width: 16px;
+            }
+        }
+    }
+
+    &-nav {
+        .nav();
+
+        &-bar {
+            .nav-bar();
+        }
+    }
+
+    &-tabpane {
+        .tabpane();
+    }
+
+    &-card {
+        .@{tabs-prefix-cls}-tab {
+            border-radius: 4px 4px 0 0;
+            border: 1px solid @border-color-split;
+            padding: 5px 16px;
+            background-color: #f8f8f9;
+            border-bottom: 0;
+            transition: color .3s ease-in-out;
+        }
+
+        .@{tabs-prefix-cls}-tab-active {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: -1px;
+        }
+
+        .@{tabs-prefix-cls}-tab-disabled {
+            background-color: hsv(0, 0, 94%);
+        }
+    }
+}
