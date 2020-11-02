@@ -1,24 +1,44 @@
 <template>
   <div :class="tabsClasses">
-    <div :class="navClasses" ref="nav">
-      <div :class="barClasses" v-if="type === 'line'" :style="barStyles"></div>
-      <div
-        :class="tabClasses(index)"
-        @click="tabActive(index)"
-        v-for="(pane, index) in navList"
-        :key="pane.name"
-      >
-        <Icon v-if="pane.icon" :type="pane.icon" :class="iconClasses" />{{
-          pane.label
-        }}
-        <span
-          :class="closeClasses(index)"
-          v-if="pane.closable&&type==='card'"
-          @click.stop="handleRemove(index)"
-        >
-          <Icon type="iconclose" />
-        </span>
+    <div :class="navClasses" ref="nav" :style="navStyles">
+      <Icon
+        type="iconarrow-left-bold"
+        :class="leftBoldClasses"
+        @click="scrollLeft"
+        v-if="scrollWidth > 0"
+      />
+      <div :class="navContainerClasses" ref="navContainer">
+        <div :class="navWrapClasses" :style="navWrapStyles" ref="navWrap">
+          <div
+            :class="barClasses"
+            v-if="type === 'line'"
+            :style="barStyles"
+          ></div>
+          <div
+            :class="tabClasses(index)"
+            @click="tabActive(index)"
+            v-for="(pane, index) in navList"
+            :key="pane.name"
+          >
+            <Icon v-if="pane.icon" :type="pane.icon" :class="iconClasses" />{{
+              pane.label
+            }}
+            <span
+              :class="closeClasses(index)"
+              v-if="pane.closable && type === 'card'"
+              @click.stop="handleRemove(index)"
+            >
+              <Icon type="iconclose" />
+            </span>
+          </div>
+        </div>
       </div>
+      <Icon
+        type="iconarrow-right-bold"
+        :class="rightBoldClasses"
+        @click="scrollRight"
+        v-if="scrollWidth > 0"
+      />
     </div>
     <slot></slot>
   </div>
@@ -47,9 +67,17 @@ export default {
       tabPanes: [],
       barWidth: 0,
       translateX: 0,
+      navScrollX: 0,
+      scrollWidth: 0,
     };
   },
   computed: {
+    navStyles() {
+      return { padding: `0 ${this.scrollWidth === 0 ? "0" : "20px"}` };
+    },
+    navWrapStyles() {
+      return { transform: `translate(-${this.navScrollX * 70}px,0)` };
+    },
     tabsClasses() {
       return [prefixCls, `${prefixCls}-${this.type}`];
     },
@@ -65,7 +93,18 @@ export default {
     iconClasses() {
       return `${prefixCls}-icon`;
     },
-
+    leftBoldClasses() {
+      return [`${prefixCls}-left-bold`, `${prefixCls}-pointer`];
+    },
+    rightBoldClasses() {
+      return [`${prefixCls}-right-bold`, `${prefixCls}-pointer`];
+    },
+    navContainerClasses() {
+      return `${prefixCls}-nav-container`;
+    },
+    navWrapClasses() {
+      return `${prefixCls}-nav-wrap`;
+    },
     barStyles() {
       return {
         transform: `translate(${this.translateX}px, 0)`,
@@ -83,8 +122,24 @@ export default {
         (pane) => pane.name === this.value
       );
     else this.initActive();
+    this.$nextTick(() => {
+      let width =
+        this.$refs.navWrap.offsetWidth -
+        (this.$refs.navContainer.offsetWidth - 40);
+      this.scrollWidth = width > 0 ? width : 0;
+    });
   },
   methods: {
+    scrollLeft() {
+      if (this.navScrollX > 0) {
+        this.navScrollX--;
+      }
+    },
+    scrollRight() {
+      if (this.navScrollX * 70 < this.scrollWidth) {
+        this.navScrollX += 1;
+      }
+    },
     handleRemove(index) {
       this.navList.splice(index, 1);
       this.tabPanes[index].show = false;
@@ -142,7 +197,7 @@ export default {
         this.barWidth = prevTabs[val].offsetWidth;
         let offsetX = 0;
         for (let i = 0; i < val; i++) {
-          offsetX += parseFloat(prevTabs[i].offsetWidth) + 5;
+          offsetX += parseFloat(prevTabs[i].offsetWidth) + 4.2;
         }
         this.translateX = offsetX;
       });

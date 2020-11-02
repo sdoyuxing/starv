@@ -10,9 +10,15 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs>
-                <s-tab-pane label="标签一" name="name1">标签一的内容</s-tab-pane>
-                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
-                <s-tab-pane label="标签三" name="name3">标签三的内容</s-tab-pane>
+                <s-tab-pane label="标签一" name="name1"
+                  >标签一的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签二" name="name2"
+                  >标签二的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签三" name="name3"
+                  >标签三的内容</s-tab-pane
+                >
               </s-tabs>
             </div>
           </section>
@@ -49,9 +55,15 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs>
-                <s-tab-pane label="标签一" name="name1" icon="iconsmile">标签一的内容</s-tab-pane>
-                <s-tab-pane label="标签二" name="name2" icon="iconmeh">标签二的内容</s-tab-pane>
-                <s-tab-pane label="标签三" name="name3" icon="iconcry">标签三的内容</s-tab-pane>
+                <s-tab-pane label="标签一" name="name1" icon="iconsmile"
+                  >标签一的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签二" name="name2" icon="iconmeh"
+                  >标签二的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签三" name="name3" icon="iconcry"
+                  >标签三的内容</s-tab-pane
+                >
               </s-tabs>
             </div>
           </section>
@@ -90,9 +102,15 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1" closable>标签一的内容</s-tab-pane>
-                <s-tab-pane label="标签二" name="name2" closable>标签二的内容</s-tab-pane>
-                <s-tab-pane label="标签三" name="name3" closable>标签三的内容</s-tab-pane>
+                <s-tab-pane label="标签一" name="name1" closable
+                  >标签一的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签二" name="name2" closable
+                  >标签二的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签三" name="name3" closable
+                  >标签三的内容</s-tab-pane
+                >
               </s-tabs>
             </div>
           </section>
@@ -133,9 +151,15 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs>
-                <s-tab-pane label="标签一" name="name1" disabled>标签一的内容</s-tab-pane>
-                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
-                <s-tab-pane label="标签三" name="name3" icon="iconmeh">标签三的内容</s-tab-pane>
+                <s-tab-pane label="标签一" name="name1" disabled
+                  >标签一的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签二" name="name2"
+                  >标签二的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签三" name="name3" icon="iconmeh"
+                  >标签三的内容</s-tab-pane
+                >
               </s-tabs>
             </div>
           </section>
@@ -174,9 +198,15 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1">标签一的内容</s-tab-pane>
-                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
-                <s-tab-pane label="标签三" name="name3">标签三的内容</s-tab-pane>
+                <s-tab-pane label="标签一" name="name1"
+                  >标签一的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签二" name="name2"
+                  >标签二的内容</s-tab-pane
+                >
+                <s-tab-pane label="标签三" name="name3"
+                  >标签三的内容</s-tab-pane
+                >
               </s-tabs>
             </div>
           </section>
@@ -214,48 +244,20 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1"
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2"
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3"
-                  >标签三的内容</s-tab-pane
+              <s-tabs>
+                <s-tab-pane
+                  :label="'标签' + item"
+                  :name="'name' + item"
+                  v-for="item in index"
+                  :key="item"
+                  >标签{{ item }}的内容</s-tab-pane
                 >
               </s-tabs>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">卡片样式</div>
-            <p>
-              <code>type="card"</code>设置卡片样式。
-              <i
-                :class="[
-                  'star-icon',
-                  'starv-icon',
-                  'iconarrow-down-bold',
-                  { 'anticond-up': show.num6 },
-                ]"
-                @click="show.num6 = !show.num6"
-                :title="show.num6 ? '隐藏代码' : '显示代码'"
-              ></i>
-            </p>
-          </section>
-          <section
-            :class="[
-              'starv-code__details',
-              { 'starv-code__details--show': show.num6 },
-            ]"
-          >
-            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
-              <pre v-highlight>
-               <code class="html"> 
-                {{tagColor}}
-               </code>
-            </pre>
-            </div>
+            <div class="starv-code__describe--title">选项很多情况</div>
+            <p>选项很多情况。</p>
           </section>
         </section>
       </div>
@@ -316,6 +318,7 @@ export default {
         num8: false,
       },
       ...tabs,
+      index: 15,
     };
   },
   methods: {},

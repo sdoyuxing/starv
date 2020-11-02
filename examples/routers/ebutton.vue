@@ -123,7 +123,7 @@
     <s-tabs v-model="tabsIndex" type="card">
       <s-tab-pane
         :label="'标签' + item"
-        name="name1"
+        :name="'name' + item"
         v-for="item in index"
         :key="item"
         >标签{{ item }}的内容</s-tab-pane

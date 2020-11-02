@@ -3,6 +3,10 @@
 .@{tabs-prefix-cls} {
     .tabs();
 
+    &-pointer {
+        cursor: pointer;
+    }
+
     &-icon {
         margin-right: 5px;
     }
@@ -72,5 +76,28 @@
         .@{tabs-prefix-cls}-tab-disabled {
             background-color: hsv(0, 0, 94%);
         }
+    }
+
+    &-left-bold {
+        position: absolute;
+        left: 0;
+        top: 10px
+    }
+
+    &-right-bold {
+        position: absolute;
+        right: 0;
+        top: 10px
+    }
+
+    &-nav-container {
+        width: 100%;
+        overflow: hidden
+    }
+
+    &-nav-wrap {
+        float: left;
+        white-space: nowrap;
+        transition: transform .3s ease-in-out;
     }
 }
