@@ -9,16 +9,10 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-tabs v-model="tabsIndex">
-                <s-tab-pane label="标签一" name="name1"
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2"
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3"
-                  >标签三的内容</s-tab-pane
-                >
+              <s-tabs>
+                <s-tab-pane label="标签一" name="name1">标签一的内容</s-tab-pane>
+                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
+                <s-tab-pane label="标签三" name="name3">标签三的内容</s-tab-pane>
               </s-tabs>
             </div>
           </section>
@@ -46,7 +40,7 @@
           >
             <pre v-highlight>
                <code class="html"> 
-                {{tagBasc}}
+                {{tabsBasc}}
                </code>
             </pre>
           </section>
@@ -55,25 +49,16 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs>
-                <s-tab-pane label="标签一" name="name1" icon="iconsmile"
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2" icon="iconmeh"
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3" icon="iconcry"
-                  >标签三的内容</s-tab-pane
-                >
+                <s-tab-pane label="标签一" name="name1" icon="iconsmile">标签一的内容</s-tab-pane>
+                <s-tab-pane label="标签二" name="name2" icon="iconmeh">标签二的内容</s-tab-pane>
+                <s-tab-pane label="标签三" name="name3" icon="iconcry">标签三的内容</s-tab-pane>
               </s-tabs>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">标签样式</div>
+            <div class="starv-code__describe--title">图标</div>
             <p>
-              <code>type</code>可以设置 <code>default</code>、
-              <code>primary</code>、 <code>info</code>、 <code>warning</code>、
-              <code>error</code>五种样式，默认是
-              <code>default</code>
+              <code>icon</code>可以设置图标。
               <i
                 :class="[
                   'star-icon',
@@ -89,13 +74,13 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details-lg--show': show.num5 },
+              { 'starv-code__details--show': show.num5 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tagTpye}}
+                {{tabsIcon}}
                </code>
             </pre>
             </div>
@@ -105,23 +90,16 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1" closable 
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2" closable 
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3" closable 
-                  >标签三的内容</s-tab-pane
-                >
+                <s-tab-pane label="标签一" name="name1" closable>标签一的内容</s-tab-pane>
+                <s-tab-pane label="标签二" name="name2" closable>标签二的内容</s-tab-pane>
+                <s-tab-pane label="标签三" name="name3" closable>标签三的内容</s-tab-pane>
               </s-tabs>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">可选择</div>
+            <div class="starv-code__describe--title">可删除</div>
             <p>
-              <code>checkable</code
-              >设置是否可选择，<code>checked</code>设置是否选中状态。
+              <code>closable</code>设置是否可删除。
               <i
                 :class="[
                   'star-icon',
@@ -143,7 +121,7 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tagCheck}}
+                {{tabsClosed}}
                </code>  
             </pre>
             </div>
@@ -155,22 +133,16 @@
           <section class="starv-code__demo">
             <div>
               <s-tabs>
-                <s-tab-pane label="标签一" name="name1" disabled
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2"
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3" icon="iconmeh"
-                  >标签三的内容</s-tab-pane
-                >
+                <s-tab-pane label="标签一" name="name1" disabled>标签一的内容</s-tab-pane>
+                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
+                <s-tab-pane label="标签三" name="name3" icon="iconmeh">标签三的内容</s-tab-pane>
               </s-tabs>
             </div>
           </section>
           <section class="starv-code__describe">
             <div class="starv-code__describe--title">禁用</div>
             <p>
-              <code>closable</code>可以设置关闭标签。
+              <code>disabled</code>禁用某一项。
               <i
                 :class="[
                   'star-icon',
@@ -192,7 +164,48 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tagClose}}
+                {{tabsDisable}}
+               </code>
+            </pre>
+            </div>
+          </section>
+        </section>
+        <section class="starv-code">
+          <section class="starv-code__demo">
+            <div>
+              <s-tabs type="card">
+                <s-tab-pane label="标签一" name="name1">标签一的内容</s-tab-pane>
+                <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
+                <s-tab-pane label="标签三" name="name3">标签三的内容</s-tab-pane>
+              </s-tabs>
+            </div>
+          </section>
+          <section class="starv-code__describe">
+            <div class="starv-code__describe--title">卡片样式</div>
+            <p>
+              <code>type="card"</code>设置卡片样式。
+              <i
+                :class="[
+                  'star-icon',
+                  'starv-icon',
+                  'iconarrow-down-bold',
+                  { 'anticond-up': show.num4 },
+                ]"
+                @click="show.num4 = !show.num4"
+                :title="show.num4 ? '隐藏代码' : '显示代码'"
+              ></i>
+            </p>
+          </section>
+          <section
+            :class="[
+              'starv-code__details',
+              { 'starv-code__details--show': show.num4 },
+            ]"
+          >
+            <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+              <pre v-highlight>
+               <code class="html"> 
+                {{tabsCard}}
                </code>
             </pre>
             </div>
@@ -215,30 +228,25 @@
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">
-              自定义背景颜色、字体颜色、边框颜色
-            </div>
+            <div class="starv-code__describe--title">卡片样式</div>
             <p>
-              <code>background-color</code>属性设置背景颜色、
-              <code>borderColor</code>属性设置边框颜色、
-              <code>fontColor</code>属性设置字体颜色、
-              <code>closedColor</code>属性设置删除图标字体颜色。
+              <code>type="card"</code>设置卡片样式。
               <i
                 :class="[
                   'star-icon',
                   'starv-icon',
                   'iconarrow-down-bold',
-                  { 'anticond-up': show.num4 },
+                  { 'anticond-up': show.num6 },
                 ]"
-                @click="show.num4 = !show.num4"
-                :title="show.num4 ? '隐藏代码' : '显示代码'"
+                @click="show.num6 = !show.num6"
+                :title="show.num6 ? '隐藏代码' : '显示代码'"
               ></i>
             </p>
           </section>
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details--show': show.num4 },
+              { 'starv-code__details--show': show.num6 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
@@ -294,7 +302,7 @@
   </article>
 </template>
 <script>
-import tag from "../codeDemo/tag";
+import tabs from "../codeDemo/tabs";
 export default {
   data() {
     return {
@@ -304,9 +312,10 @@ export default {
         num4: false,
         num5: false,
         num7: false,
+        num6: false,
         num8: false,
       },
-      ...tag,
+      ...tabs,
     };
   },
   methods: {},

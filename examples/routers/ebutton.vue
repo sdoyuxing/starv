@@ -121,10 +121,12 @@
     <br /> -->
     {{ tabsIndex }}
     <s-tabs v-model="tabsIndex" type="card">
-      <s-tab-pane label="标签一" name="name1" disabled>标签一的内容</s-tab-pane>
-      <s-tab-pane label="标签二" name="name2">标签二的内容</s-tab-pane>
-      <s-tab-pane label="标签三" name="name3" icon="iconmeh" closable
-        >标签三的内容</s-tab-pane
+      <s-tab-pane
+        :label="'标签' + item"
+        name="name1"
+        v-for="item in index"
+        :key="item"
+        >标签{{ item }}的内容</s-tab-pane
       >
     </s-tabs>
   </div>
@@ -137,6 +139,7 @@ export default {
       text: "",
       check: true,
       switchd: false,
+      index: 10,
       selected: "VIVO",
       selectLoading: false,
       options: [],
