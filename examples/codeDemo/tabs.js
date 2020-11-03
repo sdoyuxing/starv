@@ -58,39 +58,51 @@ const tabsClosed = `
 export default {};
 </script>`;
 
-const tagAPI = [{
-  name: "type",
-  desc: "标签类型，可选值为 <code>default</code>、<code>primary</code>、<code>info</code>、<code>warning</code>、<code>error</code>，默认是<code>default</code>",
+const tabsAPI = [{
+  name: "value",
+  desc: "当前激活 tab 面板的 name，可以使用 v-model 双向绑定数据",
   type: "String",
-  default: "text"
+  default: "默认为第一项的 name"
 }, {
-  name: "closable",
-  desc: "设置是否可关闭",
-  type: "Boolean",
-  default: "false"
-}, {
-  name: "checkable",
-  desc: "设置是否可选中",
-  type: "Boolean",
-  default: "false"
-}, {
-  name: "checked",
-  desc: "设置是选中状态",
-  type: "Boolean",
-  default: "false"
+  name: "type",
+  desc: "页签的基本样式，可选值为 line 和 card",
+  type: "String",
+  default: "line"
 }]
 
-const tagEvents = [{
-    name: "on-close",
-    desc: "关闭时触发",
-    type: "event"
+const tabsEvents = [{
+    name: "on-click",
+    desc: "tab 被点击时触发",
+    type: "name"
   },
   {
-    name: "on-change",
-    desc: "切换选中状态时触发",
-    type: "true | flase"
+    name: "on-tab-remove",
+    desc: "tab 被关闭时触发",
+    type: "name"
   }
 ]
+
+const TabPaneAPI = [{
+  name: "name",
+  desc: "用于标识当前面板，对应 value，默认为其索引值",
+  type: "String",
+  default: "-"
+}, {
+  name: "label",
+  desc: "选项卡头显示文字",
+  type: "String",
+  default: "-"
+}, {
+  name: "disabled",
+  desc: "是否禁用该选项卡",
+  type: "Boolean",
+  default: "false"
+}, {
+  name: "closable",
+  desc: "是否可以关闭页签，仅在 type='card' 时有效",
+  type: "Boolean",
+  default: "null"
+}]
 
 export default {
   tabsBasc,
@@ -98,6 +110,7 @@ export default {
   tabsIcon,
   tabsCard,
   tabsClosed,
-  tagAPI,
-  tagEvents
+  tabsAPI,
+  tabsEvents,
+  TabPaneAPI
 }

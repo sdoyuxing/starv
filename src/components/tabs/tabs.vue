@@ -152,6 +152,7 @@ export default {
         }
         this.initActive === index &&
           (this.tabPanes[this.initActive].show = true);
+        this.$emit("on-tab-remove", this.navList[this.activeIndex].name);
       });
     },
     closeClasses(index) {
@@ -164,6 +165,7 @@ export default {
       if (this.navList[num].disabled) return;
       this.activeIndex = num;
       this.$emit("input", this.navList[this.activeIndex].name);
+      this.$emit("on-click", this.navList[this.activeIndex].name);
     },
     tabClasses(num) {
       return [
