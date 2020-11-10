@@ -1,0 +1,65 @@
+.date-picker() {}
+
+.picker() {
+    box-shadow: @box-shadow-base;
+    background-color: #ffffff;
+    opacity: 1;
+    color: @text-color;
+    z-index: @zindex-tooltip;
+    font-weight: initial;
+    display: block;
+    visibility: visible;
+    font-size: @font-size-base;
+    border-radius: @border-radius-base;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: scale(1, 0);
+    transition: all .15s linear;
+}
+
+.picker-panel() {}
+
+.picker-panel-header() {
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 40px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.picker-panel-btn() {
+    font-size: @font-size-base;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        color: @primary-color;
+    }
+}
+
+.picker-panel-content() {
+    width: 250px;
+
+    th,
+    td {
+        text-align: center;
+        font-weight: inherit;
+        line-height: 2.5;
+        user-select: none;
+    }
+
+    td {
+        padding: 2px 4px;
+        cursor: pointer;
+    }
+}
+
+.picker-cell-selected() {
+    color: #ffffff;
+    background-color: @primary-color;
+
+    &:hover {
+        background-color: @primary-color;
+    }
+}

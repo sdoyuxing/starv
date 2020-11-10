@@ -1,0 +1,87 @@
+@input-prefix-cls: ~"@{sta-prefix}-date-picker-input";
+
+.@{input-prefix-cls} {
+    .date-picker-input;
+
+    &-wrapper {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        vertical-align: middle;
+        margin: 3px;
+        // #2149 & #2219
+        line-height: normal;
+
+        &:hover {
+            .@{input-prefix-cls}-icon-clear {
+                display: inline-block;
+            }
+        }
+    }
+
+    &-label {
+        .date-picker-input-label;
+
+        &-active {
+            .date-picker-input-label-active;
+        }
+
+        &-placeholder {
+            .date-picker-label-placeholder;
+        }
+    }
+
+    &-word-count {
+        .date-picker-word-count;
+    }
+
+    &-icon {
+        .date-picker-input-icon;
+
+        &-suffix {
+            right: 0;
+        }
+
+        &-prefix {
+            left: 0;
+        }
+
+        &-suffix-right {
+            right: 20px;
+        }
+
+        &-padding-right {
+            padding-right: 30px;
+        }
+
+        &-padding-left {
+            padding-left: 30px;
+        }
+
+        &-clear {
+            display: none;
+        }
+
+        &-pointer {
+            cursor: pointer;
+
+            &:hover {
+                color: @icon-hover-color;
+            }
+        }
+    }
+
+    &:focus,
+    &-focused {
+        
+        ~.@{input-prefix-cls}-label {
+            .input-label-active;
+        }
+
+        ~.@{input-prefix-cls}-icon-clear {
+            display: inline-block;
+        }
+    }
+
+
+}

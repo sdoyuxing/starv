@@ -1,0 +1,80 @@
+@date-picker-prefix-cls: ~"@{sta-prefix}-date-picker";
+@picker-prefix-cls: ~"@{sta-prefix}-picker";
+
+.@{picker-prefix-cls} {
+    .picker;
+
+    &-show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    &-panel {
+        &-header {
+            .picker-panel-header;
+        }
+
+        &-btn {
+            .picker-panel-btn;
+        }
+
+        &-icon {
+            &-arrow-double-left {
+                color: @disabled-color;
+                float: left;
+                margin: 0 0 0 10px;
+            }
+
+            &-arrow-left {
+                color: @disabled-color;
+                float: left;
+                margin-left: 5px;
+            }
+
+            &-arrow-double-right {
+                color: @disabled-color;
+                float: right;
+                margin: 0 10px 0 0;
+            }
+
+            &-arrow-right {
+                color: @disabled-color;
+                float: right;
+                margin-right: 5px;
+            }
+
+        }
+
+        &-body {
+            padding: 8px 12px;
+        }
+
+        &-content {
+            .picker-panel-content;
+        }
+
+        &-cell {
+            cursor: pointer;
+            line-height: 1.9;
+            border-radius: @border-radius-sm;
+
+            &:hover {
+                background-color: @disabled-bg;
+            }
+
+            &-outer {
+                color: @disabled-color ;
+            }
+
+            &-today {
+                border: @border-width-base @border-style-base @primary-color;
+            }
+
+            &-selected {
+                .picker-cell-selected;
+            }
+        }
+    }
+
+
+}
