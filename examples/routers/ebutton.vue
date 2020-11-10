@@ -119,7 +119,7 @@
     }}</s-button>
     <br />
     <br /> -->
-    {{ tabsIndex }}
+    <!-- {{ tabsIndex }}
     <s-tabs v-model="tabsIndex" type="card">
       <s-tab-pane
         :label="'标签' + item"
@@ -128,7 +128,8 @@
         :key="item"
         >标签{{ item }}的内容</s-tab-pane
       >
-    </s-tabs>
+    </s-tabs> -->
+    <s-date-picker style="width:200px"></s-date-picker>
   </div>
 </template>
 <script>

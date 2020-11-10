@@ -79,7 +79,6 @@ var progressBar = (function () {
     };
 
     progressBar.remove = function () {
-
         var $this = this;
         var timeOut = setTimeout(function () {
             if ($this.progressDom) {

@@ -15,6 +15,8 @@ import sPoptip from './components/poptip'
 import sModal from './components/modal'
 import sTable from './components/table'
 import sTabs from './components/tabs'
+import sDatePicker from './components/date-picker'
+import sDatePickerInput from './components/date-picker-input'
 import {
     sSelect,
     Option
@@ -41,7 +43,9 @@ const components = {
     sModal,
     sTable,
     sTabs,
-    sTabPane:sTabs.Pane
+    sTabPane: sTabs.Pane,
+    sDatePicker,
+    sDatePickerInput
 };
 
 const iview = components;
