@@ -6,10 +6,10 @@
           <td
             :key="col"
             style="padding: 14px 14px"
-            @click="handleClick(col + 3 * row - 3)"
+            @click="handleClick(startYear + col + 3 * row - 5)"
           >
-            <div :class="cellClasses(col + 3 * row - 3)">
-              {{ col + 3 * row - 3 }}月
+            <div :class="cellClasses(startYear + col + 3 * row - 5)">
+              {{ startYear + col + 3 * row - 5 }}
             </div>
           </td>
         </template>
@@ -23,24 +23,24 @@ import { findComponentUpward } from "../../utils/assist";
 export default {
   props: {
     year: Number,
-    month: Number,
   },
   inject: ["provideData"],
   data() {
     return {
       dateList: [],
       rowTotal: 4,
-      nowMonth: 0,
       nowYear: 0,
       currentValue: this.provideData.visualValue,
     };
   },
   mounted() {
     let nowDate = new Date();
-    this.nowMonth = nowDate.getMonth() + 1;
     this.nowYear = nowDate.getFullYear();
   },
   computed: {
+    startYear() {
+      return Math.floor(this.year / 10) * 10;
+    },
     pickerPanelContentClasses() {
       return `${prefixCls}-content`;
     },
@@ -50,18 +50,15 @@ export default {
       return [
         `${prefixCls}-cell`,
         {
-          [`${prefixCls}-cell-today`]:
-            num === this.nowMonth && this.year === this.nowYear,
+          [`${prefixCls}-cell-today`]: num === this.nowYear,
           [`${prefixCls}-cell-selected`]:
-            this.currentValue &&
-            num === this.currentValue.getMonth() + 1 &&
-            this.currentValue.getFullYear() === this.year,
+            this.currentValue && num === this.currentValue.getFullYear(),
         },
       ];
     },
     handleClick(num) {
-      this.$parent.month = num;
-      this.$parent.tableType = "date";
+      this.$parent.year = num;
+      this.$parent.tableType = "month";
     },
   },
   watch: {

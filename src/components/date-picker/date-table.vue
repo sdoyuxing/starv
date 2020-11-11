@@ -74,17 +74,8 @@ export default {
       ];
     },
     getMonthStartEnd(month, year) {
-      month = Number(month);
-      let monthEndDate = new Date();
-      monthEndDate.setFullYear(year);
-      monthEndDate.setMonth(month);
-      monthEndDate.setDate(0);
-
-      let monthStartDate = new Date();
-      monthStartDate.setFullYear(year);
-      monthStartDate.setMonth(month - 1);
-      monthStartDate.setDate(1);
-
+      let monthEndDate = new Date(year, Number(month), 0);
+      let monthStartDate = new Date(year, Number(month) - 1, 1);
       return [monthStartDate, monthEndDate];
     },
     getDateList() {
@@ -120,16 +111,13 @@ export default {
         if (month < 12) month += 1;
         else (month = 1), (year += 1);
       }
-      let date = new Date();
+      let date = new Date(year, month - 1, this.dateList[num]);
       let datePicker = findComponentUpward(this, "datePicker");
-      date.setFullYear(year);
-      date.setMonth(month - 1);
-      date.setDate(this.dateList[num]);
       datePicker.provideData.visualValue = date;
     },
-    cellTitle(num){
-      return `${this.year}`
-    }
+    cellTitle(num) {
+      return `${this.year}`;
+    },
   },
   watch: {
     month() {

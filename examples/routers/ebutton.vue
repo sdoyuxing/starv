@@ -129,7 +129,8 @@
         >标签{{ item }}的内容</s-tab-pane
       >
     </s-tabs> -->
-    <s-date-picker style="width:200px"></s-date-picker>
+    <s-date-picker v-model="datePicker" style="width: 200px"></s-date-picker>
+    {{datePicker}}
   </div>
 </template>
 <script>
@@ -203,6 +204,7 @@ export default {
         { name: "小红", sex: "女", age: 16, nian: "高一", ban: "二班" },
       ],
       tabsIndex: "name2",
+      datePicker: "2020-01",
     };
   },
   mounted() {

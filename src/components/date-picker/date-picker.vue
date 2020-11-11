@@ -7,23 +7,36 @@
         ref="pickerInput"
       ></s-date-picker-input>
     </div>
-    <drop :class="pickerClasses"
-      ><picker-panel @click.stop></picker-panel
-    ></drop>
+    <drop :class="pickerClasses"><picker-panel></picker-panel></drop>
   </div>
 </template>
 <script>
 import sDatePickerInput from "../date-picker-input";
 import pickerPanel from "./picker-panel";
 import drop from "./dropdown";
+import { toDate } from "../../utils/assist";
+import dateUtil from "../"
 import { directive as clickOutside } from "../../directives/v-click-outside";
 const dropPrefixCls = "sta-picker";
 export default {
   name: "datePicker",
+  props: {
+    value: {
+      type: String,
+      validator(value) {
+        result = toDate(value) !== null;
+        if (!result) {
+          throw new Error("Invalid Date in date-picker value");
+        }
+        return result;
+      },
+    },
+  },
+
   data() {
     return {
       dropShow: false,
-      provideData: { visualValue: null },
+      provideData: { visualValue: new Date(this.value) },
     };
   },
   provide() {
@@ -65,7 +78,11 @@ export default {
     "provideData.visualValue"() {
       this.$refs.pickerInput.focus();
       this.onClickOutside();
+      this.$emit("input", this.provideData.visualValue);
     },
+    // value(val) {
+    //   this.provideData.visualValue =
+    // },
   },
 };
 </script>

@@ -195,3 +195,9 @@ export function getScrollWidth(element) {
     element = positionDiv = subDiv = null
     return scrollWidth
 }
+
+export const toDate = function (date) {
+    date = new Date(date);
+    if (isNaN(date.getTime())) return null;
+    return date;
+};
