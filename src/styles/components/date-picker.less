@@ -54,7 +54,7 @@
         }
 
         &-cell {
-          
+
             line-height: 1.9;
             border-radius: @border-radius-sm;
 
@@ -72,6 +72,27 @@
 
             &-selected {
                 .picker-cell-selected;
+            }
+        }
+
+        &-row {
+            line-height: 1.9;
+            border-radius: @border-radius-sm;
+
+            &:hover {
+                background-color: @disabled-bg;
+            }
+
+            &-selected {
+                .picker-cell-selected;
+
+                .@{picker-prefix-cls}-panel-cell-outer {
+                    color: #ffffff;
+                }
+
+                .@{picker-prefix-cls}-panel-cell:hover {
+                    background-color: @primary-color;
+                }
             }
         }
     }

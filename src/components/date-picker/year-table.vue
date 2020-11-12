@@ -57,8 +57,13 @@ export default {
       ];
     },
     handleClick(num) {
-      this.$parent.year = num;
-      this.$parent.tableType = "month";
+      if (this.provideData.type === "year") {
+        let datePicker = findComponentUpward(this, "datePicker");
+        datePicker.provideData.visualValue = new Date(num, 1, 1);
+      } else {
+        this.$parent.year = num;
+        this.$parent.tableType = "month";
+      }
     },
   },
   watch: {

@@ -60,8 +60,16 @@ export default {
       ];
     },
     handleClick(num) {
-      this.$parent.month = num;
-      this.$parent.tableType = "date";
+      if (
+        this.provideData.type === "date" ||
+        this.provideData.type === "week"
+      ) {
+        this.$parent.month = num;
+        this.$parent.tableType = this.provideData.type;
+      } else if (this.provideData.type === "month") {
+        let datePicker = findComponentUpward(this, "datePicker");
+        datePicker.provideData.visualValue = new Date(this.year, num, 1);
+      }
     },
   },
   watch: {

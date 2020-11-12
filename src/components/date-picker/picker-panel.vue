@@ -23,7 +23,7 @@
       </span>
       <span
         :class="pickerPanelBtnClasses"
-        v-show="tableType === 'date'"
+        v-show="tableType === 'date' || tableType === 'week'"
         @click="tableType = 'month'"
       >
         {{ month }}月
@@ -40,7 +40,7 @@
         :year="year"
         :month="month"
         :today="today"
-        v-show="tableType === 'date'"
+        v-show="tableType === 'date' || tableType === 'week'"
       ></date-table>
       <month-table
         :month="month"
@@ -58,20 +58,27 @@ import monthTable from "./month-table";
 import yearTable from "./year-table";
 const prefixCls = "sta-picker-panel";
 export default {
+  inject: ["provideData"],
   components: { Icon, dateTable, monthTable, yearTable },
   data() {
     return {
       year: 0,
       month: 0,
       today: 0,
-      tableType: "date",
+      tableType: this.provideData.type,
     };
   },
   mounted() {
     let today = new Date();
-    this.year = today.getFullYear();
-    this.month = today.getMonth() + 1;
-    this.today = today.getDate();
+    this.year = this.provideData.visualValue
+      ? this.provideData.visualValue.getFullYear()
+      : today.getFullYear();
+    this.month = this.provideData.visualValue
+      ? this.provideData.visualValue.getMonth() + 1
+      : today.getMonth() + 1;
+    this.today = this.provideData.visualValue
+      ? this.provideData.visualValue.getDate()
+      : today.getDate();
   },
   computed: {
     startYear() {
@@ -118,6 +125,11 @@ export default {
     nextMonth() {
       if (this.month < 12) this.month += 1;
       else (this.year += 1), (this.month = 1);
+    },
+  },
+  watch: {
+    "provideData.type"(val) {
+      this.tableType = val;
     },
   },
 };

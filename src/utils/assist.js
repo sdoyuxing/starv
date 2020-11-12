@@ -196,8 +196,15 @@ export function getScrollWidth(element) {
     return scrollWidth
 }
 
-export const toDate = function (date) {
+export function toDate(date) {
     date = new Date(date);
     if (isNaN(date.getTime())) return null;
     return date;
 };
+
+export function weeklyIndex(date) {
+    let startDay = new Date(date.getFullYear(), 0, 1).getDay()
+    let firstWeek = new Date(date.getFullYear(), 0, 7 - startDay).getTime()
+    let endTime = date.getTime()
+    return endTime > firstWeek ? Math.ceil((endTime - firstWeek) / 604800000) + 1 : 1
+}

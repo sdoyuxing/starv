@@ -4,7 +4,7 @@
       <th v-for="item in dateHeader" :key="item">{{ item }}</th>
     </thead>
     <tbody>
-      <tr v-for="row in rowTotal" :key="row">
+      <tr v-for="row in rowTotal" :key="row" :class="rowClasses(row)">
         <template v-for="col in 7">
           <td :key="col" @click="handleClick(col + 7 * row - 8)">
             <div :class="cellClasses(col + 7 * row - 8)">
@@ -36,6 +36,7 @@ export default {
       nowMonth: 0,
       nowYear: 0,
       currentValue: this.provideData.visualValue,
+      cellIndex: 0,
     };
   },
   mounted() {
@@ -50,6 +51,26 @@ export default {
     },
   },
   methods: {
+    rowClasses(rowIndex) {
+      return this.provideData.type === "week"
+        ? [
+            `${prefixCls}-row`,
+            {
+              [`${prefixCls}-row-selected`]:
+                this.currentValue &&
+                this.dateList
+                  .slice(
+                    Math.max(this.monthStartDay, (rowIndex - 1) * 7),
+                    Math.min(
+                      rowIndex * 7,
+                      this.monthEndDay + this.monthStartDay - 1
+                    )
+                  )
+                  .includes(this.currentValue.getDate()),
+            },
+          ]
+        : "";
+    },
     cellClasses(num) {
       return [
         `${prefixCls}-cell`,
@@ -101,6 +122,7 @@ export default {
     handleClick(num) {
       let month = this.month;
       let year = this.year;
+      this.cellIndex = num;
       if (num < this.monthStartDay) {
         this.$parent.lastMonth();
         if (month > 1) month -= 1;

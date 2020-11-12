@@ -7,28 +7,46 @@
         ref="pickerInput"
       ></s-date-picker-input>
     </div>
-    <drop :class="pickerClasses"><picker-panel></picker-panel></drop>
+    <drop :class="pickerClasses"><picker-panel> </picker-panel></drop>
   </div>
 </template>
 <script>
 import sDatePickerInput from "../date-picker-input";
 import pickerPanel from "./picker-panel";
 import drop from "./dropdown";
-import { toDate } from "../../utils/assist";
-import dateUtil from "../"
+import { toDate, oneOf, weeklyIndex } from "../../utils/assist";
+import dateUtil from "../../utils/date";
 import { directive as clickOutside } from "../../directives/v-click-outside";
 const dropPrefixCls = "sta-picker";
+const DEFAULT_FORMATS = {
+  date: "yyyy-MM-dd",
+  month: "yyyy-MM",
+  year: "yyyy",
+  datetime: "yyyy-MM-dd HH:mm:ss",
+  time: "HH:mm:ss",
+  timerange: "HH:mm:ss",
+  daterange: "yyyy-MM-dd",
+  datetimerange: "yyyy-MM-dd HH:mm:ss",
+};
 export default {
   name: "datePicker",
   props: {
     value: {
       type: String,
       validator(value) {
-        result = toDate(value) !== null;
+        let result = toDate(value) !== null;
         if (!result) {
-          throw new Error("Invalid Date in date-picker value");
+          result = value.indexOf("周") > -1 && value.indexOf("-") > -1;
+          if (!result) throw new Error("Invalid Date in date-picker.value");
         }
         return result;
+      },
+    },
+    type: {
+      type: String,
+      default: "date",
+      validator(value) {
+        return oneOf(value, ["date", "year", "month", "week"]);
       },
     },
   },
@@ -36,7 +54,7 @@ export default {
   data() {
     return {
       dropShow: false,
-      provideData: { visualValue: new Date(this.value) },
+      provideData: { visualValue: new Date(this.value), type: this.type },
     };
   },
   provide() {
@@ -51,18 +69,19 @@ export default {
       return [dropPrefixCls, { [`${dropPrefixCls}-show`]: this.dropShow }];
     },
     inputValue() {
-      return (
-        this.provideData.visualValue &&
-        `${this.provideData.visualValue.getFullYear()}-${
-          this.provideData.visualValue.getMonth() + 1 > 9
-            ? this.provideData.visualValue.getMonth() + 1
-            : "0" + (this.provideData.visualValue.getMonth() + 1)
-        }-${
-          this.provideData.visualValue.getDate() > 9
-            ? this.provideData.visualValue.getDate()
-            : "0" + this.provideData.visualValue.getDate()
-        }`
-      );
+      if (this.type === "week") {
+        return `${this.provideData.visualValue.getFullYear()}-${weeklyIndex(
+          this.provideData.visualValue
+        )}周`;
+      } else {
+        return (
+          this.provideData.visualValue &&
+          dateUtil.format(
+            this.provideData.visualValue,
+            DEFAULT_FORMATS[this.type]
+          )
+        );
+      }
     },
   },
   methods: {
@@ -78,11 +97,16 @@ export default {
     "provideData.visualValue"() {
       this.$refs.pickerInput.focus();
       this.onClickOutside();
-      this.$emit("input", this.provideData.visualValue);
+      this.$emit("input", this.inputValue);
     },
-    // value(val) {
-    //   this.provideData.visualValue =
-    // },
+    value(val) {
+      if (toDate(val).geTime() !== this.provideData.visualValue.geTime()) {
+        this.provideData.visualValue = toDate(val);
+      }
+    },
+    type(val) {
+      this.provideData.type = val;
+    },
   },
 };
 </script>
