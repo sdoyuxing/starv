@@ -12,20 +12,14 @@
         ref="startPicker"
         @pickerLinkage="pickerLinkage"
       ></picker-panel>
-      <picker-panel
-        v-if="type === 'daterange'"
-        ref="endPicker"
-        daterange
-        @pickerLinkage="pickerLinkage"
-      ></picker-panel
-    ></drop>
+    </drop>
   </div>
 </template>
 <script>
 import sDatePickerInput from "../date-picker-input";
 import pickerPanel from "./picker-panel";
 import drop from "./dropdown";
-import { toDate, oneOf, weeklyIndex } from "../../utils/assist";
+import { toDate, oneOf, weeklyIndex, typeOf } from "../../utils/assist";
 import dateUtil from "../../utils/date";
 import { directive as clickOutside } from "../../directives/v-click-outside";
 const dropPrefixCls = "sta-picker";
@@ -57,7 +51,7 @@ export default {
       type: String,
       default: "date",
       validator(value) {
-        return oneOf(value, ["date", "year", "month", "week", "daterange"]);
+        return oneOf(value, ["date", "year", "month", "week"]);
       },
     },
   },
@@ -122,10 +116,12 @@ export default {
     },
   },
   watch: {
-    "provideData.visualValue"() {
-      this.$refs.pickerInput.focus();
-      this.onClickOutside();
-      this.$emit("input", this.inputValue);
+    "provideData.visualValue"(val) {
+      if (typeOf(val) === "date") {
+        this.$refs.pickerInput.focus();
+        this.onClickOutside();
+        this.$emit("input", this.inputValue);
+      }
     },
     value(val) {
       if (toDate(val).geTime() !== this.provideData.visualValue.geTime()) {

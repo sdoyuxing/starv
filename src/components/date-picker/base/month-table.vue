@@ -19,7 +19,7 @@
 </template>
 <script>
 const prefixCls = "sta-picker-panel";
-import { findComponentUpward } from "../../utils/assist";
+import { findComponentUpward } from "../../../utils/assist";
 export default {
   props: {
     year: Number,

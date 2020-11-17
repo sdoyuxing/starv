@@ -19,7 +19,7 @@
 </template>
 <script>
 const prefixCls = "sta-picker-panel";
-import { findComponentUpward } from "../../utils/assist";
+import { findComponentUpward } from "../../../utils/assist";
 export default {
   props: {
     year: Number,
@@ -57,7 +57,6 @@ export default {
       ];
     },
     handleClick(num) {
-      debugger
       let date = "";
       if (this.provideData.type === "year") {
         date = new Date(num, 1, 1);

@@ -53,12 +53,20 @@
 
         &-content {
             .picker-panel-content;
+
+            &-daterange {
+                td {
+                    padding: 3px 0px;
+                }
+            }
+
         }
 
         &-cell {
 
             line-height: 1.9;
             border-radius: @border-radius-sm;
+            transition: all .15s linear;
 
             &:hover {
                 background-color: @disabled-bg;
@@ -72,9 +80,15 @@
                 border: @border-width-base @border-style-base @primary-color;
             }
 
+            &-segment {
+                background-color: tint(@primary-color, 90%);
+            }
+
             &-selected {
                 .picker-cell-selected;
             }
+
+
         }
 
         &-row {

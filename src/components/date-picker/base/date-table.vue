@@ -1,7 +1,7 @@
 <template>
   <table :class="pickerPanelContentClasses">
     <thead>
-      <th v-for="item in dateHeader" :key="item">{{ item }}</th>
+      <th v-for="item in dateHeader" :key="item" width="1">{{ item }}</th>
     </thead>
     <tbody>
       <tr v-for="row in rowTotal" :key="row" :class="rowClasses(row)">
@@ -18,7 +18,7 @@
 </template>
 <script>
 const prefixCls = "sta-picker-panel";
-
+import { typeOf, deepCopy } from "../../../utils/assist";
 export default {
   props: {
     year: Number,
@@ -44,6 +44,8 @@ export default {
     this.getDateList();
     this.nowMonth = nowDate.getMonth() + 1;
     this.nowYear = nowDate.getFullYear();
+    typeOf(this.provideData.visualValue) === "array" &&
+      (this.currentValue = [...this.provideData.visualValue]);
   },
   computed: {
     pickerPanelContentClasses() {
@@ -72,6 +74,9 @@ export default {
         : "";
     },
     cellClasses(num) {
+      let dateArray = [];
+      if (typeOf(this.currentValue) === "date") dateArray = [this.currentValue];
+      else dateArray = this.currentValue;
       return [
         `${prefixCls}-cell`,
         {
@@ -85,10 +90,13 @@ export default {
             this.nowMonth === this.month &&
             this.nowYear === this.year,
           [`${prefixCls}-cell-selected`]:
-            this.currentValue &&
-            this.currentValue.getDate() === this.dateList[num] &&
-            this.currentValue.getMonth() + 1 === this.month &&
-            this.currentValue.getFullYear() === this.year &&
+            dateArray.some((item) => {
+              return (
+                item.getDate() === this.dateList[num] &&
+                item.getMonth() + 1 === this.month &&
+                item.getFullYear() === this.year
+              );
+            }) &&
             num >= this.monthStartDay &&
             num <= this.monthEndDay + this.monthStartDay - 1,
         },

@@ -73,10 +73,10 @@
 </template>
 <script>
 import Icon from "../icon";
-import dateTable from "./date-table";
-import monthTable from "./month-table";
-import yearTable from "./year-table";
-import { findComponentUpward } from "../../utils/assist";
+import dateTable from "./base/date-table";
+import monthTable from "./base/month-table";
+import yearTable from "./base/year-table";
+import { findComponentUpward, typeOf } from "../../utils/assist";
 const prefixCls = "sta-picker-panel";
 export default {
   inject: ["provideData"],
@@ -143,15 +143,16 @@ export default {
       let { type } = this.provideData;
       if (type === this.tableType) {
         let datePicker = findComponentUpward(this, "datePicker");
-        datePicker.provideData.visualValue = date;
-      } else if (
-        (type === "date" || type === "daterange") &&
-        this.tableType === "month"
-      ) {
+        if (typeOf(datePicker.provideData.visualValue) === "array") {
+          datePicker.provideData.visualValue.length === 2
+            ? (datePicker.provideData.visualValue = [date])
+            : datePicker.provideData.visualValue.push(date);
+        } else datePicker.provideData.visualValue = date;
+      } else if (type === "date" && this.tableType === "month") {
         this.month = val;
         this.tableType = "date";
       } else if (
-        (type === "date" || type === "month" || type === "daterange") &&
+        (type === "date" || type === "month") &&
         this.tableType === "year"
       ) {
         this.year = val;
@@ -161,24 +162,18 @@ export default {
     nextYear() {
       if (this.tableType === "year") this.year += 10;
       else this.year += 1;
-      this.tableType === "daterange" &&
-        this.$emit("pickerLinkage", "next", "year");
     },
     lastYear() {
       if (this.year > 1 && this.tableType !== "year") this.year -= 1;
       if (this.tableType === "year") this.year -= 10;
-      this.daterange && this.$emit("pickerLinkage", "last", "year");
     },
     lastMonth() {
       if (this.month > 1) this.month -= 1;
       else (this.year -= 1), (this.month = 12);
-      this.daterange && this.$emit("pickerLinkage", "last", "month");
     },
     nextMonth() {
       if (this.month < 12) this.month += 1;
       else (this.year += 1), (this.month = 1);
-      this.tableType === "daterange" &&
-        this.$emit("pickerLinkage", "next", "month");
     },
   },
   watch: {
