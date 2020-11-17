@@ -131,7 +131,7 @@
     </s-tabs> -->
     <s-date-picker
       v-model="datePicker"
-      :type="typeList[type]"
+      type="daterange"
       style="width: 200px"
     ></s-date-picker>
     <s-button @click="type = type === 0 ? 1 : 0">切换</s-button>

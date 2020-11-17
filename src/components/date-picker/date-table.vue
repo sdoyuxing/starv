@@ -18,7 +18,7 @@
 </template>
 <script>
 const prefixCls = "sta-picker-panel";
-import { findComponentUpward } from "../../utils/assist";
+
 export default {
   props: {
     year: Number,
@@ -134,8 +134,7 @@ export default {
         else (month = 1), (year += 1);
       }
       let date = new Date(year, month - 1, this.dateList[num]);
-      let datePicker = findComponentUpward(this, "datePicker");
-      datePicker.provideData.visualValue = date;
+      this.$emit("selectedCell", date);
     },
     cellTitle(num) {
       return `${this.year}`;

@@ -57,13 +57,12 @@ export default {
       ];
     },
     handleClick(num) {
+      debugger
+      let date = "";
       if (this.provideData.type === "year") {
-        let datePicker = findComponentUpward(this, "datePicker");
-        datePicker.provideData.visualValue = new Date(num, 1, 1);
-      } else {
-        this.$parent.year = num;
-        this.$parent.tableType = "month";
+        date = new Date(num, 1, 1);
       }
+      this.$emit("selectedCell", date, num);
     },
   },
   watch: {

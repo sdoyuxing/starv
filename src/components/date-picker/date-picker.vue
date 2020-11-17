@@ -7,7 +7,18 @@
         ref="pickerInput"
       ></s-date-picker-input>
     </div>
-    <drop :class="pickerClasses"><picker-panel> </picker-panel></drop>
+    <drop :class="pickerClasses"
+      ><picker-panel
+        ref="startPicker"
+        @pickerLinkage="pickerLinkage"
+      ></picker-panel>
+      <picker-panel
+        v-if="type === 'daterange'"
+        ref="endPicker"
+        daterange
+        @pickerLinkage="pickerLinkage"
+      ></picker-panel
+    ></drop>
   </div>
 </template>
 <script>
@@ -46,7 +57,7 @@ export default {
       type: String,
       default: "date",
       validator(value) {
-        return oneOf(value, ["date", "year", "month", "week"]);
+        return oneOf(value, ["date", "year", "month", "week", "daterange"]);
       },
     },
   },
@@ -85,6 +96,23 @@ export default {
     },
   },
   methods: {
+    pickerLinkage(mode, type) {
+      let monthEqual =
+        this.$refs.startPicker.month === this.$refs.endPicker.month;
+      let yearEqual = this.$refs.startPicker.year > this.$refs.endPicker.year;
+      if (monthEqual && mode === "last" && type === "month") {
+        this.$refs.startPicker.lastMonth();
+      }
+      if (monthEqual && mode === "next" && type === "month") {
+        this.$refs.endPicker.nextMonth();
+      }
+      if (yearEqual && mode === "last" && type === "year") {
+        this.$refs.startPicker.lastYear();
+      }
+      if (yearEqual && mode === "next" && type === "year") {
+        this.$refs.endPicker.nextYear();
+      }
+    },
     handleFocus() {
       this.$refs.pickerInput.focus();
       this.dropShow = true;
