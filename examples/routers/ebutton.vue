@@ -129,12 +129,13 @@
         >标签{{ item }}的内容</s-tab-pane
       >
     </s-tabs> -->
-    <s-date-picker
-      v-model="datePicker"
-      type="date"
-      style="width: 200px"
-    ></s-date-picker>
-    <s-button @click="type = type === 0 ? 1 : 0">切换</s-button>
+    <s-date-picker type="date" style="width: 200px"></s-date-picker>
+    <s-button @click="type = 'date'">日期</s-button>
+    <s-button @click="type = 'week'">周</s-button>
+    <s-button @click="type = 'month'">月</s-button>
+    <s-button @click="type = 'year'">年</s-button>
+    <s-button @click="type = 'daterange'">时间段</s-button>
+
     {{ datePicker }}
   </div>
 </template>
@@ -209,9 +210,8 @@ export default {
         { name: "小红", sex: "女", age: 16, nian: "高一", ban: "二班" },
       ],
       tabsIndex: "name2",
-      datePicker: "2020-01",
-      typeList: ["date", "week"],
-      type: 0,
+      datePicker: "2020-01-01",
+      type: "date",
     };
   },
   mounted() {

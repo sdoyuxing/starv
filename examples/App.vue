@@ -57,6 +57,7 @@ export default {
         { name: "Modal 对话框", url: "/modal" },
         { name: "Table 表格", url: "/table" },
         { name: "Tabs 标签页", url: "/tabs" },
+        { name: "DatePicker 日期选择器", url: "/datepicker" },
         { name: "demo", url: "/ebutton" },
       ],
     };

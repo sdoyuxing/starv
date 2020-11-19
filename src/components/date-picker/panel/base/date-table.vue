@@ -6,7 +6,11 @@
     <tbody>
       <tr v-for="row in rowTotal" :key="row" :class="rowClasses(row)">
         <template v-for="col in 7">
-          <td :key="col" @click="handleClick(col + 7 * row - 8)">
+          <td
+            :key="col"
+            @click="handleClick(col + 7 * row - 8)"
+            @mouseenter.stop="handleMouseenter(col + 7 * row - 8)"
+          >
             <div :class="cellClasses(col + 7 * row - 8)">
               {{ dateList[col + 7 * row - 8] }}
             </div>
@@ -18,7 +22,11 @@
 </template>
 <script>
 const prefixCls = "sta-picker-panel";
-import { typeOf, deepCopy } from "../../../utils/assist";
+import {
+  typeOf,
+  deepCopy,
+  findComponentUpward,
+} from "../../../../utils/assist";
 export default {
   props: {
     year: Number,
@@ -35,8 +43,8 @@ export default {
       monthEndDay: 0,
       nowMonth: 0,
       nowYear: 0,
-      currentValue: this.provideData.visualValue,
       cellIndex: 0,
+      dateRange: null,
     };
   },
   mounted() {
@@ -44,12 +52,19 @@ export default {
     this.getDateList();
     this.nowMonth = nowDate.getMonth() + 1;
     this.nowYear = nowDate.getFullYear();
-    typeOf(this.provideData.visualValue) === "array" &&
-      (this.currentValue = [...this.provideData.visualValue]);
+    this.dateRange = findComponentUpward(this, "dateRange");
   },
   computed: {
     pickerPanelContentClasses() {
       return `${prefixCls}-content`;
+    },
+    selectedCell() {
+      if (this.dateRange) return this.dateRange.currentValue;
+      return this.provideData.visualValue;
+    },
+    dateSegment() {
+      if (this.dateRange) return this.dateRange.dateSegment;
+      else return [];
     },
   },
   methods: {
@@ -59,7 +74,7 @@ export default {
             `${prefixCls}-row`,
             {
               [`${prefixCls}-row-selected`]:
-                this.currentValue &&
+                this.provideData.visualValue &&
                 this.dateList
                   .slice(
                     Math.max(this.monthStartDay, (rowIndex - 1) * 7),
@@ -68,15 +83,17 @@ export default {
                       this.monthEndDay + this.monthStartDay - 1
                     )
                   )
-                  .includes(this.currentValue.getDate()),
+                  .includes(this.provideData.visualValue.getDate()),
             },
           ]
         : "";
     },
     cellClasses(num) {
       let dateArray = [];
-      if (typeOf(this.currentValue) === "date") dateArray = [this.currentValue];
-      else dateArray = this.currentValue;
+      if (this.year === 0 && this.month === 0) return [];
+      let cellDate = new Date(this.year, this.month - 1, this.dateList[num]);
+      if (typeOf(this.selectedCell) === "date") dateArray = [this.selectedCell];
+      else dateArray = this.selectedCell || [];
       return [
         `${prefixCls}-cell`,
         {
@@ -84,19 +101,20 @@ export default {
             num < this.monthStartDay ||
             num > this.monthEndDay + this.monthStartDay - 1,
           [`${prefixCls}-cell-today`]:
-            this.today === this.dateList[num] &&
+            Date.now() === cellDate.getTime() &&
             num >= this.monthStartDay &&
-            num <= this.monthEndDay + this.monthStartDay - 1 &&
-            this.nowMonth === this.month &&
-            this.nowYear === this.year,
-          [`${prefixCls}-cell-selected`]:
-            dateArray.some((item) => {
-              return (
-                item.getDate() === this.dateList[num] &&
-                item.getMonth() + 1 === this.month &&
-                item.getFullYear() === this.year
-              );
-            }) &&
+            num <= this.monthEndDay + this.monthStartDay - 1,
+          [`${prefixCls}-cell-selected`]: dateArray.some((item) => {
+            return (
+              item.getTime() === cellDate.getTime() &&
+              num >= this.monthStartDay &&
+              num <= this.monthEndDay + this.monthStartDay - 1
+            );
+          }),
+          [`${prefixCls}-cell-segment`]:
+            this.dateSegment.length === 2 &&
+            this.dateSegment[0].getTime() <= cellDate.getTime() &&
+            this.dateSegment[1].getTime() >= cellDate.getTime() &&
             num >= this.monthStartDay &&
             num <= this.monthEndDay + this.monthStartDay - 1,
         },
@@ -128,8 +146,7 @@ export default {
       }
     },
     handleClick(num) {
-      let month = this.month;
-      let year = this.year;
+      let { month, year } = this;
       this.cellIndex = num;
       if (num < this.monthStartDay) {
         this.$parent.lastMonth();
@@ -147,6 +164,14 @@ export default {
     cellTitle(num) {
       return `${this.year}`;
     },
+    handleMouseenter(num) {
+      if (this.dateRange.currentValue.length === 1) {
+        this.dateRange.dateSegment = [
+          this.dateRange.dateSegment[0],
+          new Date(this.year, this.month - 1, this.dateList[num]),
+        ];
+      }
+    },
   },
   watch: {
     month() {
@@ -154,9 +179,6 @@ export default {
     },
     year() {
       this.getDateList();
-    },
-    "provideData.visualValue"(val) {
-      this.currentValue = val;
     },
   },
 };

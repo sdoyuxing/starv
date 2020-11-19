@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside.stop="onClickOutside">
+  <div :class="datePickerWrap" v-click-outside.stop="onClickOutside">
     <div @click="handleFocus">
       <s-date-picker-input
         suffix="iconriqixuanze"
@@ -7,20 +7,30 @@
         ref="pickerInput"
       ></s-date-picker-input>
     </div>
-    <drop :class="pickerClasses"
-      ><picker-panel
+    <drop :class="pickerClasses">
+      <!-- <picker-panel
         ref="startPicker"
+        :dateSegment.sync="dateSegment"
         @pickerLinkage="pickerLinkage"
       ></picker-panel>
+      <picker-panel
+        v-if="type === 'daterange'"
+        :dateSegment.sync="dateSegment"
+        ref="endPicker"
+        daterange
+        @pickerLinkage="pickerLinkage"
+      ></picker-panel> -->
+      <component :is="pickerTable" @on-change="handleChange" />
     </drop>
   </div>
 </template>
 <script>
 import sDatePickerInput from "../date-picker-input";
-import pickerPanel from "./picker-panel";
-import drop from "./dropdown";
-import { toDate, oneOf, weeklyIndex, typeOf } from "../../utils/assist";
+import pickerPanel from "./panel/picker-panel";
+import dateRange from "./panel/date-range";
+import drop from "./panel/base/dropdown";
 import dateUtil from "../../utils/date";
+import { toDate, oneOf, weeklyIndex, typeOf } from "../../utils/assist";
 import { directive as clickOutside } from "../../directives/v-click-outside";
 const dropPrefixCls = "sta-picker";
 const DEFAULT_FORMATS = {
@@ -32,6 +42,13 @@ const DEFAULT_FORMATS = {
   timerange: "HH:mm:ss",
   daterange: "yyyy-MM-dd",
   datetimerange: "yyyy-MM-dd HH:mm:ss",
+};
+const PICKERTYPE = {
+  date: "picker-panel",
+  year: "picker-panel",
+  month: "picker-panel",
+  week: "picker-panel",
+  daterange: "date-range",
 };
 export default {
   name: "datePicker",
@@ -51,7 +68,7 @@ export default {
       type: String,
       default: "date",
       validator(value) {
-        return oneOf(value, ["date", "year", "month", "week"]);
+        return oneOf(value, ["date", "year", "month", "week", "daterange"]);
       },
     },
   },
@@ -59,7 +76,7 @@ export default {
   data() {
     return {
       dropShow: false,
-      provideData: { visualValue: new Date(this.value), type: this.type },
+      provideData: { visualValue: toDate(this.value), type: this.type },
     };
   },
   provide() {
@@ -68,23 +85,41 @@ export default {
     };
   },
   directives: { clickOutside },
-  components: { sDatePickerInput, pickerPanel, drop },
+  components: { sDatePickerInput, pickerPanel, drop, dateRange },
+  mounted() {
+    if (this.type === "daterange") {
+      this.provideData.visualValue = [];
+    }
+  },
   computed: {
+    pickerTable() {
+      return PICKERTYPE[this.type];
+    },
     pickerClasses() {
       return [dropPrefixCls, { [`${dropPrefixCls}-show`]: this.dropShow }];
+    },
+    datePickerWrap(){
+       return `${dropPrefixCls}-wrap`;
     },
     inputValue() {
       if (this.type === "week") {
         return `${this.provideData.visualValue.getFullYear()}-${weeklyIndex(
           this.provideData.visualValue
         )}周`;
-      } else {
+      } else if (this.type !== "daterange") {
         return (
           this.provideData.visualValue &&
           dateUtil.format(
             this.provideData.visualValue,
             DEFAULT_FORMATS[this.type]
           )
+        );
+      } else if (this.type === "daterange") {
+        return (
+          typeOf(this.provideData.visualValue) === "array" &&
+          this.provideData.visualValue
+            .map((item) => dateUtil.format(item, DEFAULT_FORMATS[this.type]))
+            .join(" - ")
         );
       }
     },
@@ -114,14 +149,17 @@ export default {
     onClickOutside() {
       this.dropShow = false;
     },
+    handleChange(val) {
+      this.provideData.visualValue = val;
+    },
   },
   watch: {
     "provideData.visualValue"(val) {
       if (typeOf(val) === "date") {
-        this.$refs.pickerInput.focus();
-        this.onClickOutside();
         this.$emit("input", this.inputValue);
       }
+      this.$refs.pickerInput.focus();
+      this.onClickOutside();
     },
     value(val) {
       if (toDate(val).geTime() !== this.provideData.visualValue.geTime()) {
@@ -130,6 +168,9 @@ export default {
     },
     type(val) {
       this.provideData.type = val;
+      if (this.type === "daterange") {
+        this.provideData.visualValue = [];
+      }
     },
   },
 };

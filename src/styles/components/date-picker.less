@@ -4,6 +4,10 @@
 .@{picker-prefix-cls} {
     .picker;
 
+    &-wrap {
+        display: inline-block;
+    }
+
     &-show {
         opacity: 1;
         transform: scale(1);
@@ -56,16 +60,14 @@
 
             &-daterange {
                 td {
-                    padding: 3px 0px;
+                    padding: 2px 0px;
                 }
             }
 
         }
 
         &-cell {
-
             line-height: 1.9;
-            border-radius: @border-radius-sm;
             transition: all .15s linear;
 
             &:hover {
@@ -81,7 +83,11 @@
             }
 
             &-segment {
-                background-color: tint(@primary-color, 90%);
+                background-color: tint(@primary-color, 85%);
+
+                &:hover {
+                    background-color: tint(@primary-color, 85%);
+                }
             }
 
             &-selected {

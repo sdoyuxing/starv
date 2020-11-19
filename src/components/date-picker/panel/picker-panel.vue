@@ -46,38 +46,31 @@
       </span>
     </div>
     <div :class="pickerPanelBodyClasses">
-      <date-table
+      <component
         :year="year"
         :month="month"
+        :dateSegment.sync="dateSegment"
         :today="today"
-        v-show="
-          tableType === 'date' ||
-          tableType === 'week' ||
-          tableType === 'daterange'
-        "
         @selectedCell="selectedCell"
-      ></date-table>
-      <month-table
-        :month="month"
-        :year="year"
-        @selectedCell="selectedCell"
-        v-show="tableType === 'month'"
-      ></month-table>
-      <year-table
-        :year="year"
-        @selectedCell="selectedCell"
-        v-show="tableType === 'year'"
-      ></year-table>
+        :is="pickerTable"
+      />
     </div>
   </div>
 </template>
 <script>
-import Icon from "../icon";
+import Icon from "../../icon";
 import dateTable from "./base/date-table";
 import monthTable from "./base/month-table";
 import yearTable from "./base/year-table";
-import { findComponentUpward, typeOf } from "../../utils/assist";
+import { findComponentUpward, typeOf } from "../../../utils/assist";
 const prefixCls = "sta-picker-panel";
+const PICKERTYPE = {
+  date: "date-table",
+  week: "date-table",
+  daterange: "date-table",
+  month: "month-table",
+  year: "year-table",
+};
 export default {
   inject: ["provideData"],
   components: { Icon, dateTable, monthTable, yearTable },
@@ -85,6 +78,10 @@ export default {
     daterange: {
       type: Boolean,
       default: false,
+    },
+    dateSegment: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {
@@ -96,17 +93,7 @@ export default {
     };
   },
   mounted() {
-    let today = new Date();
-    this.year = this.provideData.visualValue
-      ? this.provideData.visualValue.getFullYear()
-      : today.getFullYear();
-    this.month = this.provideData.visualValue
-      ? this.provideData.visualValue.getMonth() + 1
-      : today.getMonth() + 1;
-    this.today = this.provideData.visualValue
-      ? this.provideData.visualValue.getDate()
-      : today.getDate();
-
+    this.dateInit();
     this.daterange && this.nextMonth();
   },
   computed: {
@@ -137,22 +124,29 @@ export default {
     pickerPanelBodyClasses() {
       return `${prefixCls}-body`;
     },
+    pickerTable() {
+      return PICKERTYPE[this.tableType];
+    },
   },
   methods: {
     selectedCell(date, val) {
       let { type } = this.provideData;
       if (type === this.tableType) {
-        let datePicker = findComponentUpward(this, "datePicker");
-        if (typeOf(datePicker.provideData.visualValue) === "array") {
-          datePicker.provideData.visualValue.length === 2
-            ? (datePicker.provideData.visualValue = [date])
-            : datePicker.provideData.visualValue.push(date);
-        } else datePicker.provideData.visualValue = date;
-      } else if (type === "date" && this.tableType === "month") {
+        // let datePicker = findComponentUpward(this, "datePicker");
+        // if (type === "daterange") {
+        //   datePicker.provideData.visualValue.length === 2
+        //     ? (datePicker.provideData.visualValue = [date])
+        //     : datePicker.provideData.visualValue.push(date);
+        // } else datePicker.provideData.visualValue = date;
+        this.$emit("on-change", date);
+      } else if (
+        (type === "date" || type === "daterange") &&
+        this.tableType === "month"
+      ) {
         this.month = val;
         this.tableType = "date";
       } else if (
-        (type === "date" || type === "month") &&
+        (type === "date" || type === "month" || type === "daterange") &&
         this.tableType === "year"
       ) {
         this.year = val;
@@ -162,23 +156,53 @@ export default {
     nextYear() {
       if (this.tableType === "year") this.year += 10;
       else this.year += 1;
+      this.tableType === "daterange" &&
+        this.$emit("pickerLinkage", "next", "year");
     },
     lastYear() {
       if (this.year > 1 && this.tableType !== "year") this.year -= 1;
       if (this.tableType === "year") this.year -= 10;
+      this.daterange && this.$emit("pickerLinkage", "last", "year");
     },
     lastMonth() {
       if (this.month > 1) this.month -= 1;
       else (this.year -= 1), (this.month = 12);
+      this.daterange && this.$emit("pickerLinkage", "last", "month");
     },
     nextMonth() {
       if (this.month < 12) this.month += 1;
       else (this.year += 1), (this.month = 1);
+      this.tableType === "daterange" &&
+        this.$emit("pickerLinkage", "next", "month");
+    },
+    dateInit() {
+      let today = new Date();
+      let valueType = typeOf(this.provideData.visualValue);
+      let arrayIndex = this.daterange ? 0 : 1;
+      if (valueType === "date") {
+        this.year = this.provideData.visualValue.getFullYear();
+        this.month = this.provideData.visualValue.getMonth() + 1;
+        this.today = this.provideData.visualValue.getDate();
+      } else if (
+        valueType === "array" &&
+        this.provideData.visualValue[arrayIndex]
+      ) {
+        this.year = this.provideData.visualValue[arrayIndex].getFullYear();
+        this.month = this.provideData.visualValue[arrayIndex].getMonth() + 1;
+        this.today = this.provideData.visualValue[arrayIndex].getDate();
+      } else {
+        this.year = today.getFullYear();
+        this.month = today.getMonth() + 1;
+        this.today = today.getDate();
+      }
     },
   },
   watch: {
     "provideData.type"(val) {
       this.tableType = val;
+    },
+    dateSegment(val) {
+      this.$emit("update:dateSegment", val);
     },
   },
 };

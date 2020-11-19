@@ -198,6 +198,7 @@ export function getScrollWidth(element) {
 
 export function toDate(date) {
     date = new Date(date);
+    date.setHours(0);
     if (isNaN(date.getTime())) return null;
     return date;
 };
