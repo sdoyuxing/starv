@@ -264,7 +264,7 @@
     </section>
     <section class="starv-clear">
       <h2>API</h2>
-      <h3>Tag props</h3>
+      <h3>Tabs props</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -284,7 +284,7 @@
       </table>
       <br />
       <br />
-      <h3>Tag events</h3>
+      <h3>Tabs events</h3>
       <br />
       <table class="starv-table">
         <thead>

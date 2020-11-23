@@ -129,7 +129,12 @@
         >标签{{ item }}的内容</s-tab-pane
       >
     </s-tabs> -->
-    <s-date-picker type="date" style="width: 200px"></s-date-picker>
+    <s-date-picker
+      v-model="datePicker"
+      :type="type"
+      format="yyyy年MM月dd日"
+      style="width: 200px"
+    ></s-date-picker>
     <s-button @click="type = 'date'">日期</s-button>
     <s-button @click="type = 'week'">周</s-button>
     <s-button @click="type = 'month'">月</s-button>

@@ -1,7 +1,7 @@
 <template>
   <article>
     <section>
-      <h1>Tabs 标签页</h1>
+      <h1>DatePicker 日期选择器</h1>
     </section>
     <section>
       <h2>代码示例</h2>
@@ -9,7 +9,12 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-date-picker type="date" style="width: 200px"></s-date-picker>
+              <s-date-picker
+                placeholder="请选择日期"
+                type="date"
+                multiple
+                style="width: 200px"
+              ></s-date-picker>
             </div>
           </section>
           <section class="starv-code__describe">
@@ -44,14 +49,13 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-date-picker type="month" style="width: 200px"></s-date-picker>
-              <s-date-picker type="year" style="width: 200px"></s-date-picker>
+              <s-date-picker type="daterange" placeholder="请选择范围" style="width: 200px"></s-date-picker>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">年和月</div>
+            <div class="starv-code__describe--title">选择范围</div>
             <p>
-              <code>icon</code>可以设置图标。
+              设置属性 type 为 <code>daterange</code> 显示选择范围。
               <i
                 :class="[
                   'star-icon',
@@ -73,7 +77,7 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tabsIcon}}
+                {{daterange}}
                </code>
             </pre>
             </div>
@@ -82,23 +86,26 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1" closable
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2" closable
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3" closable
-                  >标签三的内容</s-tab-pane
-                >
-              </s-tabs>
+              <s-date-picker
+                placeholder="请选择日期"
+                type="date"
+                style="width: 200px"
+                :disabledDate="disabledfn1"
+              ></s-date-picker>
+              <s-date-picker
+                placeholder="请选择日期"
+                type="date"
+                style="width: 200px"
+                :disabledDate="disabledfn"
+              ></s-date-picker>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">可删除</div>
+            <div class="starv-code__describe--title">不可选日期</div>
             <p>
-              <code>closable</code>设置是否可删除。
+              设置属性
+              <code>disabledDate</code> 是函数，参数为当前的日期，需要返回
+              Boolean 是否禁用这天。
               <i
                 :class="[
                   'star-icon',
@@ -114,13 +121,13 @@
           <section
             :class="[
               'starv-code__details',
-              { 'starv-code__details--show': show.num7 },
+              { 'starv-code__details-lg--show': show.num7 },
             ]"
           >
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tabsClosed}}
+                {{datepickerDisable}}
                </code>  
             </pre>
             </div>
@@ -131,14 +138,20 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-date-picker type="week" style="width: 200px"></s-date-picker>
               <s-date-picker
-                type="month"
-                style="width: 200px; margin-left: 50px"
+                placeholder="请选择周"
+                type="week"
+                style="width: 200px"
               ></s-date-picker>
               <s-date-picker
+                placeholder="请选择月份"
+                type="month"
+                style="width: 200px; margin-left: 30px"
+              ></s-date-picker>
+              <s-date-picker
+                placeholder="请选择年份"
                 type="year"
-                style="width: 200px; margin-left: 50px"
+                style="width: 200px; margin-left: 30px"
               ></s-date-picker>
             </div>
           </section>
@@ -177,23 +190,16 @@
         <section class="starv-code">
           <section class="starv-code__demo">
             <div>
-              <s-tabs type="card">
-                <s-tab-pane label="标签一" name="name1"
-                  >标签一的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签二" name="name2"
-                  >标签二的内容</s-tab-pane
-                >
-                <s-tab-pane label="标签三" name="name3"
-                  >标签三的内容</s-tab-pane
-                >
-              </s-tabs>
+              <s-date-picker type="date" format="yyyy年MM月dd日" placeholder="yyyy年MM月dd日" style="width: 200px"></s-date-picker>
+              <s-date-picker type="date" format="yyyy/MM/dd" placeholder="yyyy/MM/dd" style="width: 200px; margin-left: 30px"></s-date-picker>
+              <br />
+              <s-date-picker type="daterange" format="yyyy/MM/dd" placeholder="yyyy/MM/dd" style="width: 200px"></s-date-picker>
             </div>
           </section>
           <section class="starv-code__describe">
-            <div class="starv-code__describe--title">卡片样式</div>
+            <div class="starv-code__describe--title">日期格式</div>
             <p>
-              <code>type="card"</code>设置卡片样式。
+              设置属性 format 可以设置显示的日期格式。
               <i
                 :class="[
                   'star-icon',
@@ -215,36 +221,17 @@
             <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
               <pre v-highlight>
                <code class="html"> 
-                {{tabsCard}}
+                {{dateFormat}}
                </code>
             </pre>
             </div>
-          </section>
-        </section>
-        <section class="starv-code">
-          <section class="starv-code__demo">
-            <div>
-              <s-tabs>
-                <s-tab-pane
-                  :label="'标签' + item"
-                  :name="'name' + item"
-                  v-for="item in index"
-                  :key="item"
-                  >标签{{ item }}的内容</s-tab-pane
-                >
-              </s-tabs>
-            </div>
-          </section>
-          <section class="starv-code__describe">
-            <div class="starv-code__describe--title">选项很多情况</div>
-            <p>选项很多情况。</p>
           </section>
         </section>
       </div>
     </section>
     <section class="starv-clear">
       <h2>API</h2>
-      <h3>Tag props</h3>
+      <h3>DatePicker props</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -254,7 +241,7 @@
           <th>默认值</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in tabsAPI" :key="index">
+          <tr v-for="(item, index) in datepickerAPI" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>
@@ -264,7 +251,7 @@
       </table>
       <br />
       <br />
-      <h3>Tag events</h3>
+      <h3>DatePicker events</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -282,7 +269,7 @@
       </table>
       <br />
       <br />
-      <h3>TabPane props</h3>
+      <h3>DatePicker props</h3>
       <br />
       <table class="starv-table">
         <thead>
@@ -321,6 +308,14 @@ export default {
       index: 15,
     };
   },
-  methods: {},
+  methods: {
+    disabledfn(date) {
+      const disabledDay = date.getDate();
+      return disabledDay === 15;
+    },
+    disabledfn1(date) {
+      return date && date.valueOf() < Date.now() - 86400000;
+    },
+  },
 };
 </script>

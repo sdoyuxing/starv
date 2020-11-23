@@ -19,7 +19,7 @@
       v-on="$listeners"
     />
     <Icon
-      type="iconclose-bold"
+      type="icondelete-filling"
       v-if="clearable && currentValue"
       :class="clearClasses"
       @click.stop="handleClear"
@@ -130,7 +130,6 @@ export default {
         `${prefixCls}-icon-clear`,
         `${prefixCls}-icon-pointer`,
         `${prefixCls}-icon-suffix`,
-        { [`${prefixCls}-icon-suffix-right`]: this.isSuffix },
       ];
     },
     suffixClasses() {

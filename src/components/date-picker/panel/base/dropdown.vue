@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 274px">
     <slot></slot>
   </div>
 </template>

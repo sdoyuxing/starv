@@ -19,8 +19,8 @@ import pickerPanel from "./picker-panel";
 import { deepCopy } from "../../../utils/assist";
 export default {
   name: "dateRange",
-  inject: ["provideData"],
   components: { pickerPanel },
+  inject: ["provideData"],
   data() {
     return {
       currentValue: deepCopy(this.provideData.visualValue),
@@ -54,9 +54,18 @@ export default {
       this.currentValue.length === 2
         ? (this.currentValue = [date])
         : this.currentValue.push(date);
+      this.currentValue.sort((a, b) => a.getTime() - b.getTime());
       this.dateSegment = deepCopy(this.currentValue);
       if (this.currentValue.length === 2) {
         this.$emit("on-change", this.currentValue);
+      }
+    },
+  },
+  watch: {
+    "provideData.visualValue"() {
+      this.currentValue = deepCopy(this.provideData.visualValue);
+      if (this.provideData.visualValue.length === 0) {
+        this.dateSegment = [];
       }
     },
   },

@@ -8,6 +8,7 @@
         <template v-for="col in 7">
           <td
             :key="col"
+            :class="tdClasses(col + 7 * row - 8)"
             @click="handleClick(col + 7 * row - 8)"
             @mouseenter.stop="handleMouseenter(col + 7 * row - 8)"
           >
@@ -31,9 +32,8 @@ export default {
   props: {
     year: Number,
     month: Number,
-    today: Number,
   },
-  inject: ["provideData"],
+  inject: ["provideData", "disabledDate"],
   data() {
     return {
       dateHeader: ["日", "一", "二", "三", "四", "五", "六"],
@@ -41,17 +41,14 @@ export default {
       rowTotal: 6,
       monthStartDay: 0,
       monthEndDay: 0,
-      nowMonth: 0,
-      nowYear: 0,
+      nowDate: null,
       cellIndex: 0,
       dateRange: null,
     };
   },
   mounted() {
-    let nowDate = new Date();
+    this.nowDate = new Date();
     this.getDateList();
-    this.nowMonth = nowDate.getMonth() + 1;
-    this.nowYear = nowDate.getFullYear();
     this.dateRange = findComponentUpward(this, "dateRange");
   },
   computed: {
@@ -101,7 +98,12 @@ export default {
             num < this.monthStartDay ||
             num > this.monthEndDay + this.monthStartDay - 1,
           [`${prefixCls}-cell-today`]:
-            Date.now() === cellDate.getTime() &&
+            this.nowDate &&
+            new Date(
+              this.nowDate.getFullYear(),
+              this.nowDate.getMonth(),
+              this.nowDate.getDate()
+            ).getTime() === cellDate.getTime() &&
             num >= this.monthStartDay &&
             num <= this.monthEndDay + this.monthStartDay - 1,
           [`${prefixCls}-cell-selected`]: dateArray.some((item) => {
@@ -119,6 +121,24 @@ export default {
             num <= this.monthEndDay + this.monthStartDay - 1,
         },
       ];
+    },
+    tdClasses(num) {
+      if (this.year === 0 && this.month === 0) return [];
+      let { month, year } = this;
+      if (num < this.monthStartDay) {
+        if (month > 1) month -= 1;
+        else (month = 12), (year -= 1);
+      }
+      if (num > this.monthEndDay + this.monthStartDay - 1) {
+        if (month < 12) month += 1;
+        else (month = 1), (year += 1);
+      }
+      let cellDate = new Date(year, month - 1, this.dateList[num]);
+      return {
+        [`${prefixCls}-cell-disabled`]:
+          typeOf(this.disabledDate) === "function" &&
+          this.disabledDate(cellDate),
+      };
     },
     getMonthStartEnd(month, year) {
       let monthEndDate = new Date(year, Number(month), 0);
@@ -159,17 +179,18 @@ export default {
         else (month = 1), (year += 1);
       }
       let date = new Date(year, month - 1, this.dateList[num]);
+      if (this.disabledDate && this.disabledDate(date)) return;
       this.$emit("selectedCell", date);
     },
     cellTitle(num) {
       return `${this.year}`;
     },
     handleMouseenter(num) {
-      if (this.dateRange.currentValue.length === 1) {
+      if (this.dateRange && this.dateRange.currentValue.length === 1) {
         this.dateRange.dateSegment = [
-          this.dateRange.dateSegment[0],
+          this.dateRange.currentValue[0],
           new Date(this.year, this.month - 1, this.dateList[num]),
-        ];
+        ].sort((a, b) => a.getTime() - b.getTime());
       }
     },
   },

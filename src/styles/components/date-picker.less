@@ -59,6 +59,8 @@
             .picker-panel-content;
 
             &-daterange {
+                white-space: nowrap;
+
                 td {
                     padding: 2px 0px;
                 }
@@ -80,6 +82,7 @@
 
             &-today {
                 border: @border-width-base @border-style-base @primary-color;
+                border-radius: @border-radius-sm;
             }
 
             &-segment {
@@ -92,6 +95,13 @@
 
             &-selected {
                 .picker-cell-selected;
+            }
+
+            td&-disabled {
+                border: none;
+                background-color: @disabled-bg;
+                cursor: not-allowed;
+                color: @disabled-color;
             }
 
 

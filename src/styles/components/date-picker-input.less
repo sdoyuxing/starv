@@ -13,7 +13,7 @@
         line-height: normal;
 
         &:hover {
-            .@{input-prefix-cls}-icon-clear {
+            .@{picker-input-prefix-cls}-icon-clear {
                 display: inline-block;
             }
         }
@@ -40,6 +40,7 @@
 
         &-suffix {
             right: 0;
+            color: rgba(0, 0, 0, .4);
         }
 
         &-prefix {
@@ -60,6 +61,7 @@
 
         &-clear {
             display: none;
+            z-index: 4;
         }
 
         &-pointer {
@@ -73,7 +75,7 @@
 
     &:focus,
     &-focused {
-        
+
         ~.@{input-prefix-cls}-label {
             .input-label-active;
         }

@@ -4,22 +4,13 @@
       <s-date-picker-input
         suffix="iconriqixuanze"
         :value="inputValue"
+        :placeholder="placeholder"
+        clearable
         ref="pickerInput"
+        @on-clear="handleClear"
       ></s-date-picker-input>
     </div>
     <drop :class="pickerClasses">
-      <!-- <picker-panel
-        ref="startPicker"
-        :dateSegment.sync="dateSegment"
-        @pickerLinkage="pickerLinkage"
-      ></picker-panel>
-      <picker-panel
-        v-if="type === 'daterange'"
-        :dateSegment.sync="dateSegment"
-        ref="endPicker"
-        daterange
-        @pickerLinkage="pickerLinkage"
-      ></picker-panel> -->
       <component :is="pickerTable" @on-change="handleChange" />
     </drop>
   </div>
@@ -71,6 +62,9 @@ export default {
         return oneOf(value, ["date", "year", "month", "week", "daterange"]);
       },
     },
+    placeholder: String,
+    format: String,
+    disabledDate: Function,
   },
 
   data() {
@@ -82,6 +76,7 @@ export default {
   provide() {
     return {
       provideData: this.provideData,
+      disabledDate: this.disabledDate,
     };
   },
   directives: { clickOutside },
@@ -98,33 +93,44 @@ export default {
     pickerClasses() {
       return [dropPrefixCls, { [`${dropPrefixCls}-show`]: this.dropShow }];
     },
-    datePickerWrap(){
-       return `${dropPrefixCls}-wrap`;
+    datePickerWrap() {
+      return `${dropPrefixCls}-wrap`;
     },
     inputValue() {
       if (this.type === "week") {
-        return `${this.provideData.visualValue.getFullYear()}-${weeklyIndex(
-          this.provideData.visualValue
-        )}周`;
+        return (
+          this.provideData.visualValue &&
+          `${this.provideData.visualValue.getFullYear()}-${weeklyIndex(
+            this.provideData.visualValue
+          )}周`
+        );
       } else if (this.type !== "daterange") {
         return (
           this.provideData.visualValue &&
           dateUtil.format(
             this.provideData.visualValue,
-            DEFAULT_FORMATS[this.type]
+            this.format || DEFAULT_FORMATS[this.type]
           )
         );
       } else if (this.type === "daterange") {
-        return (
-          typeOf(this.provideData.visualValue) === "array" &&
-          this.provideData.visualValue
-            .map((item) => dateUtil.format(item, DEFAULT_FORMATS[this.type]))
-            .join(" - ")
-        );
+        return typeOf(this.provideData.visualValue) === "array"
+          ? this.provideData.visualValue
+              .map((item) =>
+                dateUtil.format(item, this.format || DEFAULT_FORMATS[this.type])
+              )
+              .join(" - ")
+          : "";
+      } else {
+        return "";
       }
     },
   },
   methods: {
+    handleClear() {
+      if (this.type === "daterange" || this.multiple)
+        this.provideData.visualValue = [];
+      else this.provideData.visualValue = null;
+    },
     pickerLinkage(mode, type) {
       let monthEqual =
         this.$refs.startPicker.month === this.$refs.endPicker.month;
@@ -156,7 +162,13 @@ export default {
   watch: {
     "provideData.visualValue"(val) {
       if (typeOf(val) === "date") {
-        this.$emit("input", this.inputValue);
+        this.$emit(
+          "input",
+          dateUtil.format(
+            this.provideData.visualValue,
+            DEFAULT_FORMATS[this.type]
+          )
+        );
       }
       this.$refs.pickerInput.focus();
       this.onClickOutside();

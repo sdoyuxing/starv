@@ -50,7 +50,6 @@
         :year="year"
         :month="month"
         :dateSegment.sync="dateSegment"
-        :today="today"
         @selectedCell="selectedCell"
         :is="pickerTable"
       />
@@ -132,12 +131,6 @@ export default {
     selectedCell(date, val) {
       let { type } = this.provideData;
       if (type === this.tableType) {
-        // let datePicker = findComponentUpward(this, "datePicker");
-        // if (type === "daterange") {
-        //   datePicker.provideData.visualValue.length === 2
-        //     ? (datePicker.provideData.visualValue = [date])
-        //     : datePicker.provideData.visualValue.push(date);
-        // } else datePicker.provideData.visualValue = date;
         this.$emit("on-change", date);
       } else if (
         (type === "date" || type === "daterange") &&
@@ -178,7 +171,7 @@ export default {
     dateInit() {
       let today = new Date();
       let valueType = typeOf(this.provideData.visualValue);
-      let arrayIndex = this.daterange ? 0 : 1;
+      let arrayIndex = this.daterange ? 1 : 0;
       if (valueType === "date") {
         this.year = this.provideData.visualValue.getFullYear();
         this.month = this.provideData.visualValue.getMonth() + 1;
@@ -188,18 +181,28 @@ export default {
         this.provideData.visualValue[arrayIndex]
       ) {
         this.year = this.provideData.visualValue[arrayIndex].getFullYear();
-        this.month = this.provideData.visualValue[arrayIndex].getMonth() + 1;
+        this.month =
+          arrayIndex === 0
+            ? this.provideData.visualValue[arrayIndex].getMonth() + 1
+            : Math.max(
+                this.provideData.visualValue[0].getMonth() + 2,
+                this.provideData.visualValue[1].getMonth() + 1
+              );
         this.today = this.provideData.visualValue[arrayIndex].getDate();
       } else {
         this.year = today.getFullYear();
         this.month = today.getMonth() + 1;
         this.today = today.getDate();
+        this.daterange && this.nextMonth();
       }
     },
   },
   watch: {
     "provideData.type"(val) {
       this.tableType = val;
+    },
+    "provideData.visualValue"(val) {
+      this.dateInit();
     },
     dateSegment(val) {
       this.$emit("update:dateSegment", val);
