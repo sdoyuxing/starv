@@ -1,3 +1,4 @@
+import dateUtil from "./date";
 export function oneOf(value, validList) {
     for (let i = 0, cont = validList.length; i < cont; i++) {
         if (value === validList[i]) {
@@ -196,9 +197,8 @@ export function getScrollWidth(element) {
     return scrollWidth
 }
 
-export function toDate(date) {
-    date = new Date(date);
-    date.setHours(0);
+export function toDate(date, format = "yyyy-MM-dd") {
+    date = typeOf(date) === "date" ? date : dateUtil.parse(date, format);
     if (isNaN(date.getTime())) return null;
     return date;
 };

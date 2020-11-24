@@ -5,12 +5,12 @@
         suffix="iconriqixuanze"
         :value="inputValue"
         :placeholder="placeholder"
-        clearable
+        :clearable="clearable"
         ref="pickerInput"
         @on-clear="handleClear"
       ></s-date-picker-input>
     </div>
-    <drop :class="pickerClasses">
+    <drop :class="pickerClasses" :placement="placement">
       <component :is="pickerTable" @on-change="handleChange" />
     </drop>
   </div>
@@ -46,14 +46,6 @@ export default {
   props: {
     value: {
       type: String,
-      validator(value) {
-        let result = toDate(value) !== null;
-        if (!result) {
-          result = value.indexOf("周") > -1 && value.indexOf("-") > -1;
-          if (!result) throw new Error("Invalid Date in date-picker.value");
-        }
-        return result;
-      },
     },
     type: {
       type: String,
@@ -65,12 +57,40 @@ export default {
     placeholder: String,
     format: String,
     disabledDate: Function,
+    valueFormat: String,
+    clearable: {
+      type: Boolean,
+      default: true,
+    },
+    placement: {
+      type: String,
+      validator(value) {
+        return oneOf(value, [
+          "top",
+          "top-start",
+          "top-end",
+          "bottom",
+          "bottom-start",
+          "bottom-end",
+          "left",
+          "left-start",
+          "left-end",
+          "right",
+          "right-start",
+          "right-end",
+        ]);
+      },
+      default: "bottom-start",
+    },
   },
 
   data() {
     return {
       dropShow: false,
-      provideData: { visualValue: toDate(this.value), type: this.type },
+      provideData: {
+        visualValue: this.value ? this.formatVal(this.value) : "",
+        type: this.type,
+      },
     };
   },
   provide() {
@@ -126,6 +146,13 @@ export default {
     },
   },
   methods: {
+    formatVal(value) {
+      let result = toDate(value, this.valueFormat);
+      if (result === null) {
+        throw new Error("Invalid Date in date-picker.value");
+      }
+      return result;
+    },
     handleClear() {
       if (this.type === "daterange" || this.multiple)
         this.provideData.visualValue = [];
@@ -151,9 +178,11 @@ export default {
     handleFocus() {
       this.$refs.pickerInput.focus();
       this.dropShow = true;
+      this.$emit("on-open-change", this.dropShow);
     },
     onClickOutside() {
       this.dropShow = false;
+      this.$emit("on-open-change", this.dropShow);
     },
     handleChange(val) {
       this.provideData.visualValue = val;
@@ -161,21 +190,20 @@ export default {
   },
   watch: {
     "provideData.visualValue"(val) {
+      let date = dateUtil.format(
+        this.provideData.visualValue,
+        this.valueFormat || DEFAULT_FORMATS[this.type]
+      );
       if (typeOf(val) === "date") {
-        this.$emit(
-          "input",
-          dateUtil.format(
-            this.provideData.visualValue,
-            DEFAULT_FORMATS[this.type]
-          )
-        );
+        this.$emit("input", date);
+        this.$emit("on-change", date);
       }
       this.$refs.pickerInput.focus();
       this.onClickOutside();
     },
     value(val) {
       if (toDate(val).geTime() !== this.provideData.visualValue.geTime()) {
-        this.provideData.visualValue = toDate(val);
+        this.provideData.visualValue = toDate(val, this.valueFormat);
       }
     },
     type(val) {

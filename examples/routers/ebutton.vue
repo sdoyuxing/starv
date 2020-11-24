@@ -132,8 +132,9 @@
     <s-date-picker
       v-model="datePicker"
       :type="type"
-      format="yyyy年MM月dd日"
+      format="yyyy/MM/dd"
       style="width: 200px"
+      value-format="yyyy年MM月dd日"
     ></s-date-picker>
     <s-button @click="type = 'date'">日期</s-button>
     <s-button @click="type = 'week'">周</s-button>
@@ -215,7 +216,7 @@ export default {
         { name: "小红", sex: "女", age: 16, nian: "高一", ban: "二班" },
       ],
       tabsIndex: "name2",
-      datePicker: "2020-01-01",
+      datePicker: "2020-11-24",
       type: "date",
     };
   },

@@ -260,30 +260,10 @@
           <th>返回值</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in tabsEvents" :key="index">
+          <tr v-for="(item, index) in datepickerEvents" :key="index">
             <td v-html="item.name"></td>
             <td v-html="item.desc"></td>
             <td v-html="item.type"></td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
-      <br />
-      <h3>DatePicker props</h3>
-      <br />
-      <table class="starv-table">
-        <thead>
-          <th>属性</th>
-          <th>说明</th>
-          <th>类型</th>
-          <th>默认值</th>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in TabPaneAPI" :key="index">
-            <td v-html="item.name"></td>
-            <td v-html="item.desc"></td>
-            <td v-html="item.type"></td>
-            <td v-html="item.default"></td>
           </tr>
         </tbody>
       </table>
