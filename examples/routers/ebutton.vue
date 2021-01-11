@@ -129,7 +129,7 @@
         >标签{{ item }}的内容</s-tab-pane
       >
     </s-tabs> -->
-    <s-date-picker
+    <!-- <s-date-picker
       v-model="datePicker"
       :type="type"
       format="yyyy/MM/dd"
@@ -142,7 +142,8 @@
     <s-button @click="type = 'year'">年</s-button>
     <s-button @click="type = 'daterange'">时间段</s-button>
 
-    {{ datePicker }}
+    {{ datePicker }} -->
+    <s-tree :data="treeData"></s-tree>
   </div>
 </template>
 <script>
@@ -218,6 +219,63 @@ export default {
       tabsIndex: "name2",
       datePicker: "2020-11-24",
       type: "date",
+      treeData: [
+        {
+          label: "一级 1",
+          children: [
+            {
+              label: "二级 1-1",
+              children: [
+                {
+                  label: "三级 1-1-1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "一级 2",
+          children: [
+            {
+              label: "二级 2-1",
+              children: [
+                {
+                  label: "三级 2-1-1",
+                },
+              ],
+            },
+            {
+              label: "二级 2-2",
+              children: [
+                {
+                  label: "三级 2-2-1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "一级 3",
+          children: [
+            {
+              label: "二级 3-1",
+              children: [
+                {
+                  label: "三级 3-1-1",
+                },
+              ],
+            },
+            {
+              label: "二级 3-2",
+              children: [
+                {
+                  label: "三级 3-2-1",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   },
   mounted() {

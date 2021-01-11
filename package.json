@@ -7,7 +7,7 @@
     "start": "npm run dev",
     "dev": "webpack-dev-server --content-base test/ --inline --hot --compress --history-api-fallback --port 8002 --config build/webpack.dev.config.js",
     "dev:s": "webpack-dev-server --content-base test/ --open --inline --hot --compress --history-api-fallback --port 8081 --host 0.0.0.0 --config build/webpack.dev.config.js",
-    "dist:dev": "webpack --mode development --config build/webpack.dist.dev.config.js",
+    "dist:dev": "webpack --mode production --config build/webpack.dist.dev.config.js",
     "dist:style": "webpack --mode production --config build/webpack.dist.style.config.js",
     "dist:prod": "webpack --mode production --config build/webpack.dist.prod.config.js",
     "dist:locale": "webpack --mode production --config build/webpack.dist.locale.config.js",
@@ -21,7 +21,8 @@
   "license": "ISC",
   "dependencies": {
     "highlight.js": "^10.1.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "videorecording": "^1.0.1"
   },
   "directories": {
     "example": "examples",

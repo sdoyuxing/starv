@@ -22,6 +22,7 @@ import {
     Option
 } from './components/select'
 import sTooltip from './components/tooltip'
+import sTree from './components/tree'
 
 const components = {
     sButton,
@@ -45,7 +46,8 @@ const components = {
     sTabs,
     sTabPane: sTabs.Pane,
     sDatePicker,
-    sDatePickerInput
+    sDatePickerInput,
+    sTree
 };
 
 const iview = components;

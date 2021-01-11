@@ -1,0 +1,53 @@
+@tree-prefix-cls: ~"@{sta-prefix}-tree";
+
+.@{tree-prefix-cls} {
+    position: relative;
+
+    &-text {
+        cursor: pointer;
+        padding: 0 5px;
+        transition: all .2s ease-in-out;
+        display: inline-block;
+        border-radius: @border-radius-sm;
+
+        &-selected {
+            background: @tree-directory-selected-bg;
+        }
+    }
+
+    &-children {
+        transition: all .15s linear;
+        transform-origin: center top;
+        height: 0px;
+        overflow: hidden;
+    }
+
+
+    &-icon {
+        margin: 0 4px;
+        font-size: 12px;
+        transition: all .15s linear;
+        cursor: pointer;
+        &-arrow{
+            transform: rotate(-90deg);
+        }
+    }
+
+    &-arrow {
+        width: 15px;
+        display: inline-block;
+    }
+
+    ul {
+        list-style: none;
+
+        & li {
+            margin: 8px 0 0 0;
+
+            ul {
+                margin: 0;
+                padding: 0 0 0 18px;
+            }
+        }
+    }
+}
