@@ -143,7 +143,9 @@
     <s-button @click="type = 'daterange'">时间段</s-button>
 
     {{ datePicker }} -->
-    <s-tree :data="treeData"></s-tree>
+    <s-tree :data="treeData" checkbox></s-tree>
+    异步：
+    <s-tree :data="lazyData" checkbox lazy :load-data="loadData"></s-tree>
   </div>
 </template>
 <script>
@@ -228,6 +230,7 @@ export default {
               children: [
                 {
                   label: "三级 1-1-1",
+                  disabled: true,
                 },
               ],
             },
@@ -235,17 +238,20 @@ export default {
         },
         {
           label: "一级 2",
+          expand: true,
           children: [
             {
               label: "二级 2-1",
               children: [
                 {
                   label: "三级 2-1-1",
+                  selected: true,
                 },
               ],
             },
             {
               label: "二级 2-2",
+              checked: true,
               children: [
                 {
                   label: "三级 2-2-1",
@@ -276,6 +282,12 @@ export default {
           ],
         },
       ],
+      lazyData: [
+        {
+          label: "一级 1",
+          children: [],
+        },
+      ],
     };
   },
   mounted() {
@@ -286,6 +298,23 @@ export default {
   methods: {
     onFilter(value, record) {
       return record.address.indexOf(value) === 0;
+    },
+    loadData(item, resolve) {
+      setTimeout(() => {
+        const data = [
+          {
+            label: "children",
+            loading: false,
+            children: [],
+          },
+          {
+            label: "children",
+            loading: false,
+            children: [],
+          },
+        ];
+        resolve(data);
+      }, 1000);
     },
     click() {
       alert(222);

@@ -10,8 +10,15 @@
         display: inline-block;
         border-radius: @border-radius-sm;
 
+        &:hover {
+            background: tint(@tree-directory-selected-bg, 50%);
+        }
+
         &-selected {
             background: @tree-directory-selected-bg;
+            &:hover{
+                background: @tree-directory-selected-bg;
+            }
         }
     }
 
@@ -28,13 +35,14 @@
         font-size: 12px;
         transition: all .15s linear;
         cursor: pointer;
-        &-arrow{
+
+        &-arrow {
             transform: rotate(-90deg);
         }
     }
 
     &-arrow {
-        width: 15px;
+        width: 21px;
         display: inline-block;
     }
 
@@ -43,6 +51,7 @@
 
         & li {
             margin: 8px 0 0 0;
+
 
             ul {
                 margin: 0;

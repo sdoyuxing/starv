@@ -109,7 +109,7 @@ export function getNumArray(n) {
  *@return Vnode
  */
 export function parseTemplateToVnode(template = '', bool = false) {
-    const tagRegex = /(<(?!!--)(?:[^>])+>)\s*([^\s<]*)|((?:[^>]\s|^)<!--(?!<!)[^\[>][\s\S]*?-->)/g,
+    const tagRegex = /(<(?!!--)(?:[^>])+>)\s*([^<]*)|((?:[^>]\s|^)<!--(?!<!)[^\[>][\s\S]*?-->)/g,
         result = []
     let stack = [],
         stackItem = null,
