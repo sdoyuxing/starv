@@ -23,6 +23,7 @@ import {
 } from './components/select'
 import sTooltip from './components/tooltip'
 import sTree from './components/tree'
+import sMenu from './components/menu'
 
 const components = {
     sButton,
@@ -47,7 +48,10 @@ const components = {
     sTabPane: sTabs.Pane,
     sDatePicker,
     sDatePickerInput,
-    sTree
+    sTree,
+    sMenu,
+    sMenuItem: sMenu.MenuItem,
+    sSubmenu: sMenu.submenu
 };
 
 const iview = components;

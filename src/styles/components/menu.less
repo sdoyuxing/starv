@@ -1,0 +1,82 @@
+@menu-prefix-cls: ~"@{sta-prefix}-menu";
+
+.@{menu-prefix-cls} {
+    list-style: none;
+    font-size: 14px;
+    overflow: visible;
+
+    &-horizontal {
+        border-bottom: 1px solid #f0f0f0;
+        line-height: 50px;
+
+        .@{menu-prefix-cls}-item {
+            float: left;
+            padding: 0 20px;
+            border-bottom: 2px solid transparent;
+            top: 1px;
+
+            &:hover {
+                color: @primary-color;
+                border-bottom: 2px solid @primary-color;
+            }
+
+            &-selected {
+                color: @primary-color;
+                border-bottom: 2px solid @primary-color;
+            }
+
+        }
+    }
+
+    &-vertical {
+        .@{menu-prefix-cls}-item {
+            line-height: 50px;
+
+            &:hover {
+                color: @primary-color;
+            }
+        }
+
+        padding: 0 24px;
+        border-right: 1px solid #f0f0f0;
+
+
+    }
+
+    &-item {
+        position: relative;
+        cursor: pointer;
+        transition: all .2s linear;
+
+
+        &-clear {
+            clear: both;
+        }
+
+        >i {
+            margin-right: 10px;
+        }
+
+        .iconarrow-down {
+            transition: transform .2s ease-in-out;
+            font-size: 10px;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        &-icon-down {
+            transform: rotate(180deg);
+        }
+
+    }
+
+    &-dropdown {
+        min-width: 100%;
+        color: @text-color;
+
+        .@{menu-prefix-cls}-item:hover,
+        .@{menu-prefix-cls}-item-selected {
+            border-bottom: 2px solid transparent;
+        }
+    }
+}

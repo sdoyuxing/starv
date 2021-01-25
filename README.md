@@ -4,7 +4,7 @@
     </a>
 </p>
 
-<h1>StarUI Vue  </h1>
+<h1>StarV</h1>
 <h3>vue2.0的一个后台UI组件工具。</h3>
 
 ## Docs

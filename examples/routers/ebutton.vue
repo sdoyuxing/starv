@@ -143,9 +143,31 @@
     <s-button @click="type = 'daterange'">时间段</s-button>
 
     {{ datePicker }} -->
-    <s-tree :data="treeData" checkbox></s-tree>
+    <!-- <s-tree :data="treeData" checkbox></s-tree>
     异步：
-    <s-tree :data="lazyData" checkbox lazy :load-data="loadData"></s-tree>
+    <s-tree :data="lazyData" checkbox lazy :load-data="loadData"></s-tree> -->
+    <s-menu>
+      <s-menu-item name="1"> <Icon type="iconuser" />用户管理</s-menu-item>
+      <s-menu-item name="2"><Icon type="icondata-view" />统计管理</s-menu-item>
+      <s-submenu name="3"
+        ><template slot="title"><Icon type="iconsetting" />权限管理</template>
+        <s-menu-item name="3">统计管理</s-menu-item>
+      </s-submenu>
+    </s-menu>
+    <br />
+    侧栏
+    <div style="width: 300px">
+      <s-menu mode="vertical">
+        <s-menu-item name="1"> <Icon type="iconuser" />用户管理</s-menu-item>
+        <s-menu-item name="2"
+          ><Icon type="icondata-view" />统计管理</s-menu-item
+        >
+        <s-submenu name="3"
+          ><template slot="title"><Icon type="iconsetting" />权限管理</template>
+          <s-menu-item name="3">统计管理</s-menu-item>
+        </s-submenu>
+      </s-menu>
+    </div>
   </div>
 </template>
 <script>
