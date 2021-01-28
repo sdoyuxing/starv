@@ -36,6 +36,12 @@ export default {
     this.setActiveItem();
   },
   methods: {
+    handleSelect(name) {
+      this.$emit("on-select", name);
+    },
+    changeExpand(name, isExpand) {
+      this.$emit("on-change-expand", name, isExpand);
+    },
     setActiveItem() {
       let sSubmenu;
       this.activeItem &&

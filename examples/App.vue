@@ -59,6 +59,7 @@ export default {
         { name: "Tabs 标签页", url: "/tabs" },
         { name: "DatePicker 日期选择器", url: "/datepicker" },
         { name: "Tree 树形控件", url: "/tree" },
+        { name: "Menu 导航菜单", url: "/menu" },
         { name: "demo", url: "/ebutton" },
       ],
     };

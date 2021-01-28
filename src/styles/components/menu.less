@@ -5,9 +5,23 @@
     font-size: 14px;
     overflow: visible;
 
+
+
     &-horizontal {
         border-bottom: 1px solid #f0f0f0;
         line-height: 50px;
+
+        .@{menu-prefix-cls}-submenu {
+            float: left;
+            position: relative;
+
+            &:hover {
+                &>.@{menu-prefix-cls}-item {
+                    color: @primary-color;
+                    border-bottom: 2px solid @primary-color;
+                }
+            }
+        }
 
         .@{menu-prefix-cls}-item {
             float: left;
@@ -29,25 +43,51 @@
     }
 
     &-vertical {
+        border-right: 1px solid #f0f0f0;
+
         .@{menu-prefix-cls}-item {
             line-height: 50px;
+            padding: 0 24px;
+            left: 1px;
+            border-right: 2px solid transparent;
 
             &:hover {
                 color: @primary-color;
             }
+
+            &-selected {
+                background-color: tint(@primary-color, 90%);
+                border-right: 2px solid @primary-color;
+            }
         }
 
-        padding: 0 24px;
-        border-right: 1px solid #f0f0f0;
+        .@{menu-prefix-cls}-submenu-drop {
+            transform: scale(1, 0);
+            transition: all .15s linear;
+            transform-origin: center top;
 
+            &-show {
+                opacity: 1;
+                transform: scale(1);
+            }
 
+            & .@{menu-prefix-cls}-item {
+                padding: 0 0 0 45px;
+
+            }
+
+        }
+
+        .iconarrow-down {
+            float: right;
+            height: 50px;
+            line-height: 50px;
+        }
     }
 
     &-item {
-        position: relative;
         cursor: pointer;
         transition: all .2s linear;
-
 
         &-clear {
             clear: both;

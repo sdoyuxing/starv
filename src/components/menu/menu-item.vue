@@ -1,7 +1,7 @@
 <template>
   <li
     :class="[prefixCls + '-item', { [`${prefixCls}-item-selected`]: selected }]"
-    @click="handleClick"
+    @click.stop="handleClick"
   >
     <slot></slot>
   </li>
@@ -24,6 +24,7 @@ export default {
     handleClick() {
       let parent = findComponentUpward(this, "sMenu");
       parent.activeName = this.name;
+      parent.handleSelect(this.name);
       this.$parent.$parent.$options.name === "sSubmenu" &&
         ((this.$parent.$parent.visible = false),
         (this.$parent.$parent.selected = true));

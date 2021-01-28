@@ -27,6 +27,7 @@ import table from './routers/table'
 import tabs from './routers/tabs'
 import datepicker from './routers/datepicker'
 import tree from './routers/tree'
+import menu from './routers/menu'
 import '../src/styles/index.less'
 import './styles/index.less'
 import 'highlight.js/styles/atom-one-light.css' //样式
@@ -153,6 +154,10 @@ const router = new Router({
       path: '/tree',
       name: 'tree',
       component: tree
+    }, {
+      path: '/menu',
+      name: 'menu',
+      component: menu
     }
   ]
 })
