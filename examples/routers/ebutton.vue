@@ -146,15 +146,15 @@
     <!-- <s-tree :data="treeData" checkbox></s-tree>
     异步：
     <s-tree :data="lazyData" checkbox lazy :load-data="loadData"></s-tree> -->
-    <s-menu>
+    <!-- <s-menu>
       <s-menu-item name="1"> <Icon type="iconuser" />用户管理</s-menu-item>
       <s-menu-item name="2"><Icon type="icondata-view" />统计管理</s-menu-item>
       <s-submenu name="3"
         ><template slot="title"><Icon type="iconsetting" />权限管理</template>
         <s-menu-item name="3">统计管理</s-menu-item>
       </s-submenu>
-    </s-menu>
-    <br />
+    </s-menu> -->
+    <!-- <br />
     侧栏
     <div style="width: 300px">
       <s-menu mode="vertical">
@@ -167,7 +167,25 @@
           <s-menu-item name="3">统计管理</s-menu-item>
         </s-submenu>
       </s-menu>
-    </div>
+    </div> -->
+    <s-form style="width: 400px" inline>
+      <s-form-item label="姓名">
+        <s-input placeholder="请输入..." />
+      </s-form-item>
+      <s-form-item label="性别">
+        <s-select>
+          <Option value="IPHONE">苹果</Option>
+          <Option value="HUAWEI">华为</Option>
+          <Option value="SAMSUNG">三星</Option>
+          <Option value="MI">小米</Option>
+          <Option value="OPPO">OPPO</Option>
+          <Option value="VIVO">VIVO</Option>
+        </s-select>
+      </s-form-item>
+      <s-form-item label="年龄">
+        <s-input placeholder="请输入..." />
+      </s-form-item>
+    </s-form>
   </div>
 </template>
 <script>

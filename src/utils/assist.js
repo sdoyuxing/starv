@@ -7,6 +7,7 @@ export function oneOf(value, validList) {
     }
     return false
 }
+
 export function typeOf(obj) {
     const toString = Object.prototype.toString;
     const map = {
@@ -25,6 +26,7 @@ export function typeOf(obj) {
     if (key === "[object Number]" && isNaN(obj)) return 'NaN'
     return map[key];
 }
+
 export function deepCopy(data) {
     const t = typeOf(data);
     let o;

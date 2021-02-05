@@ -24,6 +24,7 @@ import {
 import sTooltip from './components/tooltip'
 import sTree from './components/tree'
 import sMenu from './components/menu'
+import sForm from './components/form'
 
 const components = {
     sButton,
@@ -51,7 +52,9 @@ const components = {
     sTree,
     sMenu,
     sMenuItem: sMenu.MenuItem,
-    sSubmenu: sMenu.submenu
+    sSubmenu: sMenu.submenu,
+    sForm,
+    sFormItem: sForm.formItem
 };
 
 const iview = components;

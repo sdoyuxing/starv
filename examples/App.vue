@@ -1,18 +1,35 @@
 <template>
   <div class="app" id="app">
+
     <!-- <layout></layout> -->
     <div class="starv-menu" @mouseenter="mouseenter" @mousewheel="scroll">
       <div ref="leftMenu" style="height: 100%; overflow: hidden">
         <ul class="starv-menu__list" ref="menuBox">
+          <li class="starv-menu__com">文档</li>
           <li
-            v-for="(item, index) in routers"
-            :key="index"
+            v-for="menu in menuMains"
+            :key="menu.path"
             class="starv-menu__item"
-            :class="{ 'starv-menu__item--selected': selected === index }"
-            @click="clickItem(index)"
+            :class="{ 'starv-menu__item--selected': selected === menu.path }"
+            @click="clickItem(menu.path)"
           >
-            <a>{{ item.name }}</a>
+            <a>{{ menu.title }}</a>
           </li>
+          <li class="starv-menu__com">组件</li>
+          <template v-for="item in menuCom">
+            <li :key="item.path" class="starv-menu__group">
+              {{ item.title }}
+            </li>
+            <li
+              v-for="menu in item.menus"
+              :key="menu.path"
+              class="starv-menu__item"
+              :class="{ 'starv-menu__item--selected': selected === menu.path }"
+              @click="clickItem(menu.path)"
+            >
+              <a>{{ menu.title }}</a>
+            </li>
+          </template>
         </ul>
       </div>
       <transition name="fade">
@@ -31,44 +48,22 @@
 </template>
 <script>
 let time = "";
+import menu from "./menu";
 export default {
   data() {
     return {
       selected: "",
       scrollBar: false,
       scrollBarHeight: 0,
-      routers: [
-        { name: "Star of Vue", url: "/starv" },
-        { name: "Icon 图标", url: "/icon" },
-        { name: "Button 按钮", url: "/button" },
-        { name: "Radio 按钮", url: "/radio" },
-        { name: "Input 输入框", url: "/input" },
-        { name: "Checkbox 多选框", url: "/checkbox" },
-        { name: "Switch 开关", url: "/switch" },
-        { name: "Alert 警告提示", url: "/alert" },
-        { name: "Tag 标签", url: "/tag" },
-        { name: "Select 选择器", url: "/select" },
-        { name: "Tooltip 文字提示", url: "/tooltip" },
-        { name: "ProgressBar 加载进度条", url: "/progressBar" },
-        { name: "Pagination 分页", url: "/pagination" },
-        { name: "Message 全局提示", url: "/message" },
-        { name: "Notice 通知提醒", url: "/notice" },
-        { name: "Poptip 气泡提示", url: "/poptip" },
-        { name: "Modal 对话框", url: "/modal" },
-        { name: "Table 表格", url: "/table" },
-        { name: "Tabs 标签页", url: "/tabs" },
-        { name: "DatePicker 日期选择器", url: "/datepicker" },
-        { name: "Tree 树形控件", url: "/tree" },
-        { name: "Menu 导航菜单", url: "/menu" },
-        { name: "demo", url: "/ebutton" },
-      ],
+      menuMains: [...menu.mains],
+      menuCom: [...menu.components],
     };
   },
   methods: {
-    clickItem(num) {
-      if (this.selected !== num) {
-        this.selected = num;
-        this.$router.push({ path: this.routers[num].url });
+    clickItem(path) {
+      if (this.selected !== path) {
+        this.selected = path;
+        this.$router.push({ path });
       }
     },
     mouseenter() {

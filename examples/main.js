@@ -3,48 +3,44 @@
 import Vue from 'vue'
 import App from './App'
 import Router from 'vue-router'
-import button from './routers/button'
-import ebutton from './routers/ebutton'
-import icon from './routers/icon'
-import radio from './routers/radio'
-import input from './routers/input'
-import checkbox from './routers/checkbox'
-import describe from './routers/describe'
-import dswitch from './routers/switch'
-import alert from './routers/alert'
-import tag from './routers/tag'
-import select from './routers/select'
-import progressBar from './routers/progressBar'
-import pagination from './routers/pagination'
-import message from './routers/message'
-import hljs from 'highlight.js'
 import starUi from '../src/index'
-import tooltip from './routers/tooltip'
-import poptip from './routers/poptip'
-import notice from './routers/notice'
-import modal from './routers/modal'
-import table from './routers/table'
-import tabs from './routers/tabs'
-import datepicker from './routers/datepicker'
-import tree from './routers/tree'
-import menu from './routers/menu'
+// import button from './docs/button.md'
+// import ebutton from './routers/ebutton'
+// import icon from './routers/icon'
+// import radio from './routers/radio'
+// import input from './routers/input'
+// import checkbox from './routers/checkbox'
+// import describe from './routers/describe'
+// import dswitch from './routers/switch'
+// import alert from './routers/alert'
+// import tag from './routers/tag'
+// import select from './routers/select'
+// import progressBar from './routers/progressBar'
+// import pagination from './routers/pagination'
+// import message from './routers/message'
+
+// import tooltip from './routers/tooltip'
+// import poptip from './routers/poptip'
+// import notice from './routers/notice'
+// import modal from './routers/modal'
+// import table from './routers/table'
+// import tabs from './routers/tabs'
+// import datepicker from './routers/datepicker'
+// import tree from './routers/tree'
+// import menu from './routers/menu'
+import menus from "./menu"
 import '../src/styles/index.less'
 import './styles/index.less'
 import 'highlight.js/styles/atom-one-light.css' //样式
+import apiItem from "./components/apiItem"
+import attrCode from "./components/attrCode"
 
+Vue.component("api-item", apiItem);
+Vue.component("attr-code", attrCode);
 Vue.config.productionTip = false
 Vue.use(Router)
 Vue.use(starUi)
 
-Vue.directive('highlight', {
-  inserted: function (el) {
-    let blocks = el.querySelectorAll('pre code');
-    blocks.forEach((block) => {
-      block.innerHTML = block.innerHTML.replace('\n', '').replace('\n', '').trim()
-      hljs.highlightBlock(block)
-    })
-  }
-})
 
 function getAbsolutePath() {
   let pathName = location.pathname
@@ -55,111 +51,30 @@ function getAbsolutePath() {
     return ''
   }
 }
+let routes = menus.mains.map(o => ({
+  path: `/${o.path}`,
+  name: o.path,
+  component: resolve => require([`./docs/${o.path}.md`], resolve)
+}))
+// let routes = []
+routes.push({
+  path: "/",
+  name: "",
+  component: resolve => require([`./docs/introduction.md`], resolve)
+})
+
+menus.components.forEach(o => {
+  routes = routes.concat(o.menus.map(item => ({
+    path: `/${item.path}`,
+    name: item.path,
+    component: resolve => require([`./docs/${item.path}.md`], resolve)
+  })))
+})
+
 const router = new Router({
   base: getAbsolutePath(),
   mode: 'history',
-  routes: [{
-      path: '/',
-      name: '',
-      component: describe
-    }, {
-      path: '/starv',
-      name: 'starv',
-      component: describe
-    },
-    {
-      path: '/button',
-      name: 'button',
-      component: button
-    },
-    {
-      path: '/ebutton',
-      name: 'ebutton',
-      component: ebutton
-    },
-    {
-      path: '/radio',
-      name: 'radio',
-      component: radio
-    },
-    {
-      path: '/icon',
-      name: 'icon',
-      component: icon
-    }, {
-      path: '/input',
-      name: 'input',
-      component: input
-    }, {
-      path: '/checkbox',
-      name: 'checkbox',
-      component: checkbox
-    }, {
-      path: '/switch',
-      name: 'switch',
-      component: dswitch
-    }, {
-      path: '/alert',
-      name: 'alert',
-      component: alert
-    }, {
-      path: '/tag',
-      name: 'tag',
-      component: tag
-    }, {
-      path: '/select',
-      name: 'select',
-      component: select
-    }, {
-      path: '/tooltip',
-      name: 'tooltip',
-      component: tooltip
-    }, {
-      path: '/progressBar',
-      name: 'progressBar',
-      component: progressBar
-    }, {
-      path: '/pagination',
-      name: 'pagination',
-      component: pagination
-    }, {
-      path: '/message',
-      name: 'message',
-      component: message
-    }, {
-      path: '/notice',
-      name: 'notice',
-      component: notice
-    }, {
-      path: '/poptip',
-      name: 'poptip',
-      component: poptip
-    }, {
-      path: '/modal',
-      name: 'modal',
-      component: modal
-    }, {
-      path: '/table',
-      name: 'table',
-      component: table
-    }, {
-      path: '/tabs',
-      name: 'tabs',
-      component: tabs
-    }, {
-      path: '/datepicker',
-      name: 'datepicker',
-      component: datepicker
-    }, {
-      path: '/tree',
-      name: 'tree',
-      component: tree
-    }, {
-      path: '/menu',
-      name: 'menu',
-      component: menu
-    }
-  ]
+  routes
 })
 
 router.beforeEach((to, from, next) => {

@@ -1,0 +1,34 @@
+{
+  "name": "star-markdown-loader",
+  "version": "1.0.0",
+  "description": "markdown file to component loader",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd example && webpack-dev-server --inline --hot --port 8088"
+  },
+  "author": "hetao",
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "css-loader": "^5.0.1",
+    "highlight.js": "^10.5.0",
+    "html-loader": "^1.3.2",
+    "loader-utils": "^2.0.0",
+    "markdown-it": "^12.0.4",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.11.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.16.0",
+    "github-markdown-css": "^2.3.0",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.5.1",
+    "vue-template-compiler": "^2.5.22"
+  },
+  "dependencies": {
+    "github-markdown-css": "^4.0.0"
+  }
+}

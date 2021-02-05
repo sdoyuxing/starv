@@ -20,7 +20,6 @@
     <Drop
       :class="dropClasses"
       ref="drop"
-      @transitionend="transitionend"
       v-if="mode === 'horizontal'"
     >
       <slot></slot>

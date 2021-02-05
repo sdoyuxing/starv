@@ -96,6 +96,13 @@ module.exports = {
 				test: /\.(html|tpl)$/,
 				loader: 'html-loader'
 			},
+			{
+				test: /\.md$/,
+				use: ['vue-loader', {
+				  loader: path.resolve(__dirname, "../examples/star-markdown-loader/index.js"),
+				  options: {wrapper: 'div', raw: true}
+				}],
+			  }
 		]
 	},
 	resolve: {
@@ -112,9 +119,8 @@ module.exports = {
 			'process.env.VERSION': `'${pkg.version}'`
 		}),
 		new ExtractTextPlugin({
-			filename: 'styles/main.css',
-			allChunks: true
+			filename: 'styles/main.css'
 		}),
-		new OptimizeCSSPlugin()
+		// new OptimizeCSSPlugin()
 	]
 }

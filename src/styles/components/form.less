@@ -1,0 +1,32 @@
+@form-prefix-cls: ~"@{sta-prefix}-form";
+
+.@{form-prefix-cls} {
+    &-item {
+        margin-bottom: 20px;
+        line-height: 43px;
+    }
+
+    &-label {
+        vertical-align: middle;
+    }
+
+    &-content {
+        vertical-align: middle;
+    }
+
+    &-inline {
+        .@{form-prefix-cls}-item {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .@{form-prefix-cls}-content {
+            margin-left: 40px;
+        }
+
+        .@{form-prefix-cls}-label {
+            float: left;
+        }
+
+    }
+}

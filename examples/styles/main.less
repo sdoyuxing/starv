@@ -2,6 +2,25 @@
     height: 100%;
 }
 
+pre {
+    margin: 10px 0;
+    padding: 15px 20px;
+    background-color: #f5f5f5;
+}
+
+.hljs[class] {
+    margin-bottom: 20px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.hljs[class] code,
+kbd,
+pre,
+samp {
+    font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+}
+
 .@{css-prefix}header {
     background: @body-background;
     box-shadow: 0 2px 8px #f0f1f2;
@@ -51,7 +70,7 @@
     overflow: hidden;
     background: @body-background;
     position: relative;
-    font-size: @font-size-base ;
+    font-size: @font-size-base;
     height: 100%;
     margin-top: 70px;
 
@@ -64,8 +83,12 @@
 
         &__list {
             width: 100%;
-
             list-style: none;
+            color: @title-color;
+
+            a {
+                color: inherit;
+            }
         }
 
         &__item {
@@ -85,11 +108,11 @@
                 bottom: 0;
                 border-right: solid 3px #1890ff;
                 opacity: 0;
-                transition: transform 0.15s ease-in-out
+                transition: transform 0.15s ease-in-out;
             }
 
             &:hover {
-                color: #1890ff
+                color: #1890ff;
             }
 
             &--selected {
@@ -102,82 +125,111 @@
                 }
             }
         }
-    }
 
-    .@{css-prefix}col {
-        width: 50%;
-        padding-right: 20px;
-        float: left;
+        &__com {
+            padding-left: 20px;
+            font-size: 16px;
+            height: 50px;
+            line-height: 50px;
+            position: relative;
+        }
 
-        .@{css-prefix}code {
-            border: 1px solid #ebedf0;
-            float: left;
-            width: 100%;
-            margin-right: 10px;
-            margin-top: 20px;
-
-            &__demo {
-                padding: 30px 24px 50px;
-            }
-
-            &__describe {
-                border-top: 1px solid #ebedf0;
-                padding: 20px 24px 20px;
-                position: relative;
-
-                &--title {
-                    position: absolute;
-                    top: -13px;
-                    background: #fff;
-                    padding: 2px 7px;
-                }
-
-                p {
-                    line-height: 1.8;
-                }
-            }
-
-            &__details {
-                border-top: 1px dashed #ebedf0;
-                height: 0px;
-                padding: 0;
-                overflow: hidden;
-                opacity: 0;
-                transition: all .2s linear;
-            }
-
-            &__details-sm--show {
-                opacity: 1;
-                height: 250px;
-                padding: 0px 24px 0;
-            }
-
-            &__details--show {
-                opacity: 1;
-                height: 350px;
-                padding: 0px 24px 0;
-            }
-
-            &__details-lg--show {
-                opacity: 1;
-                height: 530px;
-                padding: 20px 24px 0;
-            }
-
-            &__details-lger--show {
-                opacity: 1;
-                height: 830px;
-                padding: 20px 24px 0;
-            }
+        &__group {
+            padding-left: 40px;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            color: #999;
         }
     }
+
+    .@{css-prefix}code {
+        border: 1px solid #ebedf0;
+        width: 100%;
+        margin-right: 10px;
+        margin-top: 40px;
+
+        &__demo {
+            padding: 30px 24px;
+            flex: 1;
+            box-sizing: border-box;
+            border-left: 1px dashed #ebedf0;
+
+            .btn {
+                margin-right: 10px;
+            }
+        }
+
+        &__desc {
+            padding: 20px 30px;
+            font-size: 14px;
+            box-sizing: border-box;
+            width: 400px;
+            line-height: 2;
+            color: @text-color;
+
+            strong {
+                color: @title-color;
+            }
+
+            code {
+                padding: 2px 4px;
+                border-radius: 3px;
+                background-color: #ecf4e3;
+                color: #498211;
+                margin: 0 5px;
+            }
+        }
+
+        &__describe {
+            border-top: 1px dashed #ebedf0;
+            padding: 15px 24px;
+            position: relative;
+
+            &--title {
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                background: #fff;
+                transform: translateX(-50%);
+                padding: 2px 7px;
+            }
+
+            p {
+                line-height: 1.8;
+
+            }
+        }
+
+        &__details {
+            padding: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all .2s linear;
+            padding: 0px 24px 0;
+            height: 0px;
+
+            pre {
+                background-color: #fff;
+                margin: 0;
+                padding-top: 0;
+            }
+        }
+
+        &__details--show {
+            opacity: 1;
+            height: 100%;
+        }
+
+    }
+
 }
 
 .@{css-prefix}container {
     height: 100%;
     width: 84%;
     float: left;
-    padding: 10px 0 20px 50px;
+    padding: 10px 30px 20px 50px;
     overflow: auto;
 
     h1 {
@@ -187,7 +239,6 @@
     }
 
     h2 {
-        margin-top: 30px;
         font-weight: 400;
         line-height: 3;
     }
@@ -221,15 +272,10 @@
     }
 }
 
-.@{css-prefix}btn {
-    margin-right: 10px;
-    margin-top: 15px;
-}
+
 
 .@{css-prefix}icon {
-    float: right;
-    font-size: 17px;
-    cursor: pointer;
+    font-size: 14px;
     transition: transform .2s linear;
 }
 
@@ -253,13 +299,6 @@ h4 {
     margin-top: 40px;
 }
 
-code {
-    padding: 2px 4px;
-    border-radius: 3px;
-    background-color: #ECF4E3;
-    color: #498211;
-    margin: 0 5px;
-}
 
 .@{css-prefix}logo {
     padding: 30px 0;
@@ -275,8 +314,16 @@ code {
     padding-top: 10px;
 }
 
-.@{css-prefix}table {
+table {
     width: 98%;
+
+    code {
+        padding: 2px 4px;
+        border-radius: 3px;
+        background-color: #ecf4e3;
+        color: #498211;
+        margin: 0 5px;
+    }
 
     th {
         background-color: #f7f7f7;
