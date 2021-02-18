@@ -231,6 +231,7 @@
   </article>
 </template>
 <script>
+
 import alert from "../codeDemo/alert";
 export default {
   data() {

@@ -162,7 +162,7 @@ export default {
 |  属性  | 说明  |  类型  |  默认值  |
 |  ----  | ---- |  ----  |  ----   |
 |  type  | 输入框类型，可选值为 `text`、`password`、`url`、`email`、`date`、`number`、`tel` |  String  |  text  |
-|  value  | 绑定的值，可使用 `v-model` 双向绑定  |  String | Number  |  -  |
+|  value  | 绑定的值，可使用 `v-model` 双向绑定  |  String \| Number  |  -  |
 |  placeholder  | 占位文本  |  String  |  -  |
 |  clearable  | 是否显示清空按钮  |  Boolean  |  false  |
 |  disabled  | 设置输入框为禁用状态  |  Boolean  |  false  |

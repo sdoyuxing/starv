@@ -54,6 +54,12 @@ export default {
                 }, {
                     title: "Checkbox 多选框",
                     path: "checkbox"
+                }, {
+                    title: "Switch 开关",
+                    path: "switch"
+                }, {
+                    title: "Table 表格",
+                    path: "table"
                 }
             ]
 

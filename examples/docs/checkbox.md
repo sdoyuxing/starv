@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     halfChecked() {
-      return this.checkList.length < 3;
+      return this.checkList.length < 3 && this.checkList.length;
     },
     checkAll() {
       return this.checkList.length === 3;
@@ -156,6 +156,51 @@ export default {
 </script>
 ```
 :::
+
+## API
+
+### Checkbox props
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  value  | 指定当前是否选中，可以使用 `v-model` 双向绑定数据 |  Boolean  |  false  |
+|  disabled  | 设置 `checkbox` 为禁用状态  |  Boolean   |  false  |
+|  label  | 设置<code>checkbox</code>选项描述，在组合的下也是默认也是<code>value</code>值  |  String \| Number \| Boolean  |  -  |
+|  half-checked  | 设置`checkbox`半选状态  |  Boolean  |  false  |
+|  label-value  | 设置`checkbox`选项选中是对应的`value`值  |  String \| Number \| Boolean  |  -  |
+|  background-color  | 可以设置选项选中后的背景颜色  |  String  |  -  |
+|  font-color  | 可以设置选项选中后图标颜色  |  Boolean  |  false  |
+|  name  | `checkbox`选项的原生`name`属性  |  String  |  -  |
+|  checkbox原生属性  | 支持`checkbox`原生属性  |  -  |  -  |
+
+<br/>
+
+### Input events
+<br/>
+
+|  事件名 | 说明 |  返回值 |
+|  ----   | ----  |  ----   |
+| on-change  | 选项状态发生改变时触发 |  true \| flase \| labelValue \| ''  |
+|  checkbox原生事件  | 支持`checkbox`原生事件  |  -  |
+
+<br/>
+
+### CheckboxGroup props
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  value  | 指定选项组中选中的项，可以使用 `v-model` 双向绑定数据 |  Boolean  |  false  |
+
+<br/>
+
+### CheckboxGroup events
+<br/>
+
+|  事件名 | 说明 |  返回值 |
+|  ----   | ----  |  ----   |
+| on-change  | 选项状态发生改变时触发 | [] |
 
 :::script
 <script>

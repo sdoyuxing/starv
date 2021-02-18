@@ -24,7 +24,9 @@
       </div>
     </section>
     <section
-      :class="['starv-code__details', { 'starv-code__details--show': show }]"
+      class="starv-code__details"
+      ref="code"
+      :style="{ height: height + 'px' }"
     >
       <slot name="highlight"></slot>
     </section>
@@ -35,7 +37,15 @@ export default {
   data() {
     return {
       show: false,
+      height: 0,
     };
+  },
+  watch: {
+    show(val) {
+      this.height = val
+        ? this.$refs.code.querySelector(".hljs").offsetHeight
+        : 0;
+    },
   },
 };
 </script>

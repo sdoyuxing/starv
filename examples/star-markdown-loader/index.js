@@ -11,19 +11,19 @@ function analysisDemo(markdown) {
     demoCach = []
     styleList = []
     script = ""
-    markdown.trim().replace(/:::demo([^.]*).(((?!:::)[^&])*):::/g, function (a, b, c) {
+    markdown.trim().replace(/:::demo([^.]*).((.|\s)*?):::/g, function (a, b, c) {
         let html = c.replace("```html", "").replace("```", "").replace("<template>", "").replace("</template>", "")
-        html = html.replace(/<style>([^<]*)<\/style>/g, function (a, b) {
+        html = html.replace(/<style>((.|\s)*:?)<\/style>/g, function (a, b) {
             styleList.push(b)
             return ""
         })
-        html = html.replace(/<script>([^<]*)<\/script>/g, "")
+        html = html.replace(/<script>((.|\s)*:?)<\/script>/g, "")
         const md = markdownIt()
         b = md.render(b)
         demoCach.push(`<api-item>${b}<div slot="source">${html}</div><div  class="html hljs xml" slot="highlight"></div></api-item>`)
         return a
     })
-    return markdown.trim().replace(/:::script(((?!:::)[^#])*):::/g, function (a, b, c) {
+    return markdown.trim().replace(/:::script((.|\s)*?):::/g, function (a, b, c) {
         script = b
         return ""
     })
