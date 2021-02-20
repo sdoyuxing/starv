@@ -60,6 +60,9 @@ export default {
                 }, {
                     title: "Table 表格",
                     path: "table"
+                }, {
+                    title: "Select 选择器",
+                    path: "select"
                 }
             ]
 

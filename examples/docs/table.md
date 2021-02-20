@@ -448,6 +448,66 @@ export default {
 |  row-class-name  | 行的 className 的回调方法  |  Function  |  -  |
 |  no-data-text  | 数据为空时显示的提示内容  |  String  |  -  |
 
+<br/>
+
+### Table slots
+
+<br/>
+
+|  名称  | 说明  |
+|  ----  | ---- |
+|   无   | column组件设置表格列 |
+
+<br/>
+
+### Table events
+
+<br/>
+
+|  事件  | 说明  | 返回值  |
+|  ----  | ---- | ---- |
+|   on-check-change   | 多选下，选中或取消某一项触发 |`checked`:true为选中，flase为取消<br>`row`:选中或取消的行数据<br>`index`:选中或取消的行索引  |
+|   on-all-change   | 多选下，全选中或全取消触发 |`checked`:true为选中，flase为取消  |
+|   on-sort-change   | 排序时有效，当点击排序时触发 |`key`:排序的列字段<br>`order`:排序的顺序，值为 asc 或 desc  |
+|   on-filter-change   | 筛选时有效，筛选条件发生变化时触发 |`key`:排序的列字段<br>`order`:排序的顺序，值为 asc 或 desc  |
+|   on-row-click   | 单击某一行时触发 |`row`:单击的行数据<br>`index`:单击的行索引  |
+|   on-row-dblclick   | 双击某一行时触发 |`row`:双击的行数据<br>`index`:双击的行索引  |
+|   on-cell-click   | 点击单元格时触发 |`row`:单击单元格所在的行数据<br>`index`:单击单元格所在的列字段  |
+
+<br/>
+
+### Column props
+
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  type  | 列类型，可选值：`checkbox` |  String  |  -  |
+|  prop  | 对应列内容的字段名  |  String  |  -  |
+|  width  | 列宽  |  Number  |  -  |
+|  align  | 对齐方式，可选值为 `left` 左对齐、`right` 右对齐和 `center` 居中对齐  |  String  |  left |
+|  render  | 自定义渲染列  |  Function  |  -  |
+|  class-name  | 列的样式名称  |  String  |  -  |
+|  fixed  | 列是否固定在左侧或者右侧，可选值为 `left` 左侧和 `right` 右侧  |  String  |  -  |
+|  sort  | 对应列是否可以排序  |  String  |  -  |
+|  sortMethod  | 自定义排序使用的方法  |  Function  |  - |
+|  sortType  | 设置初始化排序。值为 `asc` 和 `desc`  |  String  |  -  |
+|  filters  | 列的样式名称  |  String  |  -  |
+|  fixed  | 过滤数据的选项，格式为数组，数组中每项包含 `label` 和 `value` 属性  |  Array  |  -  |
+|  filterMethod  | 数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 `true` 就会显示  |  Function  |  -  |
+
+<br/>
+
+### Column slots
+
+<br/>
+
+|  名称  | 说明  |
+|  ----  | ---- |
+|   无   | 表格列名称 |
+|   format  |  自定义渲染列  |
+
+
 :::script
 <script>
 export default {
