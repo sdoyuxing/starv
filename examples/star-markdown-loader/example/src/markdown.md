@@ -17,3 +17,14 @@ asdasdasdasda.
 </style>
 ```
 :::
+
+:::style
+<style>
+#components-button-demo-button-group h4 {
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: normal;
+}
+</style>
+:::

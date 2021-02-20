@@ -4,19 +4,16 @@ const loaderUtils = require("loader-utils")
 const Token = require("markdown-it/lib/token")
 const cheerio = require("cheerio");
 let demoCach = []
-let styleList = []
 let script = ""
+let style = ""
 
 function analysisDemo(markdown) {
     demoCach = []
-    styleList = []
     script = ""
+    style = ""
     markdown.trim().replace(/:::demo([^.]*).((.|\s)*?):::/g, function (a, b, c) {
         let html = c.replace("```html", "").replace("```", "").replace("<template>", "").replace("</template>", "")
-        html = html.replace(/<style>((.|\s)*:?)<\/style>/g, function (a, b) {
-            styleList.push(b)
-            return ""
-        })
+        html = html.replace(/<style((.|\s)*:?)<\/style>/g, "")
         html = html.replace(/<script>((.|\s)*:?)<\/script>/g, "")
         const md = markdownIt()
         b = md.render(b)
@@ -25,6 +22,9 @@ function analysisDemo(markdown) {
     })
     return markdown.trim().replace(/:::script((.|\s)*?):::/g, function (a, b, c) {
         script = b
+        return ""
+    }).replace(/:::style((.|\s)*?):::/g, function (a, b, c) {
+        style = b
         return ""
     })
 }
@@ -37,7 +37,6 @@ function renderVueTemplate(html) {
         xmlMode: true
     });
     let index = 0;
-    let style = $("<style></style>")
     $("p").each((i, o) => {
         o = $(o)
         if (o.text().includes(":::demo")) {
@@ -55,13 +54,10 @@ function renderVueTemplate(html) {
         }
 
     })
-    styleList.forEach(o => {
-        style.append(o)
-    })
     result = `<template><div>` + $.html() + `</div></template>\n`
-    // result += script.html() + "\n" + style.html()
-    result += `${script}
-<style>${style.html()}</style>`
+    style && (result += `${style}`)
+    script && (result += `${script}`)
+
     return result
 }
 

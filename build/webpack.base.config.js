@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const pkg = require('../package.json');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const {
 	VueLoaderPlugin
 } = require('vue-loader');
@@ -16,36 +15,7 @@ module.exports = {
 	module: {
 		rules: [{
 				test: /\.vue$/,
-				loader: 'vue-loader',
-				options: {
-					loaders: {
-						css: [
-							'vue-style-loader',
-							{
-								loader: 'css-loader',
-								options: {
-									sourceMap: false,
-								},
-							}
-						],
-						less: [
-							'vue-style-loader',
-							{
-								loader: 'css-loader',
-								options: {
-									sourceMap: false,
-								},
-							},
-							{
-								loader: 'less-loader',
-								options: {
-									sourceMap: false,
-								},
-							},
-						]
-					},
-					sourceMap: false,
-				}
+				loader: 'vue-loader'
 			}, {
 				test: /\.js$/,
 				loader: 'babel-loader',
@@ -56,25 +26,10 @@ module.exports = {
 				include: [path.resolve(__dirname, "./src"), path.resolve(__dirname, "./examples")],
 			}, {
 				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					publicPath: '../',
-					fallback: "style-loader",
-					use: "css-loader"
-				})
+				use: ["style-loader", "css-loader"]
 			}, {
 				test: /\.less$/,
-				use: ExtractTextPlugin.extract({
-					publicPath: '../',
-					fallback: "style-loader",
-					use: [{
-						loader: "css-loader"
-					}, {
-						loader: "less-loader",
-						options: {
-							javascriptEnabled: true
-						}
-					}]
-				})
+				use: ["style-loader", "css-loader", "less-loader"]
 			}, {
 				test: /\.(gif|jpg|png)\??.*$/,
 				loader: 'url-loader',
@@ -99,10 +54,13 @@ module.exports = {
 			{
 				test: /\.md$/,
 				use: ['vue-loader', {
-				  loader: path.resolve(__dirname, "../examples/star-markdown-loader/index.js"),
-				  options: {wrapper: 'div', raw: true}
+					loader: path.resolve(__dirname, "../examples/star-markdown-loader/index.js"),
+					options: {
+						wrapper: 'div',
+						raw: true
+					}
 				}],
-			  }
+			}
 		]
 	},
 	resolve: {
