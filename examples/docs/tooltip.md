@@ -155,3 +155,24 @@ export default {
 };
 </script>
 :::
+
+:::style
+<style scoped>
+.starv-center {
+  width: 360px;
+  height: 140px;
+  margin: auto;
+  overflow: hidden;
+}
+.float-left {
+  float: left;
+  height: 140px;
+  width: 62px;
+}
+.float-right {
+  float: right;
+  height: 140px;
+  width: 62px;
+}
+</style>
+:::

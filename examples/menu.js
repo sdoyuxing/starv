@@ -90,6 +90,12 @@ export default {
             }, {
                 title: "Tooltip 文字提示",
                 path: "tooltip"
+            }, {
+                title: "ProgressBar 加载进度条",
+                path: "progressbar"
+            }, {
+                title: "Tag 标签",
+                path: "tag"
             }]
         }
 
