@@ -20,7 +20,7 @@ export default {
                     path: "icon",
                 },
                 {
-                    title: "Button 图标",
+                    title: "Button 按钮",
                     path: "button",
                 }
             ]

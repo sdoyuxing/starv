@@ -4,18 +4,17 @@
 
 :::demo
 **按钮类型**：主按钮、次按钮、虚线按钮以及四种颜色按钮，通过`type`设置不样式的按钮.
-
 ```html
 <template>
-    <div>
-        <s-button class="btn">Default</s-button>
-        <s-button class="btn" type="dashed">Dashed</s-button>
-        <s-button class="btn" type="primary">Primary</s-button>
-        <s-button class="btn" type="info">Info</s-button>
-        <s-button class="btn" type="success">Success</s-button>
-        <s-button class="btn" type="warning">Warning</s-button>
-        <s-button type="error">Error</s-button>
-    </div>
+  <div>
+    <s-button class="btn">Default</s-button>
+    <s-button class="btn" type="dashed">Dashed</s-button>
+    <s-button class="btn" type="primary">Primary</s-button>
+    <s-button class="btn" type="info">Info</s-button>
+    <s-button class="btn" type="success">Success</s-button>
+    <s-button class="btn" type="warning">Warning</s-button>
+    <s-button type="error">Error</s-button>
+  </div>
 </template>
 <script>
 export default {}
@@ -108,36 +107,36 @@ export default {}
 ```html
 <template>
   <div>
-      <h4>Basic</h4>
-      <s-buttonGroup class="btn">
-        <s-button>Cancel</s-button>
-        <s-button>OK</s-button>
-      </s-buttonGroup>
-      <s-buttonGroup class="btn">
-        <s-button disabled>L</s-button>
-        <s-button disabled>M</s-button>
-        <s-button disabled>R</s-button>
-      </s-buttonGroup>
-      <s-buttonGroup class="btn">
-        <s-button>L</s-button>
-        <s-button>M</s-button>
-        <s-button>R</s-button>
-      </s-buttonGroup>
+    <h4>Basic</h4>
+    <s-buttonGroup class="btn">
+      <s-button>Cancel</s-button>
+      <s-button>OK</s-button>
+    </s-buttonGroup>
+    <s-buttonGroup class="btn">
+      <s-button disabled>L</s-button>
+      <s-button disabled>M</s-button>
+      <s-button disabled>R</s-button>
+    </s-buttonGroup>
+    <s-buttonGroup class="btn">
+      <s-button>L</s-button>
+      <s-button>M</s-button>
+      <s-button>R</s-button>
+    </s-buttonGroup>
 
-      <h4>With Icon</h4>
-      <s-buttonGroup class="btn">
-        <s-button type="primary">
-          <Icon slot="iconNode" type="iconarrow-double-left" />Go back
-        </s-button>
-        <s-button type="primary">
-          Go forward
-          <Icon slot="iconNode" type="iconarrow-double-right" />
-        </s-button>
-      </s-buttonGroup>
-      <s-buttonGroup>
-        <s-button type="primary" icon="iconarrow-double-left" />
-        <s-button type="primary" icon="iconarrow-double-right" />
-      </s-buttonGroup>
+    <h4>With Icon</h4>
+    <s-buttonGroup class="btn">
+      <s-button type="primary">
+        <Icon slot="iconNode" type="iconarrow-double-left" />Go back
+      </s-button>
+      <s-button type="primary">
+        Go forward
+        <Icon slot="iconNode" type="iconarrow-double-right" />
+      </s-button>
+    </s-buttonGroup>
+    <s-buttonGroup>
+      <s-button type="primary" icon="iconarrow-double-left" />
+      <s-button type="primary" icon="iconarrow-double-right" />
+    </s-buttonGroup>
   </div>
 </template>
 <script>

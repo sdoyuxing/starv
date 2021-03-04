@@ -129,3 +129,24 @@ export default {};
 |  ----  | ---- |
 |   无   | 警告提示内容 |
 |   icon   | 自定义图标内容 |
+
+
+
+:::demo 要使用 Radio 组件，只需要设置`v-model`绑定变量，选中
+意味着变量的值为相应 Radio `label`属性的值，`label`可以是`String`、`Number`或`Boolean`。
+```html
+<template>
+  <el-radio v-model="radio" label="1">备选项</el-radio>
+  <el-radio v-model="radio" label="2">备选项</el-radio>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        radio: '1'
+      };
+    }
+  }
+</script>
+```
+:::
