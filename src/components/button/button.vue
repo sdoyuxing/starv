@@ -1,21 +1,9 @@
 <template>
-  <button
-    :disabled="disabled"
-    :style="styles"
-    ref="btn"
-    :class="classes"
-    @click="handleClick"
-    @focus="handleFocus"
-    @blur="handleBlur"
-    @mouseenter.stop="handleMouseenter"
-    @mouseleave.stop="handleMouseleave"
-    @mouseup="handleMouseup($event)"
-    @mousedown="handleMousedown($event)"
-  >
-    <div class="btn-active" ref="btnActive" :style="location"></div>
-    <div class="btn-pie-right" />
-    <div class="btn-pie-left" />
+  <button :disabled="disabled" :style="styles" ref="btn" :class="classes" @click="handleClick"
+          @focus="handleFocus" @blur="handleBlur" @mouseenter.stop="handleMouseenter"
+          @mouseleave.stop="handleMouseleave">
     <Icon v-if="icon" :type="icon" />
+    <Icon type="iconloading" v-if="loading&&loadType==='default'" class="sta-select-icon-loading" />
     <slot name="iconNode"></slot>
     <span v-if="$slots.default">
       <slot></slot>
@@ -27,7 +15,6 @@ import { oneOf, colorRgb } from "../../utils/assist";
 import Icon from "../icon";
 const prefixCls = "sta-btn";
 let timeOut = null;
-let removeTime = null;
 export default {
   name: "sButton",
   components: { Icon },
@@ -43,9 +30,9 @@ export default {
     },
     loadType: {
       type: String,
-      default: "circle",
+      default: "default",
       validator(value) {
-        return oneOf(value, ["circle", "progress"]);
+        return oneOf(value, ["circle", "progress", "default"]);
       },
     },
     shape: {
@@ -110,28 +97,13 @@ export default {
           [`${prefixCls}-${this.type}`]: this.type,
           [`${prefixCls}-${this.shape}`]: this.shape,
           [`${prefixCls}-icon-only`]: !this.$slots.default && this.icon,
-          [`${prefixCls}-loading-${this.loadType}`]: this.currentLoading,
+          [`${prefixCls}-loading`]: this.currentLoading,
           [`${prefixCls}-clicked`]: this.clicked,
         },
       ];
     },
-    location() {
-      let { left, top } = this;
-      if (typeof left === "number" && typeof top === "number") {
-        return {
-          left: left + "px",
-          top: top + "px",
-        };
-      } else if (typeof left === "string" && typeof top === "string") {
-        return {
-          left,
-          top,
-        };
-      }
-    },
     styles() {
       return {
-        width: this.width,
         backgroundColor: this.currentColor || undefined,
         border: this.currentColor ? "none" : undefined,
         color: this.fontColor || undefined,
@@ -156,36 +128,11 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           this.currentLoading = val;
-        },100);
+        }, 100);
       });
     },
   },
   methods: {
-    handleMousedown(e) {
-      e.button == 0 && !this.loading && (this.clicked = false);
-    },
-    handleMouseup(e) {
-      if (e.button == 0 && !this.loading) {
-        this.clicked = true;
-        this.left =
-          e.clientX -
-          this.$refs["btnActive"].getBoundingClientRect().left +
-          this.left;
-        this.top =
-          e.clientY -
-          this.$refs["btnActive"].getBoundingClientRect().top +
-          this.top;
-        this.$nextTick((o) => {
-          if (removeTime === null) {
-            removeTime = setTimeout(() => {
-              this.clicked = false;
-              clearTimeout(removeTime);
-              removeTime = null;
-            }, 600);
-          }
-        });
-      }
-    },
     handleClick(event) {
       if (!this.loading) {
         this.$emit("click", event);

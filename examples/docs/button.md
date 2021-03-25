@@ -122,7 +122,7 @@ export default {}
       <s-button>M</s-button>
       <s-button>R</s-button>
     </s-buttonGroup>
-
+    <br/>
     <h4>With Icon</h4>
     <s-buttonGroup class="btn">
       <s-button type="primary">

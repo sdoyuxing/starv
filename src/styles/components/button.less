@@ -13,12 +13,13 @@
     pointer-events: none;
   }
 
-  &-clicked .btn-active {
-    animation: buttonEffect .5s;
-  }
 
   &-primary {
     .button-primary;
+
+    &.@{btn-prefix-cls}-loading {
+      .button-loading-color(@btn-primary-bg);
+    }
 
     .@{btn-prefix-cls}-group &:not(:first-child):not(:last-child) {
       border-right-color: @btn-group-border;
@@ -51,18 +52,34 @@
 
   &-info {
     .button-info;
+
+    &.@{btn-prefix-cls}-loading {
+      .button-loading-color(@info-color);
+    }
   }
 
   &-success {
     .button-success;
+
+    &.@{btn-prefix-cls}-loading {
+      .button-loading-color(@success-color);
+    }
   }
 
   &-warning {
     .button-warning;
+
+    &.@{btn-prefix-cls}-loading {
+      .button-loading-color(@warning-color);
+    }
   }
 
   &-error {
     .button-error;
+
+    &.@{btn-prefix-cls}-loading {
+      .button-loading-color(@error-color);
+    }
   }
 
 
@@ -70,13 +87,6 @@
     .button-dashed;
   }
 
-  &-loading-progress {
-    .button-loading-progress;
-  }
-
-  &-loading-circle {
-    .button-loading-circle;
-  }
 
   &-circle,
   &-circle-outline {
@@ -122,12 +132,5 @@
   >.@{iconfont-css-prefix}+span,
   >span+.@{iconfont-css-prefix} {
     margin-left: 8px;
-  }
-}
-
-@keyframes buttonEffect {
-  to {
-    transform: scale(15);
-    opacity: 0;
   }
 }

@@ -33,7 +33,7 @@
     .button-active(@background);
   }
 
-  .button-loading-color(@background);
+
   .button-disabled();
 }
 
@@ -54,7 +54,7 @@
     .button-active(@background);
   }
 
-  .button-loading-color(@btn-primary-bg);
+
   .button-disabled();
 }
 
@@ -151,10 +151,6 @@
     outline: 0;
   }
 
-  // &:active {
-
-  // }
-
 
   &:not([disabled]):hover {
     text-decoration: none;
@@ -196,152 +192,11 @@
 }
 
 .button-loading-color(@backgroundColor) {
-  .btn-pie-right::after {
-    content: '';
-    opacity: 0;
-    background-color: @backgroundColor;
-    transition: opacity .4s ease-in;
-  }
-
-  .btn-pie-left::after {
-    background-color: @backgroundColor;
-  }
+  cursor: inherit;
+  .button-color(@btn-primary-color, tint(@backgroundColor, 40%), tint(@backgroundColor, 40%))
 }
 
-.button-loading() {
-  cursor: auto;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: bottom;
-  background-color: #f4f6f6;
-  box-shadow: none;
-  border: none;
 
-  span {
-    display: none
-  }
-
-  .btn-active {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    background: #fff;
-    border: none;
-    animation: none;
-  }
-
-  .btn-pie-right {
-    left: 0;
-    top: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    clip: rect(0px, 30px, 30px, 15px);
-    position: absolute;
-
-    &::after {
-      opacity: 1;
-      content: "";
-      left: 0;
-      top: 0;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      clip: rect(0px, 15px, 30px, 0px);
-      position: absolute;
-    }
-  }
-
-  .btn-pie-left {
-    left: 0;
-    top: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    clip: rect(0px, 15px, 30px, 0px);
-    position: absolute;
-
-    &::after {
-      content: "";
-      left: 0;
-      top: 0;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      clip: rect(0px, 30px, 30px, 15px);
-      position: absolute;
-    }
-  }
-
-  &:active {
-    box-shadow: none;
-    background-color: #f4f6f6;
-  }
-
-  &:hover,
-  &:focus {
-    border: none;
-    background-color: #f4f6f6;
-
-  }
-}
-
-.button-loading-progress() {
-  .button-loading();
-
-  .btn-pie-right::after {
-    animation: loadProgress .4s;
-    animation-timing-function: linear;
-    animation-delay: .3s;
-    animation-fill-mode: forwards;
-  }
-
-  .btn-pie-left::after {
-    animation: loadProgress .4s;
-    animation-timing-function: linear;
-    animation-delay: .7s;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes loadProgress {
-    to {
-      transform: rotate(180deg);
-    }
-  }
-}
-
-.button-loading-circle() {
-  .button-loading();
-
-  .btn-pie-right {
-    clip: rect(0px, 30px, 30px, 0px);
-  }
-
-  .btn-pie-left {
-    display: none;
-
-    &::after {
-      display: none;
-    }
-  }
-
-  .btn-pie-right::after {
-    animation: loadCircle 1s;
-    animation-timing-function: linear;
-    animation-delay: .3s;
-    animation-iteration-count: infinite;
-  }
-
-  @keyframes loadCircle {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-}
 
 // default button style
 .button-default() {
