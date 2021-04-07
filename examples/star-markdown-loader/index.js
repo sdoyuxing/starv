@@ -9,7 +9,7 @@ function analysisDemo(markdown) {
     script = ""
     style = ""
     return markdown.trim().replace(/:::demo([^.]*).((.|\s)*?):::/g, function (a, b, c) {
-        let html = c.replace("```html", "").replace("```", "").replace("<template>", "").replace("</template>", "")
+        let html = c.replace("```html", "").replace("```", "")
         html = html.replace(/<style((.|\s)*:?)<\/style>/g, "")
         html = html.replace(/<script>((.|\s)*:?)<\/script>/g, "")
         const md = markdownIt()

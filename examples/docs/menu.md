@@ -15,8 +15,7 @@
     <s-submenu name="3">
       <template slot="title">
         <Icon type="iconsetting" />权限管理
-      </template>
-      <s-menu-item name="4">统计管理</s-menu-item>
+      </template><s-menu-item name="4">统计管理</s-menu-item>
     </s-submenu>
   </s-menu>
 </template>

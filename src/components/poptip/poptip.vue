@@ -1,10 +1,6 @@
 <template>
-  <bubble-drop
-    v-bind="$props"
-    :minWidth="minWidth"
-    @on-popper-show="popperShow"
-    @on-popper-hide="popperHide"
-  >
+  <bubble-drop v-bind="$props" :minWidth="minWidth" @on-popper-show="popperShow"
+               @on-popper-hide="popperHide" :visible.sync="showDrop">
     <slot></slot>
     <slot name="content" slot="content"></slot>
     <slot name="title" slot="title"></slot>
@@ -63,10 +59,15 @@ export default {
     maxWidth: {
       type: [String, Number],
     },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       minWidth: this.title ? 150 : null,
+      showDrop: this.visible,
     };
   },
   components: { bubbleDrop },
@@ -76,6 +77,14 @@ export default {
     },
     popperHide() {
       this.$emit("on-popper-hide");
+    },
+  },
+  watch: {
+    visible(val) {
+      this.showDrop = val;
+    },
+    showDrop(val) {
+      this.$emit("update:visible", val);
     },
   },
 };

@@ -91,6 +91,9 @@ export default {
                 title: "Tooltip 文字提示",
                 path: "tooltip"
             }, {
+                title: "Poptip 气泡提示",
+                path: "poptip"
+            }, {
                 title: "ProgressBar 加载进度条",
                 path: "progressbar"
             }, {

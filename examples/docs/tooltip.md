@@ -7,7 +7,7 @@
 
 ```html
 <template>
-  <div>
+  <div style="text-align: center;">
     <s-tooltip placement="top-start" class="starv-btn" content="Top Left 文字提示"><s-button>上左</s-button></s-tooltip>
     <s-tooltip placement="top" class="starv-btn" content="Top Center 文字提示"><s-button>上中</s-button></s-tooltip>
     <s-tooltip placement="top-end" class="starv-btn" content="Top Right 文字提示"><s-button>上右</s-button></s-tooltip>
