@@ -128,7 +128,7 @@ export default {
 
 ## API
 
-### Tooltip props
+### Poptip props
 
 <br/>
 
@@ -136,22 +136,34 @@ export default {
 |  ----  | ---- |  ----  |  ----   |
 |  content  | 显示的内容 |  String  |  -  |
 |  placement  | 提示框出现的位置，可选值为`top`、`top-start`、`top-end`、`bottom`、`bottom-start`、`bottom-end`、`left`、`left-start`、`left-end`、`right`、`right-start`、`right-end` |  String  |  bottom  |
+|  trigger   | 设置触发方式，可选值为`hover`、`click`、`focus` |  String  |  click |
+|  title   | 设置标题 |  String  |  - |
 |  disabled  | 是否禁用提示框  |  Boolean  |  false  |
 |  delay  | 延迟显示，单位毫秒  |  Number  |  0 |
 |  max-width  | 最大宽度，超出最大值后，文本将自动换行，并两端对齐  |  String \| Number  |  -  |
 
 <br/>
 
-### Modal events
+### Poptip events
 
 <br/>
 
 |  事件  | 说明  | 返回值  |
 |  ----  | ---- | ---- |
-|   on-cancel   | 点击取消按钮触发 |  -  |
-|   on-define   | 点击确定按钮触发 |  -  |
+|   on-popper-show   | 在提示框显示时触发 |  无  |
+|   on-popper-hide   | 在提示框消失时触发 |  无  |
 
 <br/>
+
+### Poptip slot
+
+<br/>
+
+|  属性  | 说明  |   |
+|  ----  | ---- | ---- |
+|   无   | 主体内容 |
+|   content   | 提示框的内容，定义此 slot 时，会覆盖 props `content`。  |
+|   title   | 提示框的标题，定义此 slot 时，会覆盖 props `title`。  |
 
 :::script
 <script>

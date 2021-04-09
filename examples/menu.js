@@ -33,6 +33,10 @@ export default {
                     path: "menu",
                 },
                 {
+                    title: "Tabs 标签页",
+                    path: "tabs",
+                },
+                {
                     title: "Pagination 分页",
                     path: "pagination",
                 }
