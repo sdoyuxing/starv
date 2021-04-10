@@ -125,5 +125,37 @@ export default {
 </script>
 :::
 
+## API
 
+### Tabs props
 
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  value  | 当前激活 tab 面板的 name，可以使用 v-model 双向绑定数据 |  String  |  默认为第一项的 name  |
+|  type  | 页签的基本样式，可选值为 line 和 card |  String  |  line  |
+
+<br/>
+
+### Tabs events
+
+<br/>
+
+|  事件  | 说明  | 返回值  |
+|  ----  | ---- | ---- |
+|   on-click   | tab 被点击时触发 | name |
+|   on-tab-remove   | tab 被关闭时触发 | name |
+
+<br/>
+
+### TabPane props
+
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  name  | 用于标识当前面板，对应 value，默认为其索引值 |  String  |  -  |
+|  label  | 选项卡头显示文字 |  String  |  -  |
+|  disabled  | 是否禁用该选项卡 |  Boolean  |  false  |
+|  closable  | 是否可以关闭页签，仅在 `type='card'` 时有效 |  Boolean  |  false  |
