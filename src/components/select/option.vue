@@ -32,9 +32,6 @@ export default {
           [`${prefixCls}-item-selected`]:
             this.selected.value === (this.value || this.optionLabel),
         },
-        {
-          [`${prefixCls}-item-focused`]: this.isFocus,
-        },
       ];
     },
     optionLabel() {

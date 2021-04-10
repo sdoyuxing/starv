@@ -24,21 +24,10 @@
 
 }
 
-.select-active-bottom() {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    background-color: @outline-color;
-    height: 2px;
-    width: 0;
-    margin: 0 auto;
-    transition: width .2s ease-out;
-}
-
 .select-icon() {
-    padding: 5px 6px;
+    padding: 8px 6px;
     font-size: 14px;
+    line-height: 1;
     text-align: center;
     position: absolute;
     bottom: 0;
@@ -54,8 +43,8 @@
     padding: 0;
     background-color: #fff;
     box-sizing: border-box;
-    border-radius: @border-radius-sm;
-    box-shadow: @btn-box-shadow-base;
+    border-radius: @border-radius-base;
+    box-shadow: @card-shadow;
     z-index: 900;
     opacity: 0;
     transform-origin: center top;
@@ -102,17 +91,10 @@
 }
 
 .select-item-selected() {
-    background: #E0E0E0;
-
-    &:hover {
-        background: #E0E0E0;
-    }
+    background: #EEEEEE;
+    color: @primary-color;
 }
 
-.select-item-focused() {
-    border: @border-width-base @border-style-base @outline-color;
-
-}
 
 .select-disabled() {
     color: fade(#000, 25%);

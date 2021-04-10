@@ -1,11 +1,7 @@
 @select-prefix-cls: ~"@{sta-prefix}-select";
 
 .@{select-prefix-cls} {
-    .select;
-
-    &-active-bottom {
-        .select-active-bottom;
-    }
+    .date-picker-input;
 
     &-placeholder {
         color: @input-placeholder-color;
@@ -57,7 +53,7 @@
         &-prefix {
             left: 0;
             font-size: 18px;
-            padding: 2px 5px;
+            padding: 5px;
         }
 
         &-loading {
@@ -94,10 +90,6 @@
 
     &-item-selected {
         .select-item-selected;
-    }
-
-    &-item-focused {
-        .select-item-focused;
     }
 
     &-input {

@@ -34,8 +34,7 @@
         :class="clearClasses"
         @click.stop="handleClear"
       ></Icon>
-      <Icon :class="downClasses" type="iconarrow-down-filling" />
-      <div :class="activeClass" v-if="!disabled"></div>
+      <Icon :class="downClasses" type="iconarrow-down" />
     </div>
     <Drop :class="dropClasses" ref="drop" v-if="!disabled">
       <template v-if="!loading">
@@ -140,9 +139,6 @@ export default {
         { [`${prefixCls}-padding-left`]: this.isPrefix },
         { [`${prefixCls}-padding-right`]: this.clearable },
       ];
-    },
-    activeClass() {
-      return `${prefixCls}-active-bottom`;
     },
     downClasses() {
       return [
