@@ -1,7 +1,7 @@
 @input-prefix-cls: ~"@{sta-prefix}-input";
 
 .@{input-prefix-cls} {
-    .input;
+    .date-picker-input;
 
     &-wrapper {
         display: inline-block;
@@ -18,10 +18,6 @@
         }
     }
 
-    &-active-bottom {
-        .input-active-bottom;
-    }
-
     &-label {
         .input-label;
 
@@ -36,6 +32,9 @@
 
     &-word-count {
         .word-count;
+        &-right{
+            margin-right: 20px
+        }
     }
 
     &-icon {

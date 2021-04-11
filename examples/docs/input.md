@@ -39,15 +39,20 @@ export default {}
   <div>
     <h4>前后缀图标</h4>
     <br />
+    <br />
     <s-input prefix="iconsmile-filling" placeholder="Enter text" style="width: 300px" />
+    <br />
     <br />
     <s-input suffix="iconsearch" placeholder="Enter text" style="width: 300px" />
     <h4>前后缀图标带清除</h4>
     <br />
+    <br />
     <s-input prefix="iconsmile-filling" clearable placeholder="Enter text" style="width: 300px"/>
+    <br />
     <br />
     <s-input suffix="iconsearch" clearable placeholder="Enter text" style="width: 300px" />
     <h4><code>slot</code>自定义前后缀，可以是图标也可以是文字</h4>
+    <br />
     <br />
     <s-input placeholder="Enter text" style="width: 300px"> <Icon type="iconemail" slot="prefix" /> <i slot="suffix" style="font-size:14px">RMB</i> </input>
   </div>
@@ -65,8 +70,10 @@ export default {}
   <div>
     <s-input placeholder="请输入名称"  maxlength="10" clearable style="width:300px" />
     <br/>
+    <br />
     <s-input placeholder="请输入名称" show-word-limit  maxlength="10" clearable style="width:300px" />
     <br/>
+    <br />
     <s-input placeholder="请输入名称" show-word-limit  maxlength="10" clearable style="width:300px" />
   </div>
 </template>
@@ -90,19 +97,6 @@ export default {};
 ```
 :::
 
-:::demo
-**输入框内容说明**：属性`labelText`设置输入框内容说明.
-```html
-<template>
-  <div>
-    <s-input placeholder="请输入名称" v-model="text" clearable style="width:300px" labelText="名称"/>
-  </div>
-</template>
-<script>
-export default {};
-</script>
-```
-:::
 
 :::demo
 **支持`input`的原生属性**：支持`input`原生属性，`readonly`设置输入框只读;`autofocus`设置自动获取焦点.
@@ -110,8 +104,6 @@ export default {};
 <template>
   <div>
     <s-input placeholder="请输入..." readonly style="width:300px" />
-    <br />
-    <s-input placeholder="请输入..." autofocus style="width:300px" />
   </div>
 </template>
 <script>
@@ -181,7 +173,6 @@ export default {
 |  事件名 | 说明 |  返回值 |
 |  ----   | ----  |  ----   |
 | on-clear  | 开启 clearable 时可用，点击清空按钮时触发 |  -  |
-|  input原生事件  | 支持`input`原生事件  |  -  |
 
 <br/>
 

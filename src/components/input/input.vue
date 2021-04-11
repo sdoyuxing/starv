@@ -5,46 +5,25 @@
         <Icon v-if="prefix" :type="prefix"></Icon>
       </slot>
     </span>
-    <input
-      :class="inputClasses"
-      :value="currentValue"
-      :id="inputId"
-      :maxlength="maxlength"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      :type="currentType"
-      v-bind="$attrs"
-      @input="handleInput"
-      v-on="$listeners"
-    />
-    <Icon
-      type="iconclose-bold"
-      v-if="clearable&&currentValue"
-      :class="clearClasses"
-      @click.stop="handleClear"
-    ></Icon>
+    <input :class="inputClasses" :value="currentValue" :id="inputId" :maxlength="maxlength"
+           :placeholder="placeholder" :disabled="disabled" :type="currentType" v-bind="$attrs"
+           @input="handleInput" />
+    <Icon type="icondelete-filling" v-if="clearable&&currentValue" :class="clearClasses"
+          @click.stop="handleClear"></Icon>
     <span :class="suffixClasses" v-if="isSuffix">
       <slot name="suffix">
         <Icon v-if="suffix" :type="suffix"></Icon>
       </slot>
     </span>
     <span :class="suffixClasses" v-if="type==='password'&&showPassword">
-      <Icon
-        type="iconbrowse"
-        v-if="!isShowPassword"
-        :class="passwordClasses"
-        @click.stop="isShowPassword=!isShowPassword"
-      ></Icon>
-      <Icon
-        type="iconeye-close"
-        v-else
-        :class="passwordClasses"
-        @click.stop="isShowPassword=!isShowPassword"
-      ></Icon>
+      <Icon type="iconbrowse" v-if="!isShowPassword" :class="passwordClasses"
+            @click.stop="isShowPassword=!isShowPassword"></Icon>
+      <Icon type="iconeye-close" v-else :class="passwordClasses"
+            @click.stop="isShowPassword=!isShowPassword"></Icon>
     </span>
-    <div class="sta-input-active-bottom"></div>
     <label :for="inputId" v-text="labelText" :class="labelClasses"></label>
-    <span :class="wordCountClasses" v-if="showWordLimit" v-text="`${wordCount}/${maxlength}`"></span>
+    <span :class="wordCountClasses" v-if="showWordLimit"
+          v-text="`${wordCount}/${maxlength}`"></span>
   </div>
 </template>
 <script>
@@ -142,7 +121,10 @@ export default {
       ];
     },
     wordCountClasses() {
-      return [`${prefixCls}-word-count`];
+      return [
+        `${prefixCls}-word-count`,
+        { [`${prefixCls}-word-count-right`]: this.clearable&&this.currentValue },
+      ];
     },
     passwordClasses() {
       return [`${prefixCls}-icon-pointer`];
