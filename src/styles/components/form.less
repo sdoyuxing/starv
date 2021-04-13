@@ -4,12 +4,34 @@
     &-item {
         margin-bottom: 20px;
         line-height: 43px;
+
+        &-required {
+            .@{form-prefix-cls}-label::before {
+                content: "*";
+                color: @error-color;
+                display: inline-block;
+                margin-right: 4px;
+                font-size: 14px;
+                line-height: 1;
+            }
+        }
     }
 
     &-label {
         vertical-align: middle;
+        padding: 0 12px 0 0;
     }
 
+    &-label-right{
+        .@{form-prefix-cls}-label{
+            text-align: right;
+        }
+    }
+    &-label-left{
+        .@{form-prefix-cls}-label{
+            text-align: left;
+        }
+    }
     &-content {
         vertical-align: middle;
     }

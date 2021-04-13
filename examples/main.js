@@ -39,6 +39,12 @@ routes.push({
   component: resolve => require([`./docs/introduction.md`], resolve)
 })
 
+routes.push({
+  path: "/demo",
+  name: "demo",
+  component: resolve => require([`./routers/ebutton.vue`], resolve)
+})
+
 menus.components.forEach(o => {
   routes = routes.concat(o.menus.map(item => ({
     path: `/${item.path}`,

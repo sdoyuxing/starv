@@ -13,7 +13,7 @@ let seed = 0
 const now = Date.now()
 const getUuid = () => `antRadioGroup_${now}_${seed++}`
 export default {
-    name: 'RadioGroup',
+    name: 'sRadioGroup',
     props: {
         value: {
             type: [String, Number, Boolean],
@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         updateValue() {
-            this.childrens = findComponentsDownward(this, 'Radio')
+            this.childrens = findComponentsDownward(this, 'sRadio')
             if (this.childrens) {
                 this.childrens.forEach(child => {
                     child.currentValue = this.currentValue === child.label
@@ -95,7 +95,7 @@ export default {
     },
     watch: {
         value(val) {
-            if (currentValue !== val) {
+            if (this.currentValue !== val) {
                 this.currentValue = val
             }
         },

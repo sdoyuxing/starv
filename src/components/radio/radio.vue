@@ -1,5 +1,5 @@
 <template>
-    <label :style="style" :class="wrapperClasses">
+    <label  :class="wrapperClasses">
         <span :class="radioClasses">
             <span :class="innerClasses"></span>
             <input type="radio" :disabled="disabled" :class="inputClasses" :name="groupName" :checked="currentValue" @change="change" />
@@ -35,7 +35,7 @@ export default {
             currentValue: this.value,
             groupName: this.name,
             group: false,
-            parent: findComponentUpward(this, 'RadioGroup')
+            parent: findComponentUpward(this, 'sRadioGroup')
         }
     },
     watch: {

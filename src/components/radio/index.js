@@ -1,4 +1,4 @@
 import Radio from './radio'
-import RadioGroup from './radio-group'
-Radio.Group=RadioGroup
+import sRadioGroup from './radio-group'
+Radio.Group=sRadioGroup
 export default Radio

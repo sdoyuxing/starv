@@ -168,9 +168,9 @@
         </s-submenu>
       </s-menu>
     </div> -->
-    <s-form style="width: 400px" inline>
-      <s-form-item label="姓名">
-        <s-input placeholder="请输入..." />
+    <s-form style="width: 400px" inline :model="formValidate" :rules="ruleValidate" :label-width="180">
+      <s-form-item label="姓名asdad" prop="name">
+        <s-input placeholder="请输入..." v-model="formValidate.name" />
       </s-form-item>
       <s-form-item label="性别">
         <s-select>
@@ -192,6 +192,16 @@
 export default {
   data() {
     return {
+      formValidate: { name: "" },
+      ruleValidate: {
+        name: [
+          {
+            required: true,
+            message: "The name cannot be empty",
+            trigger: "blur",
+          },
+        ],
+      },
       loading: false,
       text: "",
       check: true,
