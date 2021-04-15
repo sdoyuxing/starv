@@ -168,7 +168,8 @@
         </s-submenu>
       </s-menu>
     </div> -->
-    <s-form style="width: 400px" inline :model="formValidate" :rules="ruleValidate" :label-width="180">
+    <s-form style="width: 400px" inline :model="formValidate" :rules="ruleValidate"
+            :label-width="180">
       <s-form-item label="姓名asdad" prop="name">
         <s-input placeholder="请输入..." v-model="formValidate.name" />
       </s-form-item>
@@ -186,6 +187,50 @@
         <s-input placeholder="请输入..." />
       </s-form-item>
     </s-form>
+
+    <s-form :model="formData" :label-width="100">
+      <s-form-item label="输入框" prop="name">
+        <s-input placeholder="请输入..." v-model="formData.input" />
+      </s-form-item>
+      <s-form-item label="下拉选择">
+        <s-select>
+          <Option value="IPHONE">苹果</Option>
+          <Option value="HUAWEI">华为</Option>
+          <Option value="SAMSUNG">三星</Option>
+          <Option value="MI">小米</Option>
+          <Option value="OPPO">OPPO</Option>
+          <Option value="VIVO">VIVO</Option>
+        </s-select>
+      </s-form-item>
+      <s-form-item label="日期选择">
+        <s-date-picker placeholder="请选择日期" type="date" multiple style="width: 200px">
+        </s-date-picker>
+      </s-form-item>
+      <s-form-item label="单选">
+        <s-radio-group>
+          <s-radio label="1">单选A</s-radio>
+          <s-radio label="2">单选B</s-radio>
+          <s-radio label="3">单选C</s-radio>
+        </s-radio-group>
+      </s-form-item>
+      <s-form-item label="多选">
+        <s-checkbox-group>
+          <s-checkbox label="苹果" />
+          <s-checkbox label="华为" />
+          <s-checkbox label="三星" />
+          <s-checkbox label="小米" />
+          <s-checkbox label="OPPO" />
+          <s-checkbox label="VIVO" />
+        </s-checkbox-group>
+      </s-form-item>
+      <s-form-item label="开关">
+        <s-switch />
+      </s-form-item>
+      <s-form-item>
+        <s-button type="primary">Submit</s-button>
+        <s-button style="margin-left: 8px">Cancel</s-button>
+      </s-form-item>
+    </s-form>
   </div>
 </template>
 <script>
@@ -193,6 +238,8 @@ export default {
   data() {
     return {
       formValidate: { name: "" },
+
+      formData: { input: "" },
       ruleValidate: {
         name: [
           {

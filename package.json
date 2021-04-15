@@ -20,10 +20,11 @@
   "author": "hetao",
   "license": "ISC",
   "dependencies": {
+    "async-validator": "^3.5.1",
+    "github-markdown-css": "^2.3.0",
     "highlight.js": "^10.1.1",
     "popper.js": "^1.16.1",
-    "videorecording": "^1.0.1",
-    "github-markdown-css": "^2.3.0"
+    "videorecording": "^1.0.1"
   },
   "directories": {
     "example": "examples",

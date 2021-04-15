@@ -1,45 +1,28 @@
 <template>
-  <div
-    :class="wrapClasses"
-    :tabindex="selectTabindex"
-    :disabled="disabled"
-    @click="handleClick"
-    @keydown.esc="handleKeydown"
-    @keydown.enter="handleKeydown"
-    @keydown.up.prevent="handleKeydown"
-    @keydown.down.prevent="handleKeydown"
-    v-click-outside.stop="onClickOutside"
-  >
+  <div :class="wrapClasses" :tabindex="selectTabindex" :disabled="disabled" @click="handleClick"
+       @keydown.esc="handleKeydown" @keydown.enter="handleKeydown"
+       @keydown.up.prevent="handleKeydown" @keydown.down.prevent="handleKeydown"
+       v-click-outside.stop="onClickOutside">
     <div :class="classes">
       <span v-if="isPrefix" :class="prefixClasses">
         <slot name="prefix">
           <Icon v-if="prefix" :type="prefix"></Icon>
         </slot>
       </span>
-      <span
-        v-text="selected.label===''?placeholder:selected.label"
-        :class="labelClasses"
-        v-if="!filterable"
-      ></span>
-      <select-filter
-        :value="selected.label"
-        ref="filter"
-        v-if="filterable"
-        :placeholder="placeholder"
-        @on-change="filterChange"
-      />
-      <Icon
-        type="iconclose-bold"
-        v-if="clearable&&selected.value"
-        :class="clearClasses"
-        @click.stop="handleClear"
-      ></Icon>
+      <input  :value="selected.value" style="display:none">
+      <span v-text="selected.label===''?placeholder:selected.label" :class="labelClasses"
+            v-if="!filterable"></span>
+      <select-filter :value="selected.label" ref="filter" v-if="filterable"
+                     :placeholder="placeholder" @on-change="filterChange" />
+      <Icon type="iconclose-bold" v-if="clearable&&selected.value" :class="clearClasses"
+            @click.stop="handleClear"></Icon>
       <Icon :class="downClasses" type="iconarrow-down" />
     </div>
     <Drop :class="dropClasses" ref="drop" v-if="!disabled">
       <template v-if="!loading">
         <slot>
-          <Option v-for="item in optionsList" :value="item.value" :key="item.id">{{item.label}}</Option>
+          <Option v-for="item in optionsList" :value="item.value" :key="item.id">{{item.label}}
+          </Option>
         </slot>
       </template>
       <li v-show="isDropMessage" :class="loadingClasses">
