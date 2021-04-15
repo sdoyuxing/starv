@@ -17,21 +17,35 @@
         }
     }
 
+    &-error {
+        color: @error-color;
+        line-height: 1;
+        position: absolute;
+        opacity: 0;
+        transition: opacity .2s ease-in-out;
+
+        &-tip {
+            opacity: 1;
+        }
+    }
+
     &-label {
         vertical-align: middle;
         padding: 0 12px 0 0;
     }
 
-    &-label-right{
-        .@{form-prefix-cls}-label{
+    &-label-right {
+        .@{form-prefix-cls}-label {
             text-align: right;
         }
     }
-    &-label-left{
-        .@{form-prefix-cls}-label{
+
+    &-label-left {
+        .@{form-prefix-cls}-label {
             text-align: left;
         }
     }
+
     &-content {
         vertical-align: middle;
     }
