@@ -8,6 +8,9 @@ import { oneOf } from "../../utils/assist";
 const prefixCls = "sta-form";
 export default {
   props: {
+    model: {
+      type: Object,
+    },
     inline: {
       type: Boolean,
       default: false,
@@ -43,6 +46,33 @@ export default {
     },
     formItemRemove(field) {
       if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
+    },
+    validate(callback) {
+      return new Promise((resolve) => {
+        let valid = true;
+        let count = 0;
+        // fields 为空需要返回promise
+        if (this.fields.length === 0) {
+          resolve(valid);
+          if (typeof callback === "function") {
+            callback(valid);
+          }
+        }
+        this.fields.forEach((field) => {
+          field.validate("", (errors) => {
+            if (errors) {
+              valid = false;
+            }
+            if (++count === this.fields.length) {
+              // all finish
+              resolve(valid);
+              if (typeof callback === "function") {
+                callback(valid);
+              }
+            }
+          });
+        });
+      });
     },
   },
 };

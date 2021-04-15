@@ -7,7 +7,7 @@
     </span>
     <input :class="inputClasses" :value="currentValue" :id="inputId" :maxlength="maxlength"
            :placeholder="placeholder" :disabled="disabled" :type="currentType" v-bind="$attrs"
-           @input="handleInput" />
+           @input="handleInput" @blur="handleBlur" />
     <Icon type="icondelete-filling" v-if="clearable&&currentValue" :class="clearClasses"
           @click.stop="handleClear"></Icon>
     <span :class="suffixClasses" v-if="isSuffix">
@@ -28,7 +28,8 @@
 </template>
 <script>
 import Icon from "../icon";
-import { oneOf } from "../../utils/assist";
+import { oneOf, findComponentUpward } from "../../utils/assist";
+import emitter from "@/mixins/emitter";
 const prefixCls = "sta-input";
 export default {
   name: "sInput",
@@ -70,6 +71,7 @@ export default {
       isShowPassword: false,
     };
   },
+  mixins: [emitter],
   computed: {
     currentType() {
       let type = this.type;
@@ -123,7 +125,10 @@ export default {
     wordCountClasses() {
       return [
         `${prefixCls}-word-count`,
-        { [`${prefixCls}-word-count-right`]: this.clearable&&this.currentValue },
+        {
+          [`${prefixCls}-word-count-right`]:
+            this.clearable && this.currentValue,
+        },
       ];
     },
     passwordClasses() {
@@ -131,10 +136,25 @@ export default {
     },
   },
   methods: {
+    handleBlur(event) {
+      this.$emit("on-blur", event);
+      if (
+        !findComponentUpward(this, [
+          "DatePicker",
+          "TimePicker",
+          "Cascader",
+          "Search",
+        ])
+      ) {
+        this.dispatch("sFormItem", "on-form-blur", this.currentValue);
+      }
+    },
     handleInput(event) {
       let value = event.target.value;
+      if (value === this.currentValue) return;
       this.wordCount = value.length;
       this.currentValue = value;
+      this.setCurrentValue(value);
       this.$emit("input", value);
     },
     handleClear(event) {
@@ -142,6 +162,18 @@ export default {
       this.wordCount = 0;
       this.$emit("input", "");
       this.$emit("on-clear");
+    },
+    setCurrentValue(value) {
+      if (
+        !findComponentUpward(this, [
+          "DatePicker",
+          "TimePicker",
+          "Cascader",
+          "Search",
+        ])
+      ) {
+        this.dispatch("sFormItem", "on-form-change", value);
+      }
     },
   },
   watch: {
