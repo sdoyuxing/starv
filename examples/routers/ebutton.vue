@@ -232,11 +232,36 @@
         <s-button style="margin-left: 8px">取消</s-button>
       </s-form-item>
     </s-form>
+
+    <s-form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+      <s-form-item label="姓名" prop="name">
+        <s-input placeholder="请输入..." v-model="formCustom.name" />
+      </s-form-item>
+      <s-form-item label="年龄" prop="age">
+        <s-input placeholder="请输入..." v-model="formCustom.age" />
+      </s-form-item>
+      <s-form-item>
+        <s-button type="primary" @click="handleSubmit('formCustom')">提交</s-button>
+        <s-button style="margin-left: 8px">取消</s-button>
+      </s-form-item>
+    </s-form>
   </div>
 </template>
 <script>
 export default {
   data() {
+    const validateName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入名字！"));
+      }
+      callback();
+    };
+    const validateAge = (rule, value, callback) => {
+      if (value && value < 18) {
+        callback(new Error("年龄要大于18！"));
+      }
+      callback();
+    };
     return {
       formValidate: { name: "" },
       formData: { input: "" },
@@ -247,6 +272,14 @@ export default {
         radio: "",
         checkbox: [],
         switch: true,
+      },
+      formCustom: {
+        name: "",
+        age: "",
+      },
+      ruleCustom: {
+        name: [{ validator: validateName, trigger: "blur" }],
+        age: [{ validator: validateAge, trigger: "blur" }],
       },
       ruleValidate: {
         input: [

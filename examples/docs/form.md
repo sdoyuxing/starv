@@ -209,17 +209,131 @@ export default {
 ```
 :::
 
+:::demo
+**自定义验证**:可以完全自定义验证规则来完成更复杂的验证.
+```html
+<s-form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+    <s-form-item label="姓名" prop="name">
+      <s-input placeholder="请输入..." v-model="formCustom.name" />
+    </s-form-item>
+    <s-form-item label="年龄" prop="age">
+      <s-input placeholder="请输入..." v-model="formCustom.age" />
+    </s-form-item>
+    <s-form-item>
+      <s-button type="primary" @click="handleSubmit('formCustom')">提交</s-button>
+      <s-button style="margin-left: 8px">取消</s-button>
+    </s-form-item>
+  </s-form>
+  <script>
+export default {
+  data() {
+    const validateName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入名字！"));
+      }
+      callback();
+    };
+    const validateAge = (rule, value, callback) => {
+      if (value && value < 18) {
+        callback(new Error("年龄要大于18！"));
+      }
+      callback();
+    };
+    return {
+      formCustom: {
+        name: "",
+        age: "",
+      },
+      ruleCustom: {
+        name: [{ validator: validateName, trigger: "blur" }],
+        age: [{ validator: validateAge, trigger: "blur" }],
+      },
+    }
+  },
+  methods: {
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$Message.success("Success!");
+        }
+      });
+   }
+  }
+}
+</script>
+```
+:::
+
+## API
+
+### Form props
+
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  model | 表单数据对象 | Object  |  -  |
+|  rules | 表单验证规则 | Object  |  -  |
+|  inline | 是否开启行内表单模式 | Boolean  |  false  |
+|  label-position | 表单域标签的位置,可选值为 `left`、`right`、`top` | String  |  right  |
+|  label-width | 表单域标签的宽度 | Number  |  -  |
+
+<br/>
+
+### Form methods 
+
+<br/>
+
+|  方法名  | 说明  |  参数  |
+|  ----   | ---- |  ----  |
+|  validate | 对整个表单进行校验，参数为检验完的回调，会返回一个 Boolean 表示成功与失败，支持 Promise | callback  |
+|  resetFields | 对整个表单进行重置，将所有字段值重置为空并移除校验结果 | -  |
+
+<br/>
+
+### FormItem props 
+
+<br/>
+
+|  属性  | 说明  |  类型  |  默认值  |
+|  ----  | ---- |  ----  |  ----   |
+|  prop	 | 对应表单域 model 里的字段 | String  |  -  |
+|  label | 标签文本 | String  |  -  |
+|  label-width | 表单域标签的的宽度 | Number  |  -  |
+
+<br/>
+
+### FormItem slot
+
+<br/>
+
+|  名称  | 说明  |
+|  ----  | ---- |
+|   无   | 内容 |
+
 :::script
 <script>
 export default {
   data() {
+    const validateName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入名字！"));
+      }
+      callback();
+    };
+    const validateAge = (rule, value, callback) => {
+      if (value && value < 18) {
+        callback(new Error("年龄要大于18！"));
+      }
+      callback();
+    };
     return {
       formValidate: { name: "", sex:"0",age:""},
       formData: {
         input: "",
         select: "",
         date: "",
-        radio: "1",
+        radio: "",
         checkbox: [],
         switch: true,
       },
@@ -261,6 +375,14 @@ export default {
             trigger: "change",
           },
         ],
+      },
+      formCustom: {
+        name: "",
+        age: "",
+      },
+      ruleCustom: {
+        name: [{ validator: validateName, trigger: "blur" }],
+        age: [{ validator: validateAge, trigger: "blur" }],
       },
     }
   },
