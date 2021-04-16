@@ -3,7 +3,7 @@
 ## 代码示例
 
 :::demo
-**按钮类型**：主按钮、次按钮.
+基本用法.
 
 ```html
 <template>
@@ -26,5 +26,7 @@ export default {}
 :::
 
 :::script
+<script>
 export default {}
+</script>
 :::

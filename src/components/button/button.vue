@@ -1,7 +1,7 @@
 <template>
   <button :disabled="disabled" :style="styles" ref="btn" :class="classes" @click="handleClick"
           @focus="handleFocus" @blur="handleBlur" @mouseenter.stop="handleMouseenter"
-          @mouseleave.stop="handleMouseleave">
+          @mouseleave.stop="handleMouseleave" type="button">
     <Icon v-if="icon" :type="icon" />
     <Icon type="iconloading" v-if="loading&&loadType==='default'" class="sta-select-icon-loading" />
     <slot name="iconNode"></slot>

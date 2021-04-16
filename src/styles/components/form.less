@@ -4,6 +4,22 @@
     &-item {
         margin-bottom: 20px;
         line-height: 43px;
+        position: relative;
+        &-error {
+
+            .@{sta-prefix}-input,
+            .@{sta-prefix}-select,
+            .@{sta-prefix}-date-picker-input {
+                border: solid 1px @error-color;
+                outline: 0;
+                &:focus,
+                &-focused {
+                    outline: 0;
+                    border-color: @error-color;
+                    box-shadow: 0 0 0 2px tint(@error-color,80%);
+                }
+            }
+        }
 
         &-required {
             .@{form-prefix-cls}-label::before {

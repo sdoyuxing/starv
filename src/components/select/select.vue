@@ -9,7 +9,7 @@
           <Icon v-if="prefix" :type="prefix"></Icon>
         </slot>
       </span>
-      <input  :value="selected.value" style="display:none">
+      <input :value="selected.value" style="display:none">
       <span v-text="selected.label===''?placeholder:selected.label" :class="labelClasses"
             v-if="!filterable"></span>
       <select-filter :value="selected.label" ref="filter" v-if="filterable"
@@ -39,6 +39,7 @@ import Icon from "../icon";
 import Drop from "./dropdown";
 import selectFilter from "./select-filter";
 import Option from "./option";
+import emitter from "@/mixins/emitter";
 import { findComponentsDownward, typeOf } from "../../utils/assist";
 import { directive as clickOutside } from "../../directives/v-click-outside";
 export default {
@@ -48,6 +49,7 @@ export default {
   },
   directives: { clickOutside },
   components: { Icon, Drop, selectFilter, Option },
+  mixins: [emitter],
   data() {
     return {
       visible: false,
@@ -326,6 +328,7 @@ export default {
         (o) => val === (o.value || o.label || o.textContent)
       );
       this.$emit("input", this.selected.value);
+      this.dispatch("sFormItem", "on-form-change");
     },
     value(value) {
       this.checkUpdateStatus();

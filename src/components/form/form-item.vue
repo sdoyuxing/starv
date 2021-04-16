@@ -17,14 +17,14 @@ export default {
   props: {
     label: String,
     prop: String,
-    validateState: "",
-    validateMessage: "",
   },
   data() {
     return {
       prefixCls,
       isRequired: false,
       validateDisabled: false,
+      validateState: "",
+      validateMessage: "",
     };
   },
   inject: ["FormInstance"],
@@ -33,6 +33,7 @@ export default {
       return [
         `${this.prefixCls}-item`,
         { [`${this.prefixCls}-item-required`]: this.isRequired },
+        { [`${this.prefixCls}-item-error`]: this.validateState === "error" },
       ];
     },
     labelStyle() {

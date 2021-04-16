@@ -1,5 +1,5 @@
 <template>
-  <form :class="[{ [`${prefixCls}-inline`]: inline },`${prefixCls}-label-${labelPosition}`]">
+  <form :class="[{ [`${prefixCls}-inline`]: inline },`${prefixCls}-label-${labelPosition}`]" autocomplete="off">
     <slot></slot>
   </form>
 </template>

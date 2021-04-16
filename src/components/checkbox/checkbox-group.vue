@@ -5,6 +5,7 @@
 </template>
 <script>
 import { findComponentsDownward, deepCopy, typeOf } from "../../utils/assist";
+import emitter from "@/mixins/emitter";
 const prefixCls = "sta-checkbox-group";
 export default {
   name:"CheckboxGroup",
@@ -14,6 +15,7 @@ export default {
       default: () => [],
     },
   },
+  mixins: [emitter],
   computed: {
     classes() {
       return [prefixCls];
@@ -45,6 +47,7 @@ export default {
       }
       this.$emit("input", currentValue);
       this.$emit("on-change", currentValue);
+      this.dispatch("sFormItem", "on-form-change");
     },
   },
   watch: {

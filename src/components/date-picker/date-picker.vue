@@ -1,14 +1,9 @@
 <template>
   <div :class="datePickerWrap" v-click-outside.stop="onClickOutside">
     <div @click="handleFocus">
-      <s-date-picker-input
-        suffix="iconriqixuanze"
-        :value="inputValue"
-        :placeholder="placeholder"
-        :clearable="clearable"
-        ref="pickerInput"
-        @on-clear="handleClear"
-      ></s-date-picker-input>
+      <s-date-picker-input suffix="iconriqixuanze" :value="inputValue" :placeholder="placeholder"
+                           :clearable="clearable" ref="pickerInput" @on-clear="handleClear">
+      </s-date-picker-input>
     </div>
     <drop :class="pickerClasses" :placement="placement">
       <component :is="pickerTable" @on-change="handleChange" />
@@ -20,6 +15,7 @@ import sDatePickerInput from "../date-picker-input";
 import pickerPanel from "./panel/picker-panel";
 import dateRange from "./panel/date-range";
 import drop from "./panel/base/dropdown";
+import emitter from "@/mixins/emitter";
 import dateUtil from "../../utils/date";
 import { toDate, oneOf, weeklyIndex, typeOf } from "../../utils/assist";
 import { directive as clickOutside } from "../../directives/v-click-outside";
@@ -83,7 +79,7 @@ export default {
       default: "bottom-start",
     },
   },
-
+  mixins: [emitter],
   data() {
     return {
       dropShow: false,
@@ -197,6 +193,7 @@ export default {
       if (typeOf(val) === "date") {
         this.$emit("input", date);
         this.$emit("on-change", date);
+        this.dispatch("sFormItem", "on-form-change", date);
       }
       this.$refs.pickerInput.focus();
       this.onClickOutside();
